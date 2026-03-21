@@ -7,10 +7,10 @@ name = "reptimeline"
 version = "0.1.0"
 description = "Track how discrete representations evolve during training"
 readme = "README.md"
-license = {text = "BUSL-1.1"}
+license = "BUSL-1.1"
 requires-python = ">=3.10"
 authors = [
-    {name = "Arturo Ornelas Brand", email = "arturoornelasb@gmail.com"},
+    {name = "José Arturo Ornelas Brand", email = "arturoornelas62@gmail.com"},
 ]
 keywords = [
     "representation-learning",

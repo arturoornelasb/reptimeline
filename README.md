@@ -1,10 +1,40 @@
 # reptimeline
 
-**Track how discrete representations evolve during training.**
+**Track how discrete representations evolve during training. Then break the black box open.**
 
-reptimeline detects when concepts "are born" (first become distinguishable), when they "die" (collapse), when relationships form between concept pairs, and where phase transitions occur in representation dynamics.
+reptimeline detects when concepts "are born" (first become distinguishable), when they "die" (collapse), when relationships form between concept pairs, and where phase transitions occur. Then it discovers what each feature means, labels it, and proves it's causal.
 
 Works with any discrete bottleneck: triadic bits, VQ-VAE codebooks, FSQ levels, sparse autoencoders, concept bottleneck models, or binary codes.
+
+## Key results
+
+Validated on two architecturally distinct backends:
+
+### MNIST Binary Autoencoder (32-bit)
+
+| Metric | Value |
+|--------|-------|
+| Code swap causality | **100%** (any digit's code produces that digit) |
+| Dual pairs discovered | 9 anti-correlated |
+| Phase transitions | 3 detected automatically |
+| Lifecycle tracking | 6 epochs, 10 digit classes |
+
+### Pythia-70M Sparse Autoencoder (32K features)
+
+| Metric | Value |
+|--------|-------|
+| Causal selectivity (KL) | **10.6x mean** (up to 25.8x) |
+| Features tested | 6/6 causally selective |
+| Dual pairs discovered | 34 anti-correlated |
+| Lifecycle tracking | 12 checkpoints (step 1 to 143K) |
+
+**What "10.6x selectivity" means:** removing the "dog" SAE feature changes Pythia's next-token predictions for animal concepts 15.8x more than for abstract concepts. The features are not statistical artifacts -- they are *causally meaningful*.
+
+<p align="center">
+<img src="results/causal/sae_intervention_heatmap.png" width="800" alt="SAE causal intervention heatmap">
+<br>
+<em>Causal intervention on Pythia-70M SAE features. Yellow = no effect; dark red = strong effect. Features show selective causal patterns: "dog" primarily affects animals, "teacher" primarily affects social concepts.</em>
+</p>
 
 ## Why this exists
 
@@ -24,7 +54,7 @@ reptimeline answers these questions for any discrete representation system.
 | 3-way interaction discovery | **Yes** | No | No | No | No |
 | Bottom-up ontology discovery | **Yes** | No | No | No | No |
 | Auto-labeling (3 strategies) | **Yes** | No | Manual | Manual | No |
-| Theory vs. discovery reconciliation | **Yes** | No | No | Partial | No |
+| Causal intervention verification | **Yes** | No | No | No | No |
 | Backend-agnostic | **Yes** | No | SAE-only | No | LLM-only |
 
 ## Installation
@@ -81,15 +111,16 @@ timeline.print_summary()
 ### 3. Discover what each code element means
 
 ```python
-from reptimeline import BitDiscovery, AutoLabeler
+from reptimeline import BitDiscovery
 
 discovery = BitDiscovery()
 report = discovery.discover(snapshots[-1], timeline=timeline)
 discovery.print_report(report)
 
-# Name them automatically (3 strategies: embedding, contrastive, LLM)
+# Auto-label with embeddings (no API needed)
+from reptimeline import AutoLabeler
 labeler = AutoLabeler()
-labels = labeler.label_by_llm(report, llm_fn=my_api_call)
+labels = labeler.label_by_embedding(report, embeddings)
 ```
 
 ### 4. Command line
@@ -115,7 +146,7 @@ BitDiscovery             (backend-agnostic)
         |  duals, dependencies, 3-way interactions, hierarchy
         v
 AutoLabeler              (backend-agnostic)
-        |  translates bits to words
+        |  translates bits to words (embedding, contrastive, or LLM)
         v
 Reconciler               (optional, needs domain overlay)
         |  compares discovered vs. expected structure
@@ -123,25 +154,17 @@ Reconciler               (optional, needs domain overlay)
 Visualizations           (swimlane, phase dashboard, churn heatmap)
 ```
 
-## Proof-of-concept results
+## Examples
 
-Ran against TriadicGPT (40M params, 63 bits, 8 checkpoints):
+- `examples/mnist_pipeline.py` -- Full MNIST Binary AE pipeline (train, extract, analyze, discover)
+- `examples/pythia_sae_pipeline.py` -- Pythia-70M SAE pipeline (12 checkpoints, 60 concepts)
+- `examples/causal_v2.py` -- Causal intervention experiments (SAE encode/modify/decode + KL measurement)
+- `examples/semantic_analysis.py` -- Semantic analysis of discovered features
 
-```
-REPRESENTATION TIMELINE
-  Steps:              2,500 -> 50,000 (8 checkpoints)
-  Concepts tracked:   53
-  Code dimension:     63
+## Tests
 
-  Bit births:         2,632
-  Bit deaths:         1,732
-  Connections formed: 1,378
-  Phase transitions:  3
-
-  Phase transitions:
-    step 27,500  entropy          decrease delta=0.2626
-    step  7,500  churn_rate       increase delta=1.0000
-    step 27,500  utilization      decrease delta=0.1887
+```bash
+pytest tests/ -v  # 26 tests, ~0.1s
 ```
 
 ## Requirements
@@ -156,10 +179,21 @@ REPRESENTATION TIMELINE
 [Business Source License 1.1](LICENSE) (BUSL-1.1)
 
 - **Free** for research, education, evaluation, development, and personal use
-- **Commercial production use** requires a license -- contact arturoornelasb@gmail.com
-- Converts to [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) on 2030-03-20
+- **Commercial production use** requires a license -- contact arturoornelas62@gmail.com
+- Converts to [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) on 2030-03-21
+
+## Citation
+
+```bibtex
+@software{ornelas2026reptimeline,
+  author = {Ornelas Brand, José Arturo},
+  title = {reptimeline: Tracking Discrete Representation Evolution During Training},
+  year = {2026},
+  url = {https://github.com/arturoornelasb/reptimeline}
+}
+```
 
 ## Origin
 
 Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
-Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, 2026).
+Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026).

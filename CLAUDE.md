@@ -36,7 +36,7 @@ reptimeline --snapshots data.json --discover --plot
 ```
 
 ## License
-BUSL-1.1 (Business Source License). Converts to AGPL-3.0 on 2030-03-20.
+BUSL-1.1 (Business Source License). Converts to AGPL-3.0 on 2030-03-21.
 Commercial production use requires a license from the author.
 
 ## Origin

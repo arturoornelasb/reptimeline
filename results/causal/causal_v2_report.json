@@ -1,0 +1,492 @@
+{
+  "prediction": {
+    "embedding_accuracy": 0.8451,
+    "domain_accuracy": 0.849,
+    "baseline_accuracy": 0.8464,
+    "embedding_jaccard": 0.4744,
+    "improvement_over_baseline": -0.0013,
+    "improvement_over_domain": -0.0039,
+    "per_concept": [
+      {
+        "concept": "sun",
+        "domain": "physical",
+        "emb_acc": 0.828125,
+        "dom_acc": 0.859375,
+        "base_acc": 0.890625,
+        "emb_jac": 0.45,
+        "dom_jac": 0.5263157894736842,
+        "base_jac": 0.5882352941176471
+      },
+      {
+        "concept": "moon",
+        "domain": "physical",
+        "emb_acc": 0.8125,
+        "dom_acc": 0.796875,
+        "base_acc": 0.828125,
+        "emb_jac": 0.3684210526315789,
+        "dom_jac": 0.38095238095238093,
+        "base_jac": 0.42105263157894735
+      },
+      {
+        "concept": "lion",
+        "domain": "animals",
+        "emb_acc": 0.875,
+        "dom_acc": 0.890625,
+        "base_acc": 0.875,
+        "emb_jac": 0.5555555555555556,
+        "dom_jac": 0.631578947368421,
+        "base_jac": 0.5555555555555556
+      },
+      {
+        "concept": "eagle",
+        "domain": "animals",
+        "emb_acc": 0.828125,
+        "dom_acc": 0.828125,
+        "base_acc": 0.84375,
+        "emb_jac": 0.45,
+        "dom_jac": 0.47619047619047616,
+        "base_jac": 0.47368421052631576
+      },
+      {
+        "concept": "shame",
+        "domain": "emotions",
+        "emb_acc": 0.921875,
+        "dom_acc": 0.9375,
+        "base_acc": 0.875,
+        "emb_jac": 0.7222222222222222,
+        "dom_jac": 0.75,
+        "base_jac": 0.5555555555555556
+      },
+      {
+        "concept": "trust",
+        "domain": "emotions",
+        "emb_acc": 0.890625,
+        "dom_acc": 0.84375,
+        "base_acc": 0.875,
+        "emb_jac": 0.6111111111111112,
+        "dom_jac": 0.47368421052631576,
+        "base_jac": 0.5555555555555556
+      },
+      {
+        "concept": "reason",
+        "domain": "abstract",
+        "emb_acc": 0.84375,
+        "dom_acc": 0.859375,
+        "base_acc": 0.84375,
+        "emb_jac": 0.5,
+        "dom_jac": 0.5263157894736842,
+        "base_jac": 0.47368421052631576
+      },
+      {
+        "concept": "idea",
+        "domain": "abstract",
+        "emb_acc": 0.859375,
+        "dom_acc": 0.921875,
+        "base_acc": 0.90625,
+        "emb_jac": 0.5263157894736842,
+        "dom_jac": 0.7058823529411765,
+        "base_jac": 0.6470588235294118
+      },
+      {
+        "concept": "soldier",
+        "domain": "social",
+        "emb_acc": 0.84375,
+        "dom_acc": 0.765625,
+        "base_acc": 0.75,
+        "emb_jac": 0.47368421052631576,
+        "dom_jac": 0.2857142857142857,
+        "base_jac": 0.2727272727272727
+      },
+      {
+        "concept": "doctor",
+        "domain": "social",
+        "emb_acc": 0.78125,
+        "dom_acc": 0.828125,
+        "base_acc": 0.84375,
+        "emb_jac": 0.2222222222222222,
+        "dom_jac": 0.42105263157894735,
+        "base_jac": 0.47368421052631576
+      },
+      {
+        "concept": "old",
+        "domain": "properties",
+        "emb_acc": 0.8125,
+        "dom_acc": 0.8125,
+        "base_acc": 0.78125,
+        "emb_jac": 0.3684210526315789,
+        "dom_jac": 0.3684210526315789,
+        "base_jac": 0.3333333333333333
+      },
+      {
+        "concept": "new",
+        "domain": "properties",
+        "emb_acc": 0.84375,
+        "dom_acc": 0.84375,
+        "base_acc": 0.84375,
+        "emb_jac": 0.4444444444444444,
+        "dom_jac": 0.4444444444444444,
+        "base_jac": 0.47368421052631576
+      }
+    ]
+  },
+  "intervention_l1": {
+    "n_selective": 4,
+    "n_tested": 6,
+    "results": [
+      {
+        "bit": 2,
+        "label": "teacher",
+        "selectivity": 16.26,
+        "mean_labeled": 0.9925,
+        "mean_other": 0.061,
+        "top5_affected": [
+          [
+            "doctor",
+            1.2466
+          ],
+          [
+            "soldier",
+            1.2033
+          ],
+          [
+            "dog",
+            1.0639
+          ],
+          [
+            "child",
+            1.0604
+          ],
+          [
+            "queen",
+            0.9862
+          ]
+        ]
+      },
+      {
+        "bit": 11,
+        "label": "belief",
+        "selectivity": 10.17,
+        "mean_labeled": 0.9845,
+        "mean_other": 0.0968,
+        "top5_affected": [
+          [
+            "reason",
+            1.2046
+          ],
+          [
+            "dream",
+            1.0846
+          ],
+          [
+            "knowledge",
+            1.0826
+          ],
+          [
+            "dark",
+            1.0816
+          ],
+          [
+            "shame",
+            1.0483
+          ]
+        ]
+      },
+      {
+        "bit": 16,
+        "label": "dog",
+        "selectivity": 10.83,
+        "mean_labeled": 0.9494,
+        "mean_other": 0.0877,
+        "top5_affected": [
+          [
+            "snake",
+            1.1407
+          ],
+          [
+            "forest",
+            0.9982
+          ],
+          [
+            "horse",
+            0.9923
+          ],
+          [
+            "stone",
+            0.9796
+          ],
+          [
+            "cat",
+            0.9793
+          ]
+        ]
+      },
+      {
+        "bit": 0,
+        "label": "wisdom",
+        "selectivity": 6.64,
+        "mean_labeled": 0.9625,
+        "mean_other": 0.1449,
+        "top5_affected": [
+          [
+            "dream",
+            1.5753
+          ],
+          [
+            "belief",
+            1.2353
+          ],
+          [
+            "wisdom",
+            1.0799
+          ],
+          [
+            "mother",
+            1.0653
+          ],
+          [
+            "thought",
+            1.0613
+          ]
+        ]
+      },
+      {
+        "bit": 8,
+        "label": "ocean",
+        "selectivity": 1.43,
+        "mean_labeled": 0.9977,
+        "mean_other": 0.6979,
+        "top5_affected": [
+          [
+            "hate",
+            1.3487
+          ],
+          [
+            "shame",
+            1.3313
+          ],
+          [
+            "old",
+            1.3042
+          ],
+          [
+            "sun",
+            1.2554
+          ],
+          [
+            "big",
+            1.2308
+          ]
+        ]
+      },
+      {
+        "bit": 1,
+        "label": "ocean",
+        "selectivity": 1.39,
+        "mean_labeled": 1.29,
+        "mean_other": 0.9303,
+        "top5_affected": [
+          [
+            "idea",
+            3.121
+          ],
+          [
+            "logic",
+            2.2546
+          ],
+          [
+            "knowledge",
+            2.185
+          ],
+          [
+            "fear",
+            2.1729
+          ],
+          [
+            "thought",
+            2.1479
+          ]
+        ]
+      }
+    ]
+  },
+  "intervention_l2": {
+    "n_selective": 6,
+    "n_tested": 6,
+    "results": [
+      {
+        "bit": 2,
+        "label": "teacher",
+        "kl_selectivity": 25.75,
+        "mean_kl_labeled": 0.521,
+        "mean_kl_other": 0.0202,
+        "top5_affected": [
+          [
+            "child",
+            0.8698
+          ],
+          [
+            "dog",
+            0.5062
+          ],
+          [
+            "wolf",
+            0.4449
+          ],
+          [
+            "queen",
+            0.4128
+          ],
+          [
+            "teacher",
+            0.405
+          ]
+        ]
+      },
+      {
+        "bit": 11,
+        "label": "belief",
+        "kl_selectivity": 10.36,
+        "mean_kl_labeled": 0.4258,
+        "mean_kl_other": 0.0411,
+        "top5_affected": [
+          [
+            "reason",
+            0.6186
+          ],
+          [
+            "light",
+            0.5506
+          ],
+          [
+            "dream",
+            0.5257
+          ],
+          [
+            "memory",
+            0.4969
+          ],
+          [
+            "water",
+            0.4819
+          ]
+        ]
+      },
+      {
+        "bit": 16,
+        "label": "dog",
+        "kl_selectivity": 15.78,
+        "mean_kl_labeled": 0.4968,
+        "mean_kl_other": 0.0315,
+        "top5_affected": [
+          [
+            "cat",
+            0.8784
+          ],
+          [
+            "dog",
+            0.5506
+          ],
+          [
+            "snake",
+            0.4304
+          ],
+          [
+            "horse",
+            0.4095
+          ],
+          [
+            "forest",
+            0.3948
+          ]
+        ]
+      },
+      {
+        "bit": 0,
+        "label": "wisdom",
+        "kl_selectivity": 7.62,
+        "mean_kl_labeled": 0.4843,
+        "mean_kl_other": 0.0636,
+        "top5_affected": [
+          [
+            "thought",
+            1.162
+          ],
+          [
+            "trust",
+            0.9515
+          ],
+          [
+            "slow",
+            0.5333
+          ],
+          [
+            "dream",
+            0.5031
+          ],
+          [
+            "queen",
+            0.4175
+          ]
+        ]
+      },
+      {
+        "bit": 8,
+        "label": "ocean",
+        "kl_selectivity": 2.04,
+        "mean_kl_labeled": 0.6166,
+        "mean_kl_other": 0.3024,
+        "top5_affected": [
+          [
+            "fire",
+            0.9292
+          ],
+          [
+            "child",
+            0.9176
+          ],
+          [
+            "trust",
+            0.8822
+          ],
+          [
+            "cat",
+            0.8223
+          ],
+          [
+            "earth",
+            0.7761
+          ]
+        ]
+      },
+      {
+        "bit": 1,
+        "label": "ocean",
+        "kl_selectivity": 2.12,
+        "mean_kl_labeled": 0.5866,
+        "mean_kl_other": 0.2771,
+        "top5_affected": [
+          [
+            "thought",
+            1.1132
+          ],
+          [
+            "child",
+            0.9581
+          ],
+          [
+            "trust",
+            0.8755
+          ],
+          [
+            "earth",
+            0.7824
+          ],
+          [
+            "river",
+            0.7173
+          ]
+        ]
+      }
+    ]
+  }
+}

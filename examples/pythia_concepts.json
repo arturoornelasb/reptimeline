@@ -1,0 +1,26 @@
+{
+  "description": "60 concepts across 6 semantic domains for Pythia-70M SAE analysis",
+  "context_template": "The word is: {concept}",
+  "domains": {
+    "physical": ["fire", "water", "earth", "stone", "mountain", "river", "ocean", "forest", "sun", "moon"],
+    "animals": ["dog", "cat", "bird", "fish", "horse", "bear", "wolf", "snake", "lion", "eagle"],
+    "emotions": ["love", "hate", "fear", "anger", "hope", "joy", "grief", "pride", "shame", "trust"],
+    "abstract": ["truth", "logic", "dream", "memory", "knowledge", "wisdom", "thought", "belief", "reason", "idea"],
+    "social": ["king", "queen", "mother", "father", "child", "friend", "enemy", "teacher", "soldier", "doctor"],
+    "properties": ["light", "dark", "hot", "cold", "fast", "slow", "big", "small", "old", "new"]
+  },
+  "checkpoints": [
+    {"step": 0, "revision": "step0", "pct": "0%"},
+    {"step": 1, "revision": "step1", "pct": "0%"},
+    {"step": 64, "revision": "step64", "pct": "0.04%"},
+    {"step": 512, "revision": "step512", "pct": "0.4%"},
+    {"step": 1000, "revision": "step1000", "pct": "0.7%"},
+    {"step": 3000, "revision": "step3000", "pct": "2.1%"},
+    {"step": 10000, "revision": "step10000", "pct": "7%"},
+    {"step": 25000, "revision": "step25000", "pct": "17%"},
+    {"step": 50000, "revision": "step50000", "pct": "35%"},
+    {"step": 75000, "revision": "step75000", "pct": "52%"},
+    {"step": 100000, "revision": "step100000", "pct": "70%"},
+    {"step": 143000, "revision": "step143000", "pct": "100%"}
+  ]
+}
