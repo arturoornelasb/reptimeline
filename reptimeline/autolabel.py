@@ -45,6 +45,7 @@ class AutoLabeler:
     def label_by_embedding(self, report: DiscoveryReport,
                            embeddings: Dict[str, np.ndarray],
                            candidate_labels: Optional[List[str]] = None,
+                           deduplicate: bool = True,
                            ) -> List[BitLabel]:
         """Name each bit by finding the word closest to the centroid
         of its active concepts in embedding space.
@@ -70,6 +71,7 @@ class AutoLabeler:
         cand_normed = cand_matrix / cand_norms
 
         labels = []
+        used_labels: Dict[str, int] = {}
         for bs in report.bit_semantics:
             if bs.activation_rate < 0.02:
                 labels.append(BitLabel(
@@ -94,15 +96,28 @@ class AutoLabeler:
             centroid = np.mean(active_vecs, axis=0)
             centroid_norm = np.linalg.norm(centroid)
             if centroid_norm < 1e-8:
+                labels.append(BitLabel(
+                    bit_index=bs.bit_index, label=f"bit_{bs.bit_index}",
+                    confidence=0.0, method='embedding',
+                    active_concepts=bs.top_concepts,
+                    inactive_concepts=bs.anti_concepts,
+                ))
                 continue
             centroid_normed = centroid / centroid_norm
 
             # Cosine similarity with all candidates
-            sims = cand_normed @ centroid_normed
+            raw_sims = cand_normed @ centroid_normed
+            if deduplicate:
+                penalties = np.array([0.5 ** used_labels.get(cand_words[k], 0)
+                                      for k in range(len(cand_words))])
+                sims = raw_sims * penalties
+            else:
+                sims = raw_sims
             best_idx = int(np.argmax(sims))
             best_word = cand_words[best_idx]
-            best_sim = float(sims[best_idx])
+            best_sim = float(raw_sims[best_idx])
 
+            used_labels[best_word] = used_labels.get(best_word, 0) + 1
             labels.append(BitLabel(
                 bit_index=bs.bit_index,
                 label=best_word,
@@ -121,6 +136,7 @@ class AutoLabeler:
     def label_by_contrast(self, report: DiscoveryReport,
                           embeddings: Dict[str, np.ndarray],
                           candidate_labels: Optional[List[str]] = None,
+                          deduplicate: bool = True,
                           ) -> List[BitLabel]:
         """Name each bit by finding the word that best separates
         active concepts from inactive concepts.
@@ -142,6 +158,7 @@ class AutoLabeler:
         cand_normed = cand_matrix / cand_norms
 
         labels = []
+        used_labels: Dict[str, int] = {}
         for bs in report.bit_semantics:
             if bs.activation_rate < 0.02:
                 labels.append(BitLabel(
@@ -170,16 +187,30 @@ class AutoLabeler:
             direction = centroid_active - centroid_inactive
             direction_norm = np.linalg.norm(direction)
             if direction_norm < 1e-8:
+                labels.append(BitLabel(
+                    bit_index=bs.bit_index, label=f"bit_{bs.bit_index}",
+                    confidence=0.0, method='contrastive',
+                    active_concepts=bs.top_concepts,
+                    inactive_concepts=bs.anti_concepts,
+                ))
                 continue
             direction_normed = direction / direction_norm
 
-            sims = cand_normed @ direction_normed
+            raw_sims = cand_normed @ direction_normed
+            if deduplicate:
+                penalties = np.array([0.5 ** used_labels.get(cand_words[k], 0)
+                                      for k in range(len(cand_words))])
+                sims = raw_sims * penalties
+            else:
+                sims = raw_sims
             best_idx = int(np.argmax(sims))
+            best_word = cand_words[best_idx]
 
+            used_labels[best_word] = used_labels.get(best_word, 0) + 1
             labels.append(BitLabel(
                 bit_index=bs.bit_index,
-                label=cand_words[best_idx],
-                confidence=float(sims[best_idx]),
+                label=best_word,
+                confidence=float(raw_sims[best_idx]),
                 method='contrastive',
                 active_concepts=bs.top_concepts,
                 inactive_concepts=bs.anti_concepts,

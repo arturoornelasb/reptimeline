@@ -1,0 +1,1428 @@
+{
+  "version": "discovered_1.0",
+  "total": 64,
+  "description": "Primitives discovered by reptimeline AutoLabeler. Not manually defined — learned from model behavior.",
+  "primitivos": [
+    {
+      "bit": 0,
+      "nombre": "wisdom",
+      "discovered": true,
+      "confidence": 0.335,
+      "method": "contrastive",
+      "top_concepts": [
+        "mountain",
+        "moon",
+        "joy",
+        "pride",
+        "trust",
+        "dream",
+        "wisdom",
+        "thought",
+        "belief",
+        "queen"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "river"
+      ]
+    },
+    {
+      "bit": 1,
+      "nombre": "ocean",
+      "discovered": true,
+      "confidence": 0.314,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean",
+        "sun",
+        "dog",
+        "bird",
+        "fish",
+        "horse"
+      ],
+      "anti_concepts": [
+        "fire",
+        "stone",
+        "forest",
+        "moon",
+        "cat"
+      ]
+    },
+    {
+      "bit": 2,
+      "nombre": "teacher",
+      "discovered": true,
+      "confidence": 0.437,
+      "method": "contrastive",
+      "top_concepts": [
+        "dog",
+        "horse",
+        "wolf",
+        "queen",
+        "child",
+        "teacher",
+        "soldier",
+        "doctor"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 3,
+      "nombre": "mother",
+      "discovered": true,
+      "confidence": 0.471,
+      "method": "contrastive",
+      "top_concepts": [
+        "ocean",
+        "lion",
+        "mother",
+        "child",
+        "fast"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 4,
+      "nombre": "queen",
+      "discovered": true,
+      "confidence": 0.783,
+      "method": "contrastive",
+      "top_concepts": [
+        "king",
+        "queen"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 5,
+      "nombre": "moon",
+      "discovered": true,
+      "confidence": 0.584,
+      "method": "contrastive",
+      "top_concepts": [
+        "moon",
+        "fish"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 7,
+      "nombre": "mother",
+      "discovered": true,
+      "confidence": 0.544,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "mother",
+        "father",
+        "teacher",
+        "soldier",
+        "doctor"
+      ],
+      "anti_concepts": [
+        "fire",
+        "earth",
+        "stone",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 8,
+      "nombre": "ocean",
+      "discovered": true,
+      "confidence": 0.346,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "earth",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "moon",
+        "cat",
+        "wolf"
+      ],
+      "anti_concepts": [
+        "water",
+        "stone",
+        "dog",
+        "bird",
+        "fish"
+      ]
+    },
+    {
+      "bit": 9,
+      "nombre": "mother",
+      "discovered": true,
+      "confidence": 0.512,
+      "method": "contrastive",
+      "top_concepts": [
+        "king",
+        "queen",
+        "mother",
+        "child",
+        "teacher"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 11,
+      "nombre": "belief",
+      "discovered": true,
+      "confidence": 0.364,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "shame",
+        "dream",
+        "memory",
+        "knowledge",
+        "belief",
+        "reason",
+        "idea",
+        "light",
+        "dark"
+      ],
+      "anti_concepts": [
+        "fire",
+        "earth",
+        "stone",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 14,
+      "nombre": "fast",
+      "discovered": true,
+      "confidence": 0.465,
+      "method": "contrastive",
+      "top_concepts": [
+        "mountain",
+        "teacher",
+        "fast"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "river"
+      ]
+    },
+    {
+      "bit": 15,
+      "nombre": "fast",
+      "discovered": true,
+      "confidence": 0.47,
+      "method": "contrastive",
+      "top_concepts": [
+        "joy",
+        "mother",
+        "fast",
+        "slow",
+        "old"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 16,
+      "nombre": "dog",
+      "discovered": true,
+      "confidence": 0.379,
+      "method": "contrastive",
+      "top_concepts": [
+        "stone",
+        "mountain",
+        "forest",
+        "dog",
+        "cat",
+        "fish",
+        "horse",
+        "snake",
+        "lion",
+        "queen"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "river",
+        "ocean"
+      ]
+    },
+    {
+      "bit": 17,
+      "nombre": "reason",
+      "discovered": true,
+      "confidence": 0.601,
+      "method": "contrastive",
+      "top_concepts": [
+        "reason",
+        "big"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 18,
+      "nombre": "reason",
+      "discovered": true,
+      "confidence": 0.634,
+      "method": "contrastive",
+      "top_concepts": [
+        "reason",
+        "old"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 19,
+      "nombre": "pride",
+      "discovered": true,
+      "confidence": 0.581,
+      "method": "contrastive",
+      "top_concepts": [
+        "dog",
+        "hate",
+        "pride"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 20,
+      "nombre": "old",
+      "discovered": true,
+      "confidence": 0.599,
+      "method": "contrastive",
+      "top_concepts": [
+        "enemy",
+        "old"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 22,
+      "nombre": "old",
+      "discovered": true,
+      "confidence": 0.285,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "earth",
+        "mountain",
+        "forest",
+        "bird",
+        "belief",
+        "teacher",
+        "soldier",
+        "old",
+        "new"
+      ],
+      "anti_concepts": [
+        "fire",
+        "stone",
+        "river",
+        "ocean",
+        "sun"
+      ]
+    },
+    {
+      "bit": 23,
+      "nombre": "bit_23",
+      "discovered": true,
+      "confidence": 0.0,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "moon"
+      ],
+      "anti_concepts": []
+    },
+    {
+      "bit": 24,
+      "nombre": "dark",
+      "discovered": true,
+      "confidence": 0.491,
+      "method": "contrastive",
+      "top_concepts": [
+        "horse",
+        "eagle",
+        "dark"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 26,
+      "nombre": "cat",
+      "discovered": true,
+      "confidence": 0.352,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "ocean",
+        "forest",
+        "sun",
+        "moon",
+        "dog",
+        "cat"
+      ],
+      "anti_concepts": [
+        "mountain",
+        "river",
+        "bird",
+        "wolf",
+        "eagle"
+      ]
+    },
+    {
+      "bit": 27,
+      "nombre": "thought",
+      "discovered": true,
+      "confidence": 0.499,
+      "method": "contrastive",
+      "top_concepts": [
+        "fear",
+        "dream",
+        "thought",
+        "cold"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 28,
+      "nombre": "river",
+      "discovered": true,
+      "confidence": 0.451,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "dog",
+        "cat"
+      ],
+      "anti_concepts": [
+        "fire",
+        "moon",
+        "fish",
+        "bear",
+        "pride"
+      ]
+    },
+    {
+      "bit": 29,
+      "nombre": "father",
+      "discovered": true,
+      "confidence": 0.384,
+      "method": "contrastive",
+      "top_concepts": [
+        "ocean",
+        "hate",
+        "father",
+        "enemy",
+        "doctor"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 31,
+      "nombre": "big",
+      "discovered": true,
+      "confidence": 0.355,
+      "method": "contrastive",
+      "top_concepts": [
+        "stone",
+        "sun",
+        "dog",
+        "cat",
+        "bird",
+        "horse",
+        "bear",
+        "teacher",
+        "hot",
+        "big"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 32,
+      "nombre": "king",
+      "discovered": true,
+      "confidence": 0.649,
+      "method": "contrastive",
+      "top_concepts": [
+        "snake",
+        "king"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 35,
+      "nombre": "slow",
+      "discovered": true,
+      "confidence": 0.273,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "stone",
+        "river",
+        "wolf",
+        "snake",
+        "eagle",
+        "king",
+        "father",
+        "enemy",
+        "soldier"
+      ],
+      "anti_concepts": [
+        "water",
+        "earth",
+        "mountain",
+        "ocean",
+        "forest"
+      ]
+    },
+    {
+      "bit": 36,
+      "nombre": "fish",
+      "discovered": true,
+      "confidence": 0.299,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "moon",
+        "dog"
+      ],
+      "anti_concepts": [
+        "sun",
+        "anger",
+        "grief",
+        "dream"
+      ]
+    },
+    {
+      "bit": 38,
+      "nombre": "ocean",
+      "discovered": true,
+      "confidence": 0.435,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "moon"
+      ],
+      "anti_concepts": [
+        "dog",
+        "snake",
+        "hope",
+        "dream",
+        "teacher"
+      ]
+    },
+    {
+      "bit": 39,
+      "nombre": "dream",
+      "discovered": true,
+      "confidence": 0.687,
+      "method": "contrastive",
+      "top_concepts": [
+        "moon",
+        "dream"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 41,
+      "nombre": "memory",
+      "discovered": true,
+      "confidence": 0.404,
+      "method": "contrastive",
+      "top_concepts": [
+        "sun",
+        "logic",
+        "memory",
+        "queen",
+        "dark"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 42,
+      "nombre": "snake",
+      "discovered": true,
+      "confidence": 0.398,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "forest",
+        "sun",
+        "moon",
+        "dog",
+        "bird"
+      ],
+      "anti_concepts": [
+        "water",
+        "ocean",
+        "cat",
+        "fish",
+        "love"
+      ]
+    },
+    {
+      "bit": 43,
+      "nombre": "dark",
+      "discovered": true,
+      "confidence": 0.617,
+      "method": "contrastive",
+      "top_concepts": [
+        "dream",
+        "dark"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 45,
+      "nombre": "new",
+      "discovered": true,
+      "confidence": 0.499,
+      "method": "contrastive",
+      "top_concepts": [
+        "forest",
+        "knowledge",
+        "old",
+        "new"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 46,
+      "nombre": "hate",
+      "discovered": true,
+      "confidence": 0.497,
+      "method": "contrastive",
+      "top_concepts": [
+        "love",
+        "hate",
+        "joy",
+        "grief",
+        "shame",
+        "big"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 47,
+      "nombre": "big",
+      "discovered": true,
+      "confidence": 0.656,
+      "method": "contrastive",
+      "top_concepts": [
+        "hot",
+        "big",
+        "small"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 48,
+      "nombre": "wisdom",
+      "discovered": true,
+      "confidence": 0.34,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "river",
+        "ocean",
+        "fear",
+        "anger",
+        "grief",
+        "shame",
+        "truth"
+      ],
+      "anti_concepts": [
+        "earth",
+        "mountain",
+        "forest",
+        "sun",
+        "moon"
+      ]
+    },
+    {
+      "bit": 50,
+      "nombre": "father",
+      "discovered": true,
+      "confidence": 0.417,
+      "method": "contrastive",
+      "top_concepts": [
+        "bear",
+        "truth",
+        "thought",
+        "mother",
+        "father",
+        "soldier",
+        "light"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 51,
+      "nombre": "enemy",
+      "discovered": true,
+      "confidence": 0.377,
+      "method": "contrastive",
+      "top_concepts": [
+        "river",
+        "ocean",
+        "bird",
+        "bear",
+        "king",
+        "enemy",
+        "teacher",
+        "soldier"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 53,
+      "nombre": "father",
+      "discovered": true,
+      "confidence": 0.358,
+      "method": "contrastive",
+      "top_concepts": [
+        "cat",
+        "reason",
+        "father",
+        "soldier",
+        "doctor",
+        "light"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 54,
+      "nombre": "ocean",
+      "discovered": true,
+      "confidence": 0.313,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "moon",
+        "dog"
+      ],
+      "anti_concepts": [
+        "stone",
+        "small",
+        "new"
+      ]
+    },
+    {
+      "bit": 55,
+      "nombre": "forest",
+      "discovered": true,
+      "confidence": 0.285,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "ocean",
+        "forest",
+        "sun",
+        "moon"
+      ],
+      "anti_concepts": [
+        "king",
+        "queen",
+        "mother",
+        "soldier"
+      ]
+    },
+    {
+      "bit": 56,
+      "nombre": "shame",
+      "discovered": true,
+      "confidence": 0.534,
+      "method": "contrastive",
+      "top_concepts": [
+        "hope",
+        "grief",
+        "shame",
+        "trust"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 57,
+      "nombre": "belief",
+      "discovered": true,
+      "confidence": 0.681,
+      "method": "contrastive",
+      "top_concepts": [
+        "trust",
+        "belief"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 60,
+      "nombre": "fish",
+      "discovered": true,
+      "confidence": 0.271,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "river",
+        "forest",
+        "dog",
+        "fish",
+        "bear",
+        "wolf",
+        "snake"
+      ],
+      "anti_concepts": [
+        "earth",
+        "mountain",
+        "ocean",
+        "sun",
+        "moon"
+      ]
+    },
+    {
+      "bit": 62,
+      "nombre": "soldier",
+      "discovered": true,
+      "confidence": 0.363,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "earth",
+        "cat",
+        "bird",
+        "bear",
+        "wolf",
+        "snake",
+        "lion",
+        "king",
+        "friend"
+      ],
+      "anti_concepts": [
+        "water",
+        "stone",
+        "mountain",
+        "river",
+        "ocean"
+      ]
+    },
+    {
+      "bit": 63,
+      "nombre": "fish",
+      "discovered": true,
+      "confidence": 0.26,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "mountain",
+        "river",
+        "dog",
+        "bird",
+        "fish",
+        "snake",
+        "eagle"
+      ],
+      "anti_concepts": [
+        "earth",
+        "ocean",
+        "forest",
+        "sun",
+        "moon"
+      ]
+    },
+    {
+      "bit": 64,
+      "nombre": "cold",
+      "discovered": true,
+      "confidence": 0.575,
+      "method": "contrastive",
+      "top_concepts": [
+        "pride",
+        "hot",
+        "cold"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 66,
+      "nombre": "grief",
+      "discovered": true,
+      "confidence": 0.307,
+      "method": "contrastive",
+      "top_concepts": [
+        "earth",
+        "sun",
+        "moon",
+        "dog",
+        "bird",
+        "fish",
+        "horse",
+        "wolf",
+        "lion",
+        "eagle"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 68,
+      "nombre": "friend",
+      "discovered": true,
+      "confidence": 0.519,
+      "method": "contrastive",
+      "top_concepts": [
+        "eagle",
+        "friend",
+        "big"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 69,
+      "nombre": "idea",
+      "discovered": true,
+      "confidence": 0.311,
+      "method": "contrastive",
+      "top_concepts": [
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "cat",
+        "bird",
+        "bear",
+        "snake",
+        "hope",
+        "truth"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "ocean",
+        "forest",
+        "sun"
+      ]
+    },
+    {
+      "bit": 70,
+      "nombre": "dream",
+      "discovered": true,
+      "confidence": 0.636,
+      "method": "contrastive",
+      "top_concepts": [
+        "dream",
+        "child"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 72,
+      "nombre": "hope",
+      "discovered": true,
+      "confidence": 0.621,
+      "method": "contrastive",
+      "top_concepts": [
+        "hope",
+        "king"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 74,
+      "nombre": "fire",
+      "discovered": true,
+      "confidence": 0.36,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "ocean",
+        "forest",
+        "sun",
+        "dog",
+        "cat",
+        "bird",
+        "fish"
+      ],
+      "anti_concepts": [
+        "earth",
+        "mountain",
+        "river",
+        "moon",
+        "bear"
+      ]
+    },
+    {
+      "bit": 75,
+      "nombre": "shame",
+      "discovered": true,
+      "confidence": 0.385,
+      "method": "contrastive",
+      "top_concepts": [
+        "water",
+        "stone",
+        "sun",
+        "bear",
+        "eagle",
+        "hate",
+        "fear",
+        "anger",
+        "hope",
+        "joy"
+      ],
+      "anti_concepts": [
+        "fire",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ]
+    },
+    {
+      "bit": 78,
+      "nombre": "soldier",
+      "discovered": true,
+      "confidence": 0.425,
+      "method": "contrastive",
+      "top_concepts": [
+        "fire",
+        "moon",
+        "wolf",
+        "enemy",
+        "soldier",
+        "doctor"
+      ],
+      "anti_concepts": [
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 80,
+      "nombre": "wisdom",
+      "discovered": true,
+      "confidence": 0.258,
+      "method": "contrastive",
+      "top_concepts": [
+        "moon",
+        "bear",
+        "love",
+        "hope",
+        "trust",
+        "truth",
+        "knowledge",
+        "wisdom",
+        "king",
+        "queen"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 81,
+      "nombre": "trust",
+      "discovered": true,
+      "confidence": 0.644,
+      "method": "contrastive",
+      "top_concepts": [
+        "trust",
+        "knowledge"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 82,
+      "nombre": "anger",
+      "discovered": true,
+      "confidence": 0.377,
+      "method": "contrastive",
+      "top_concepts": [
+        "earth",
+        "sun",
+        "love",
+        "anger",
+        "hot"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "mountain",
+        "river"
+      ]
+    },
+    {
+      "bit": 83,
+      "nombre": "child",
+      "discovered": true,
+      "confidence": 0.46,
+      "method": "contrastive",
+      "top_concepts": [
+        "ocean",
+        "fish",
+        "horse",
+        "child"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 84,
+      "nombre": "belief",
+      "discovered": true,
+      "confidence": 0.678,
+      "method": "contrastive",
+      "top_concepts": [
+        "hope",
+        "belief"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 85,
+      "nombre": "slow",
+      "discovered": true,
+      "confidence": 0.556,
+      "method": "contrastive",
+      "top_concepts": [
+        "fast",
+        "slow",
+        "small",
+        "old"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    },
+    {
+      "bit": 86,
+      "nombre": "knowledge",
+      "discovered": true,
+      "confidence": 0.244,
+      "method": "contrastive",
+      "top_concepts": [
+        "earth",
+        "mountain",
+        "ocean",
+        "forest",
+        "moon",
+        "cat",
+        "fish",
+        "wolf",
+        "lion",
+        "truth"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "stone",
+        "river",
+        "sun"
+      ]
+    },
+    {
+      "bit": 87,
+      "nombre": "lion",
+      "discovered": true,
+      "confidence": 0.378,
+      "method": "contrastive",
+      "top_concepts": [
+        "river",
+        "cat",
+        "fish",
+        "lion",
+        "eagle",
+        "grief"
+      ],
+      "anti_concepts": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ]
+    }
+  ]
+}

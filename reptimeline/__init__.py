@@ -24,5 +24,6 @@ from reptimeline.discovery import BitDiscovery
 from reptimeline.autolabel import AutoLabeler
 from reptimeline.reconcile import Reconciler
 from reptimeline.overlays.primitive_overlay import PrimitiveOverlay
+from reptimeline.causal import CausalVerifier, CausalReport
 
 __version__ = "0.1.0"

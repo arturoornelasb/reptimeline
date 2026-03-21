@@ -1,0 +1,731 @@
+{
+  "backend": "TriadicGPT (DanzaTriadicGPT, D-A14 v2)",
+  "checkpoint": "C:/Github/triadic-microgpt/checkpoints/danza_63bit_xl_v2",
+  "n_concepts": 51,
+  "n_bits_tested": 24,
+  "n_selective": 1,
+  "n_perfect": 0,
+  "mean_finite_selectivity": 0.91,
+  "results": [
+    {
+      "bit": 0,
+      "name": "vacío",
+      "kl_selectivity": 0.63,
+      "mean_kl_labeled": 0.0628,
+      "mean_kl_other": 0.0991,
+      "n_labeled": 12,
+      "top5_affected": [
+        [
+          "sol",
+          0.7822
+        ],
+        [
+          "feliz",
+          0.4273
+        ],
+        [
+          "gaseoso",
+          0.3026
+        ],
+        [
+          "malo",
+          0.2823
+        ],
+        [
+          "triste",
+          0.2224
+        ]
+      ]
+    },
+    {
+      "bit": 3,
+      "name": "fuego",
+      "kl_selectivity": 1.13,
+      "mean_kl_labeled": 0.2087,
+      "mean_kl_other": 0.1847,
+      "n_labeled": 8,
+      "top5_affected": [
+        [
+          "sabio",
+          0.8724
+        ],
+        [
+          "caos_concepto",
+          0.6891
+        ],
+        [
+          "apatía",
+          0.6059
+        ],
+        [
+          "líquido",
+          0.5748
+        ],
+        [
+          "preso",
+          0.5449
+        ]
+      ]
+    },
+    {
+      "bit": 4,
+      "name": "tierra",
+      "kl_selectivity": 1.02,
+      "mean_kl_labeled": 0.1054,
+      "mean_kl_other": 0.1031,
+      "n_labeled": 13,
+      "top5_affected": [
+        [
+          "silencioso",
+          1.0602
+        ],
+        [
+          "orden_concepto",
+          0.4546
+        ],
+        [
+          "malo",
+          0.3042
+        ],
+        [
+          "preso",
+          0.262
+        ],
+        [
+          "bueno",
+          0.2345
+        ]
+      ]
+    },
+    {
+      "bit": 6,
+      "name": "aire",
+      "kl_selectivity": 0.7,
+      "mean_kl_labeled": 0.1088,
+      "mean_kl_other": 0.1566,
+      "n_labeled": 4,
+      "top5_affected": [
+        [
+          "sabio",
+          0.8091
+        ],
+        [
+          "pobre",
+          0.6366
+        ],
+        [
+          "muerto",
+          0.6064
+        ],
+        [
+          "preso",
+          0.4919
+        ],
+        [
+          "hombre_vaciado",
+          0.4225
+        ]
+      ]
+    },
+    {
+      "bit": 7,
+      "name": "eje_vertical",
+      "kl_selectivity": 1.18,
+      "mean_kl_labeled": 0.118,
+      "mean_kl_other": 0.0998,
+      "n_labeled": 2,
+      "top5_affected": [
+        [
+          "pobre",
+          0.5471
+        ],
+        [
+          "malo",
+          0.4359
+        ],
+        [
+          "triste",
+          0.3151
+        ],
+        [
+          "rápido",
+          0.2272
+        ],
+        [
+          "ignorante",
+          0.22
+        ]
+      ]
+    },
+    {
+      "bit": 10,
+      "name": "contención",
+      "kl_selectivity": 1.4,
+      "mean_kl_labeled": 0.1796,
+      "mean_kl_other": 0.1279,
+      "n_labeled": 4,
+      "top5_affected": [
+        [
+          "gaseoso",
+          0.7896
+        ],
+        [
+          "amoral",
+          0.5183
+        ],
+        [
+          "muerto",
+          0.4382
+        ],
+        [
+          "pobre",
+          0.4203
+        ],
+        [
+          "preso",
+          0.3989
+        ]
+      ]
+    },
+    {
+      "bit": 12,
+      "name": "flujo_temporal",
+      "kl_selectivity": 1.26,
+      "mean_kl_labeled": 0.1997,
+      "mean_kl_other": 0.1586,
+      "n_labeled": 5,
+      "top5_affected": [
+        [
+          "lento",
+          0.9076
+        ],
+        [
+          "gaseoso",
+          0.7916
+        ],
+        [
+          "malo",
+          0.679
+        ],
+        [
+          "mujer",
+          0.4937
+        ],
+        [
+          "oscuro",
+          0.4564
+        ]
+      ]
+    },
+    {
+      "bit": 13,
+      "name": "vista",
+      "kl_selectivity": 0.55,
+      "mean_kl_labeled": 0.0553,
+      "mean_kl_other": 0.1,
+      "n_labeled": 4,
+      "top5_affected": [
+        [
+          "muerto",
+          0.5632
+        ],
+        [
+          "caos_concepto",
+          0.3217
+        ],
+        [
+          "estasis_absoluta",
+          0.2816
+        ],
+        [
+          "mujer",
+          0.2787
+        ],
+        [
+          "rey",
+          0.1919
+        ]
+      ]
+    },
+    {
+      "bit": 22,
+      "name": "orden",
+      "kl_selectivity": 0.73,
+      "mean_kl_labeled": 0.145,
+      "mean_kl_other": 0.1977,
+      "n_labeled": 7,
+      "top5_affected": [
+        [
+          "bueno",
+          0.6417
+        ],
+        [
+          "amargo",
+          0.609
+        ],
+        [
+          "preso",
+          0.5748
+        ],
+        [
+          "amoral",
+          0.5703
+        ],
+        [
+          "hombre_vaciado",
+          0.4303
+        ]
+      ]
+    },
+    {
+      "bit": 23,
+      "name": "caos",
+      "kl_selectivity": 1.32,
+      "mean_kl_labeled": 0.1183,
+      "mean_kl_other": 0.09,
+      "n_labeled": 6,
+      "top5_affected": [
+        [
+          "silencioso",
+          0.4806
+        ],
+        [
+          "orden_concepto",
+          0.4503
+        ],
+        [
+          "preso",
+          0.3892
+        ],
+        [
+          "gaseoso",
+          0.3377
+        ],
+        [
+          "muerto",
+          0.311
+        ]
+      ]
+    },
+    {
+      "bit": 24,
+      "name": "creación",
+      "kl_selectivity": 0.47,
+      "mean_kl_labeled": 0.0644,
+      "mean_kl_other": 0.1371,
+      "n_labeled": 1,
+      "top5_affected": [
+        [
+          "muerto",
+          0.6494
+        ],
+        [
+          "bueno",
+          0.6083
+        ],
+        [
+          "pobre",
+          0.4264
+        ],
+        [
+          "malo",
+          0.3932
+        ],
+        [
+          "feliz",
+          0.3926
+        ]
+      ]
+    },
+    {
+      "bit": 25,
+      "name": "destrucción",
+      "kl_selectivity": 0,
+      "mean_kl_labeled": 0.0,
+      "mean_kl_other": 0.0,
+      "n_labeled": 0,
+      "top5_affected": [
+        [
+          "preso",
+          0.9664
+        ],
+        [
+          "malo",
+          0.8127
+        ],
+        [
+          "caos_concepto",
+          0.7667
+        ],
+        [
+          "rico",
+          0.4971
+        ],
+        [
+          "bueno",
+          0.4532
+        ]
+      ]
+    },
+    {
+      "bit": 26,
+      "name": "unión",
+      "kl_selectivity": 0.95,
+      "mean_kl_labeled": 0.0612,
+      "mean_kl_other": 0.0644,
+      "n_labeled": 6,
+      "top5_affected": [
+        [
+          "pobre",
+          0.3114
+        ],
+        [
+          "líquido",
+          0.2002
+        ],
+        [
+          "sol",
+          0.1925
+        ],
+        [
+          "sabio",
+          0.1695
+        ],
+        [
+          "indiferencia",
+          0.1682
+        ]
+      ]
+    },
+    {
+      "bit": 27,
+      "name": "separación",
+      "kl_selectivity": 0.85,
+      "mean_kl_labeled": 0.1898,
+      "mean_kl_other": 0.2226,
+      "n_labeled": 6,
+      "top5_affected": [
+        [
+          "preso",
+          1.376
+        ],
+        [
+          "gaseoso",
+          0.882
+        ],
+        [
+          "muerto",
+          0.8335
+        ],
+        [
+          "malo",
+          0.524
+        ],
+        [
+          "mujer",
+          0.4248
+        ]
+      ]
+    },
+    {
+      "bit": 30,
+      "name": "libertad",
+      "kl_selectivity": 0.73,
+      "mean_kl_labeled": 0.0791,
+      "mean_kl_other": 0.1077,
+      "n_labeled": 6,
+      "top5_affected": [
+        [
+          "amor",
+          0.4209
+        ],
+        [
+          "preso",
+          0.4142
+        ],
+        [
+          "amoral",
+          0.3746
+        ],
+        [
+          "muerto",
+          0.3545
+        ],
+        [
+          "pobre",
+          0.2819
+        ]
+      ]
+    },
+    {
+      "bit": 31,
+      "name": "control",
+      "kl_selectivity": 0.88,
+      "mean_kl_labeled": 0.0689,
+      "mean_kl_other": 0.078,
+      "n_labeled": 11,
+      "top5_affected": [
+        [
+          "bueno",
+          0.6213
+        ],
+        [
+          "malo",
+          0.2194
+        ],
+        [
+          "líquido",
+          0.2048
+        ],
+        [
+          "inmóvil",
+          0.1568
+        ],
+        [
+          "amargo",
+          0.1558
+        ]
+      ]
+    },
+    {
+      "bit": 32,
+      "name": "vida",
+      "kl_selectivity": 1.77,
+      "mean_kl_labeled": 0.1896,
+      "mean_kl_other": 0.1073,
+      "n_labeled": 12,
+      "top5_affected": [
+        [
+          "mujer",
+          0.835
+        ],
+        [
+          "bueno",
+          0.5992
+        ],
+        [
+          "oscuro",
+          0.3975
+        ],
+        [
+          "inercia_mental",
+          0.3844
+        ],
+        [
+          "malo",
+          0.3698
+        ]
+      ]
+    },
+    {
+      "bit": 35,
+      "name": "dolor",
+      "kl_selectivity": 0.62,
+      "mean_kl_labeled": 0.0764,
+      "mean_kl_other": 0.1242,
+      "n_labeled": 3,
+      "top5_affected": [
+        [
+          "libre",
+          0.7687
+        ],
+        [
+          "feliz",
+          0.6563
+        ],
+        [
+          "sol",
+          0.6225
+        ],
+        [
+          "líquido",
+          0.4598
+        ],
+        [
+          "pobre",
+          0.4102
+        ]
+      ]
+    },
+    {
+      "bit": 36,
+      "name": "consciente",
+      "kl_selectivity": 1.49,
+      "mean_kl_labeled": 0.1157,
+      "mean_kl_other": 0.0778,
+      "n_labeled": 22,
+      "top5_affected": [
+        [
+          "malo",
+          0.6113
+        ],
+        [
+          "líquido",
+          0.4869
+        ],
+        [
+          "bueno",
+          0.3378
+        ],
+        [
+          "creativo",
+          0.3155
+        ],
+        [
+          "mujer",
+          0.3076
+        ]
+      ]
+    },
+    {
+      "bit": 40,
+      "name": "individual",
+      "kl_selectivity": 0.37,
+      "mean_kl_labeled": 0.021,
+      "mean_kl_other": 0.0565,
+      "n_labeled": 8,
+      "top5_affected": [
+        [
+          "sol",
+          0.46
+        ],
+        [
+          "sabio",
+          0.298
+        ],
+        [
+          "malo",
+          0.1469
+        ],
+        [
+          "rey",
+          0.1255
+        ],
+        [
+          "inmóvil",
+          0.1212
+        ]
+      ]
+    },
+    {
+      "bit": 45,
+      "name": "muchos",
+      "kl_selectivity": 0.41,
+      "mean_kl_labeled": 0.0517,
+      "mean_kl_other": 0.1266,
+      "n_labeled": 1,
+      "top5_affected": [
+        [
+          "preso",
+          0.5137
+        ],
+        [
+          "caos_concepto",
+          0.4876
+        ],
+        [
+          "frío",
+          0.4054
+        ],
+        [
+          "sol",
+          0.3816
+        ],
+        [
+          "rápido",
+          0.3391
+        ]
+      ]
+    },
+    {
+      "bit": 48,
+      "name": "hacer",
+      "kl_selectivity": 0.9,
+      "mean_kl_labeled": 0.1114,
+      "mean_kl_other": 0.1232,
+      "n_labeled": 10,
+      "top5_affected": [
+        [
+          "malo",
+          0.8183
+        ],
+        [
+          "bueno",
+          0.3689
+        ],
+        [
+          "amargo",
+          0.3201
+        ],
+        [
+          "mujer",
+          0.2966
+        ],
+        [
+          "lento",
+          0.2948
+        ]
+      ]
+    },
+    {
+      "bit": 61,
+      "name": "más",
+      "kl_selectivity": 1.02,
+      "mean_kl_labeled": 0.114,
+      "mean_kl_other": 0.1119,
+      "n_labeled": 7,
+      "top5_affected": [
+        [
+          "creativo",
+          0.3851
+        ],
+        [
+          "cerrar",
+          0.3624
+        ],
+        [
+          "feliz",
+          0.3155
+        ],
+        [
+          "sol",
+          0.3037
+        ],
+        [
+          "amoral",
+          0.2913
+        ]
+      ]
+    },
+    {
+      "bit": 62,
+      "name": "menos",
+      "kl_selectivity": 0.45,
+      "mean_kl_labeled": 0.053,
+      "mean_kl_other": 0.1177,
+      "n_labeled": 6,
+      "top5_affected": [
+        [
+          "sol",
+          1.0627
+        ],
+        [
+          "bueno",
+          0.5268
+        ],
+        [
+          "feliz",
+          0.4607
+        ],
+        [
+          "malo",
+          0.2676
+        ],
+        [
+          "indiferencia",
+          0.2229
+        ]
+      ]
+    }
+  ]
+}

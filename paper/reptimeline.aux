@@ -1,0 +1,54 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{vandenoord2017neural}
+\citation{mentzer2024finite}
+\citation{cunningham2023sparse}
+\citation{koh2020concept}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Design and Architecture}{2}{section.2}\protected@file@percent }
+\newlabel{sec:design}{{2}{2}{Design and Architecture}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Pipeline Overview}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces reptimeline pipeline. The user provides only the extractor; all analysis modules are backend-agnostic.}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:architecture}{{1}{2}{reptimeline pipeline. The user provides only the extractor; all analysis modules are backend-agnostic}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Core Data Structure}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Timeline Analysis}{2}{subsection.2.3}\protected@file@percent }
+\citation{bengio2013estimating}
+\citation{biderman2023pythia}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Feature Discovery}{3}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Auto-Labeling and Reconciliation}{3}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Case Studies}{3}{section.3}\protected@file@percent }
+\newlabel{sec:cases}{{3}{3}{Case Studies}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}MNIST Binary Autoencoder}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces reptimeline analysis across three backends. All numbers are from production runs, not toy examples.}}{4}{table.caption.2}\protected@file@percent }
+\newlabel{tab:results}{{1}{4}{reptimeline analysis across three backends. All numbers are from production runs, not toy examples}{table.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output.}}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:code_swap}{{2}{4}{MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Pythia-70M Sparse Autoencoder}{4}{subsection.3.2}\protected@file@percent }
+\citation{ornelas2026prime}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Causal intervention on Pythia-70M SAE features (16 tested). \textbf  {Top}: hidden state perturbation (L2 norm). \textbf  {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect.}}{5}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:sae_causal}{{3}{5}{Causal intervention on Pythia-70M SAE features (16 tested). \textbf {Top}: hidden state perturbation (L2 norm). \textbf {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TriadicGPT (63-bit Neurosymbolic Head)}{5}{subsection.3.3}\protected@file@percent }
+\citation{koh2020concept}
+\citation{zou2023representation}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training.}}{6}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:phase}{{4}{6}{Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Comparison with Existing Tools}{6}{section.4}\protected@file@percent }
+\newlabel{sec:comparison}{{4}{6}{Comparison with Existing Tools}{section.4}{}}
+\bibstyle{plainnat}
+\bibcite{bengio2013estimating}{{1}{2013}{{Bengio et~al.}}{{}}}
+\bibcite{biderman2023pythia}{{2}{2023}{{Biderman et~al.}}{{}}}
+\bibcite{cunningham2023sparse}{{3}{2023}{{Cunningham et~al.}}{{}}}
+\bibcite{koh2020concept}{{4}{2020}{{Koh et~al.}}{{}}}
+\bibcite{mentzer2024finite}{{5}{2024}{{Mentzer et~al.}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Feature comparison. reptimeline is the only tool combining lifecycle tracking, bottom-up discovery, auto-labeling, causal verification, and backend-agnostic operation.}}{7}{table.caption.6}\protected@file@percent }
+\newlabel{tab:comparison}{{2}{7}{Feature comparison. reptimeline is the only tool combining lifecycle tracking, bottom-up discovery, auto-labeling, causal verification, and backend-agnostic operation}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Availability}{7}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{7}{Conclusion and Availability}{section.5}{}}
+\bibcite{ornelas2026prime}{{6}{2026}{{Ornelas~Brand}}{{}}}
+\bibcite{vandenoord2017neural}{{7}{2017}{{van~den Oord et~al.}}{{}}}
+\bibcite{zou2023representation}{{8}{2023}{{Zou et~al.}}{{}}}
+\gdef \@abspage@last{8}

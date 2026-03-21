@@ -47,6 +47,20 @@ class ConceptSnapshot:
             return []
         return [i for i, v in enumerate(code) if v == 1]
 
+    def validate(self) -> None:
+        """Raise ValueError if codes have inconsistent lengths."""
+        if not self.codes:
+            return
+        lengths = {concept: len(code) for concept, code in self.codes.items()}
+        unique_lengths = set(lengths.values())
+        if len(unique_lengths) > 1:
+            examples = {l: [c for c, cl in lengths.items() if cl == l][:3]
+                        for l in unique_lengths}
+            raise ValueError(
+                f"Inconsistent code lengths in snapshot at step {self.step}: "
+                f"{examples}"
+            )
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to a JSON-compatible dict."""
         return {

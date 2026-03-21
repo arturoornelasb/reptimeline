@@ -45,6 +45,9 @@ class TimelineTracker:
         if not snapshots:
             raise ValueError("Need at least one snapshot")
 
+        for snap in snapshots:
+            snap.validate()
+
         steps = [s.step for s in snapshots]
         all_concepts = sorted(set().union(*(s.concepts for s in snapshots)))
 
@@ -201,7 +204,7 @@ class TimelineTracker:
             n = len(codes)
             entropies = []
             for bit_idx in range(n_bits):
-                active = sum(1 for c in codes if c[bit_idx] == 1)
+                active = sum(1 for c in codes if bit_idx < len(c) and c[bit_idx] == 1)
                 p = active / n if n > 0 else 0
                 if 0 < p < 1:
                     entropies.append(-p * np.log2(p) - (1 - p) * np.log2(1 - p))

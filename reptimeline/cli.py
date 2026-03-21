@@ -119,6 +119,8 @@ def main():
                         help='Generate visualization plots')
     parser.add_argument('--plot-dir', default=None,
                         help='Directory to save plots (default: ./reptimeline_plots/)')
+    parser.add_argument('--causal', default=None, metavar='EFFECTS_JSON',
+                        help='Run CausalVerifier with pre-computed intervention effects')
 
     args = parser.parse_args()
 
@@ -152,11 +154,25 @@ def main():
         disc_report = discovery.discover(snapshots[-1], timeline=timeline)
         discovery.print_report(disc_report)
 
+    # Causal verification
+    causal_report = None
+    if args.causal:
+        from reptimeline.causal import CausalVerifier
+        effects_data = _load_effects(args.causal)
+
+        def intervene_fn(concept, bit_index):
+            bit_key = f"bit_{bit_index}"
+            return effects_data.get(bit_key, {}).get(concept, 0.0)
+
+        verifier = CausalVerifier(intervene_fn=intervene_fn)
+        causal_report = verifier.verify(snapshots[-1])
+        verifier.print_report(causal_report)
+
     # Plots
     if args.plot:
         plot_dir = args.plot_dir or 'reptimeline_plots'
         os.makedirs(plot_dir, exist_ok=True)
-        _generate_plots(timeline, report, concepts, plot_dir)
+        _generate_plots(timeline, report, causal_report, concepts, plot_dir)
         print(f"\nPlots saved to {plot_dir}/")
 
     # Save
@@ -165,10 +181,11 @@ def main():
         print(f"\nTimeline saved to {args.output}")
 
 
-def _generate_plots(timeline, report, concepts, plot_dir):
+def _generate_plots(timeline, report, causal_report, concepts, plot_dir):
     """Generate all visualization plots."""
     from reptimeline.viz import (
         plot_swimlane, plot_phase_dashboard, plot_churn_heatmap, plot_layer_emergence,
+        plot_causal_heatmap,
     )
 
     print("\nGenerating plots...")
@@ -201,6 +218,27 @@ def _generate_plots(timeline, report, concepts, plot_dir):
             show=False,
         )
         print("  layer_emergence.png")
+
+    if causal_report is not None:
+        plot_causal_heatmap(
+            causal_report,
+            save_path=os.path.join(plot_dir, 'causal_heatmap.png'),
+            show=False,
+        )
+        print("  causal_heatmap.png")
+
+
+def _load_effects(path):
+    """Load pre-computed intervention effects from JSON.
+
+    Expected format: {"effects": {"bit_0": {"king": 0.5, ...}, ...}}
+    Or a flat dict: {"bit_0": {"king": 0.5, ...}, ...}
+    """
+    with open(path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    if isinstance(data, dict) and 'effects' in data:
+        return data['effects']
+    return data
 
 
 def _save_timeline(timeline, path):

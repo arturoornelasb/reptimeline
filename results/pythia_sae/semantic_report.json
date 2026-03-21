@@ -1,0 +1,3007 @@
+{
+  "metadata": {
+    "model": "EleutherAI/pythia-70m",
+    "sae": "EleutherAI/sae-pythia-70m-32k",
+    "layer": 3,
+    "n_concepts": 60,
+    "n_active_bits": 64,
+    "n_dead_bits": 192
+  },
+  "bit_labels": {
+    "embedding": [
+      {
+        "bit": 0,
+        "label": "joy",
+        "confidence": 0.484,
+        "active_concepts": [
+          "mountain",
+          "moon",
+          "joy",
+          "pride",
+          "trust"
+        ]
+      },
+      {
+        "bit": 1,
+        "label": "bird",
+        "confidence": 0.539,
+        "active_concepts": [
+          "water",
+          "earth",
+          "mountain",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 2,
+        "label": "dog",
+        "confidence": 0.623,
+        "active_concepts": [
+          "dog",
+          "horse",
+          "wolf",
+          "queen",
+          "child"
+        ]
+      },
+      {
+        "bit": 3,
+        "label": "mother",
+        "confidence": 0.579,
+        "active_concepts": [
+          "ocean",
+          "lion",
+          "mother",
+          "child",
+          "fast"
+        ]
+      },
+      {
+        "bit": 4,
+        "label": "king",
+        "confidence": 0.89,
+        "active_concepts": [
+          "king",
+          "queen"
+        ]
+      },
+      {
+        "bit": 5,
+        "label": "moon",
+        "confidence": 0.748,
+        "active_concepts": [
+          "moon",
+          "fish"
+        ]
+      },
+      {
+        "bit": 7,
+        "label": "mother",
+        "confidence": 0.688,
+        "active_concepts": [
+          "water",
+          "mother",
+          "father",
+          "teacher",
+          "soldier"
+        ]
+      },
+      {
+        "bit": 8,
+        "label": "sun",
+        "confidence": 0.525,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "mountain",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 9,
+        "label": "queen",
+        "confidence": 0.669,
+        "active_concepts": [
+          "king",
+          "queen",
+          "mother",
+          "child",
+          "teacher"
+        ]
+      },
+      {
+        "bit": 11,
+        "label": "knowledge",
+        "confidence": 0.509,
+        "active_concepts": [
+          "water",
+          "shame",
+          "dream",
+          "memory",
+          "knowledge"
+        ]
+      },
+      {
+        "bit": 14,
+        "label": "mountain",
+        "confidence": 0.604,
+        "active_concepts": [
+          "mountain",
+          "teacher",
+          "fast"
+        ]
+      },
+      {
+        "bit": 15,
+        "label": "fast",
+        "confidence": 0.636,
+        "active_concepts": [
+          "joy",
+          "mother",
+          "fast",
+          "slow",
+          "old"
+        ]
+      },
+      {
+        "bit": 16,
+        "label": "horse",
+        "confidence": 0.572,
+        "active_concepts": [
+          "stone",
+          "mountain",
+          "forest",
+          "dog",
+          "cat"
+        ]
+      },
+      {
+        "bit": 17,
+        "label": "reason",
+        "confidence": 0.716,
+        "active_concepts": [
+          "reason",
+          "big"
+        ]
+      },
+      {
+        "bit": 18,
+        "label": "reason",
+        "confidence": 0.734,
+        "active_concepts": [
+          "reason",
+          "old"
+        ]
+      },
+      {
+        "bit": 19,
+        "label": "pride",
+        "confidence": 0.686,
+        "active_concepts": [
+          "dog",
+          "hate",
+          "pride"
+        ]
+      },
+      {
+        "bit": 20,
+        "label": "enemy",
+        "confidence": 0.724,
+        "active_concepts": [
+          "enemy",
+          "old"
+        ]
+      },
+      {
+        "bit": 22,
+        "label": "earth",
+        "confidence": 0.527,
+        "active_concepts": [
+          "water",
+          "earth",
+          "mountain",
+          "forest",
+          "bird"
+        ]
+      },
+      {
+        "bit": 23,
+        "label": "river",
+        "confidence": 0.555,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 24,
+        "label": "eagle",
+        "confidence": 0.653,
+        "active_concepts": [
+          "horse",
+          "eagle",
+          "dark"
+        ]
+      },
+      {
+        "bit": 26,
+        "label": "moon",
+        "confidence": 0.503,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 27,
+        "label": "fear",
+        "confidence": 0.623,
+        "active_concepts": [
+          "fear",
+          "dream",
+          "thought",
+          "cold"
+        ]
+      },
+      {
+        "bit": 28,
+        "label": "river",
+        "confidence": 0.54,
+        "active_concepts": [
+          "water",
+          "earth",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 29,
+        "label": "enemy",
+        "confidence": 0.599,
+        "active_concepts": [
+          "ocean",
+          "hate",
+          "father",
+          "enemy",
+          "doctor"
+        ]
+      },
+      {
+        "bit": 31,
+        "label": "dog",
+        "confidence": 0.551,
+        "active_concepts": [
+          "stone",
+          "sun",
+          "dog",
+          "cat",
+          "bird"
+        ]
+      },
+      {
+        "bit": 32,
+        "label": "king",
+        "confidence": 0.77,
+        "active_concepts": [
+          "snake",
+          "king"
+        ]
+      },
+      {
+        "bit": 35,
+        "label": "wolf",
+        "confidence": 0.514,
+        "active_concepts": [
+          "fire",
+          "stone",
+          "river",
+          "wolf",
+          "snake"
+        ]
+      },
+      {
+        "bit": 36,
+        "label": "river",
+        "confidence": 0.539,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 38,
+        "label": "river",
+        "confidence": 0.559,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 39,
+        "label": "moon",
+        "confidence": 0.759,
+        "active_concepts": [
+          "moon",
+          "dream"
+        ]
+      },
+      {
+        "bit": 41,
+        "label": "sun",
+        "confidence": 0.533,
+        "active_concepts": [
+          "sun",
+          "logic",
+          "memory",
+          "queen",
+          "dark"
+        ]
+      },
+      {
+        "bit": 42,
+        "label": "wolf",
+        "confidence": 0.537,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 43,
+        "label": "dark",
+        "confidence": 0.749,
+        "active_concepts": [
+          "dream",
+          "dark"
+        ]
+      },
+      {
+        "bit": 45,
+        "label": "old",
+        "confidence": 0.613,
+        "active_concepts": [
+          "forest",
+          "knowledge",
+          "old",
+          "new"
+        ]
+      },
+      {
+        "bit": 46,
+        "label": "hate",
+        "confidence": 0.645,
+        "active_concepts": [
+          "love",
+          "hate",
+          "joy",
+          "grief",
+          "shame"
+        ]
+      },
+      {
+        "bit": 47,
+        "label": "big",
+        "confidence": 0.764,
+        "active_concepts": [
+          "hot",
+          "big",
+          "small"
+        ]
+      },
+      {
+        "bit": 48,
+        "label": "anger",
+        "confidence": 0.51,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 50,
+        "label": "father",
+        "confidence": 0.605,
+        "active_concepts": [
+          "bear",
+          "truth",
+          "thought",
+          "mother",
+          "father"
+        ]
+      },
+      {
+        "bit": 51,
+        "label": "enemy",
+        "confidence": 0.54,
+        "active_concepts": [
+          "river",
+          "ocean",
+          "bird",
+          "bear",
+          "king"
+        ]
+      },
+      {
+        "bit": 53,
+        "label": "doctor",
+        "confidence": 0.532,
+        "active_concepts": [
+          "cat",
+          "reason",
+          "father",
+          "soldier",
+          "doctor"
+        ]
+      },
+      {
+        "bit": 54,
+        "label": "river",
+        "confidence": 0.539,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 55,
+        "label": "river",
+        "confidence": 0.555,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 56,
+        "label": "shame",
+        "confidence": 0.652,
+        "active_concepts": [
+          "hope",
+          "grief",
+          "shame",
+          "trust"
+        ]
+      },
+      {
+        "bit": 57,
+        "label": "trust",
+        "confidence": 0.797,
+        "active_concepts": [
+          "trust",
+          "belief"
+        ]
+      },
+      {
+        "bit": 60,
+        "label": "wolf",
+        "confidence": 0.534,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "river",
+          "forest"
+        ]
+      },
+      {
+        "bit": 62,
+        "label": "wolf",
+        "confidence": 0.567,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "cat",
+          "bird",
+          "bear"
+        ]
+      },
+      {
+        "bit": 63,
+        "label": "bird",
+        "confidence": 0.532,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 64,
+        "label": "cold",
+        "confidence": 0.774,
+        "active_concepts": [
+          "pride",
+          "hot",
+          "cold"
+        ]
+      },
+      {
+        "bit": 66,
+        "label": "bird",
+        "confidence": 0.534,
+        "active_concepts": [
+          "earth",
+          "sun",
+          "moon",
+          "dog",
+          "bird"
+        ]
+      },
+      {
+        "bit": 68,
+        "label": "friend",
+        "confidence": 0.636,
+        "active_concepts": [
+          "eagle",
+          "friend",
+          "big"
+        ]
+      },
+      {
+        "bit": 69,
+        "label": "earth",
+        "confidence": 0.464,
+        "active_concepts": [
+          "earth",
+          "stone",
+          "mountain",
+          "river",
+          "cat"
+        ]
+      },
+      {
+        "bit": 70,
+        "label": "dream",
+        "confidence": 0.751,
+        "active_concepts": [
+          "dream",
+          "child"
+        ]
+      },
+      {
+        "bit": 72,
+        "label": "king",
+        "confidence": 0.71,
+        "active_concepts": [
+          "hope",
+          "king"
+        ]
+      },
+      {
+        "bit": 74,
+        "label": "wolf",
+        "confidence": 0.545,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "ocean",
+          "forest"
+        ]
+      },
+      {
+        "bit": 75,
+        "label": "fear",
+        "confidence": 0.536,
+        "active_concepts": [
+          "water",
+          "stone",
+          "sun",
+          "bear",
+          "eagle"
+        ]
+      },
+      {
+        "bit": 78,
+        "label": "wolf",
+        "confidence": 0.604,
+        "active_concepts": [
+          "fire",
+          "moon",
+          "wolf",
+          "enemy",
+          "soldier"
+        ]
+      },
+      {
+        "bit": 80,
+        "label": "truth",
+        "confidence": 0.444,
+        "active_concepts": [
+          "moon",
+          "bear",
+          "love",
+          "hope",
+          "trust"
+        ]
+      },
+      {
+        "bit": 81,
+        "label": "trust",
+        "confidence": 0.765,
+        "active_concepts": [
+          "trust",
+          "knowledge"
+        ]
+      },
+      {
+        "bit": 82,
+        "label": "sun",
+        "confidence": 0.64,
+        "active_concepts": [
+          "earth",
+          "sun",
+          "love",
+          "anger",
+          "hot"
+        ]
+      },
+      {
+        "bit": 83,
+        "label": "fish",
+        "confidence": 0.661,
+        "active_concepts": [
+          "ocean",
+          "fish",
+          "horse",
+          "child"
+        ]
+      },
+      {
+        "bit": 84,
+        "label": "hope",
+        "confidence": 0.791,
+        "active_concepts": [
+          "hope",
+          "belief"
+        ]
+      },
+      {
+        "bit": 85,
+        "label": "slow",
+        "confidence": 0.699,
+        "active_concepts": [
+          "fast",
+          "slow",
+          "small",
+          "old"
+        ]
+      },
+      {
+        "bit": 86,
+        "label": "earth",
+        "confidence": 0.517,
+        "active_concepts": [
+          "earth",
+          "mountain",
+          "ocean",
+          "forest",
+          "moon"
+        ]
+      },
+      {
+        "bit": 87,
+        "label": "lion",
+        "confidence": 0.615,
+        "active_concepts": [
+          "river",
+          "cat",
+          "fish",
+          "lion",
+          "eagle"
+        ]
+      }
+    ],
+    "contrastive": [
+      {
+        "bit": 0,
+        "label": "wisdom",
+        "confidence": 0.335,
+        "active_concepts": [
+          "mountain",
+          "moon",
+          "joy",
+          "pride",
+          "trust"
+        ]
+      },
+      {
+        "bit": 1,
+        "label": "ocean",
+        "confidence": 0.314,
+        "active_concepts": [
+          "water",
+          "earth",
+          "mountain",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 2,
+        "label": "teacher",
+        "confidence": 0.437,
+        "active_concepts": [
+          "dog",
+          "horse",
+          "wolf",
+          "queen",
+          "child"
+        ]
+      },
+      {
+        "bit": 3,
+        "label": "mother",
+        "confidence": 0.471,
+        "active_concepts": [
+          "ocean",
+          "lion",
+          "mother",
+          "child",
+          "fast"
+        ]
+      },
+      {
+        "bit": 4,
+        "label": "queen",
+        "confidence": 0.783,
+        "active_concepts": [
+          "king",
+          "queen"
+        ]
+      },
+      {
+        "bit": 5,
+        "label": "moon",
+        "confidence": 0.584,
+        "active_concepts": [
+          "moon",
+          "fish"
+        ]
+      },
+      {
+        "bit": 7,
+        "label": "mother",
+        "confidence": 0.544,
+        "active_concepts": [
+          "water",
+          "mother",
+          "father",
+          "teacher",
+          "soldier"
+        ]
+      },
+      {
+        "bit": 8,
+        "label": "ocean",
+        "confidence": 0.346,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "mountain",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 9,
+        "label": "mother",
+        "confidence": 0.512,
+        "active_concepts": [
+          "king",
+          "queen",
+          "mother",
+          "child",
+          "teacher"
+        ]
+      },
+      {
+        "bit": 11,
+        "label": "belief",
+        "confidence": 0.364,
+        "active_concepts": [
+          "water",
+          "shame",
+          "dream",
+          "memory",
+          "knowledge"
+        ]
+      },
+      {
+        "bit": 14,
+        "label": "fast",
+        "confidence": 0.465,
+        "active_concepts": [
+          "mountain",
+          "teacher",
+          "fast"
+        ]
+      },
+      {
+        "bit": 15,
+        "label": "fast",
+        "confidence": 0.47,
+        "active_concepts": [
+          "joy",
+          "mother",
+          "fast",
+          "slow",
+          "old"
+        ]
+      },
+      {
+        "bit": 16,
+        "label": "dog",
+        "confidence": 0.379,
+        "active_concepts": [
+          "stone",
+          "mountain",
+          "forest",
+          "dog",
+          "cat"
+        ]
+      },
+      {
+        "bit": 17,
+        "label": "reason",
+        "confidence": 0.601,
+        "active_concepts": [
+          "reason",
+          "big"
+        ]
+      },
+      {
+        "bit": 18,
+        "label": "reason",
+        "confidence": 0.634,
+        "active_concepts": [
+          "reason",
+          "old"
+        ]
+      },
+      {
+        "bit": 19,
+        "label": "pride",
+        "confidence": 0.581,
+        "active_concepts": [
+          "dog",
+          "hate",
+          "pride"
+        ]
+      },
+      {
+        "bit": 20,
+        "label": "old",
+        "confidence": 0.599,
+        "active_concepts": [
+          "enemy",
+          "old"
+        ]
+      },
+      {
+        "bit": 22,
+        "label": "old",
+        "confidence": 0.285,
+        "active_concepts": [
+          "water",
+          "earth",
+          "mountain",
+          "forest",
+          "bird"
+        ]
+      },
+      {
+        "bit": 23,
+        "label": "bit_23",
+        "confidence": 0.0,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 24,
+        "label": "dark",
+        "confidence": 0.491,
+        "active_concepts": [
+          "horse",
+          "eagle",
+          "dark"
+        ]
+      },
+      {
+        "bit": 26,
+        "label": "cat",
+        "confidence": 0.352,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 27,
+        "label": "thought",
+        "confidence": 0.499,
+        "active_concepts": [
+          "fear",
+          "dream",
+          "thought",
+          "cold"
+        ]
+      },
+      {
+        "bit": 28,
+        "label": "river",
+        "confidence": 0.451,
+        "active_concepts": [
+          "water",
+          "earth",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 29,
+        "label": "father",
+        "confidence": 0.384,
+        "active_concepts": [
+          "ocean",
+          "hate",
+          "father",
+          "enemy",
+          "doctor"
+        ]
+      },
+      {
+        "bit": 31,
+        "label": "big",
+        "confidence": 0.355,
+        "active_concepts": [
+          "stone",
+          "sun",
+          "dog",
+          "cat",
+          "bird"
+        ]
+      },
+      {
+        "bit": 32,
+        "label": "king",
+        "confidence": 0.649,
+        "active_concepts": [
+          "snake",
+          "king"
+        ]
+      },
+      {
+        "bit": 35,
+        "label": "slow",
+        "confidence": 0.273,
+        "active_concepts": [
+          "fire",
+          "stone",
+          "river",
+          "wolf",
+          "snake"
+        ]
+      },
+      {
+        "bit": 36,
+        "label": "fish",
+        "confidence": 0.299,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 38,
+        "label": "ocean",
+        "confidence": 0.435,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 39,
+        "label": "dream",
+        "confidence": 0.687,
+        "active_concepts": [
+          "moon",
+          "dream"
+        ]
+      },
+      {
+        "bit": 41,
+        "label": "memory",
+        "confidence": 0.404,
+        "active_concepts": [
+          "sun",
+          "logic",
+          "memory",
+          "queen",
+          "dark"
+        ]
+      },
+      {
+        "bit": 42,
+        "label": "snake",
+        "confidence": 0.398,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 43,
+        "label": "dark",
+        "confidence": 0.617,
+        "active_concepts": [
+          "dream",
+          "dark"
+        ]
+      },
+      {
+        "bit": 45,
+        "label": "new",
+        "confidence": 0.499,
+        "active_concepts": [
+          "forest",
+          "knowledge",
+          "old",
+          "new"
+        ]
+      },
+      {
+        "bit": 46,
+        "label": "hate",
+        "confidence": 0.497,
+        "active_concepts": [
+          "love",
+          "hate",
+          "joy",
+          "grief",
+          "shame"
+        ]
+      },
+      {
+        "bit": 47,
+        "label": "big",
+        "confidence": 0.656,
+        "active_concepts": [
+          "hot",
+          "big",
+          "small"
+        ]
+      },
+      {
+        "bit": 48,
+        "label": "wisdom",
+        "confidence": 0.34,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "river",
+          "ocean"
+        ]
+      },
+      {
+        "bit": 50,
+        "label": "father",
+        "confidence": 0.417,
+        "active_concepts": [
+          "bear",
+          "truth",
+          "thought",
+          "mother",
+          "father"
+        ]
+      },
+      {
+        "bit": 51,
+        "label": "enemy",
+        "confidence": 0.377,
+        "active_concepts": [
+          "river",
+          "ocean",
+          "bird",
+          "bear",
+          "king"
+        ]
+      },
+      {
+        "bit": 53,
+        "label": "father",
+        "confidence": 0.358,
+        "active_concepts": [
+          "cat",
+          "reason",
+          "father",
+          "soldier",
+          "doctor"
+        ]
+      },
+      {
+        "bit": 54,
+        "label": "ocean",
+        "confidence": 0.313,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 55,
+        "label": "forest",
+        "confidence": 0.285,
+        "active_concepts": [
+          "fire",
+          "water",
+          "earth",
+          "stone",
+          "mountain"
+        ]
+      },
+      {
+        "bit": 56,
+        "label": "shame",
+        "confidence": 0.534,
+        "active_concepts": [
+          "hope",
+          "grief",
+          "shame",
+          "trust"
+        ]
+      },
+      {
+        "bit": 57,
+        "label": "belief",
+        "confidence": 0.681,
+        "active_concepts": [
+          "trust",
+          "belief"
+        ]
+      },
+      {
+        "bit": 60,
+        "label": "fish",
+        "confidence": 0.271,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "river",
+          "forest"
+        ]
+      },
+      {
+        "bit": 62,
+        "label": "soldier",
+        "confidence": 0.363,
+        "active_concepts": [
+          "fire",
+          "earth",
+          "cat",
+          "bird",
+          "bear"
+        ]
+      },
+      {
+        "bit": 63,
+        "label": "fish",
+        "confidence": 0.26,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "mountain",
+          "river"
+        ]
+      },
+      {
+        "bit": 64,
+        "label": "cold",
+        "confidence": 0.575,
+        "active_concepts": [
+          "pride",
+          "hot",
+          "cold"
+        ]
+      },
+      {
+        "bit": 66,
+        "label": "grief",
+        "confidence": 0.307,
+        "active_concepts": [
+          "earth",
+          "sun",
+          "moon",
+          "dog",
+          "bird"
+        ]
+      },
+      {
+        "bit": 68,
+        "label": "friend",
+        "confidence": 0.519,
+        "active_concepts": [
+          "eagle",
+          "friend",
+          "big"
+        ]
+      },
+      {
+        "bit": 69,
+        "label": "idea",
+        "confidence": 0.311,
+        "active_concepts": [
+          "earth",
+          "stone",
+          "mountain",
+          "river",
+          "cat"
+        ]
+      },
+      {
+        "bit": 70,
+        "label": "dream",
+        "confidence": 0.636,
+        "active_concepts": [
+          "dream",
+          "child"
+        ]
+      },
+      {
+        "bit": 72,
+        "label": "hope",
+        "confidence": 0.621,
+        "active_concepts": [
+          "hope",
+          "king"
+        ]
+      },
+      {
+        "bit": 74,
+        "label": "fire",
+        "confidence": 0.36,
+        "active_concepts": [
+          "fire",
+          "water",
+          "stone",
+          "ocean",
+          "forest"
+        ]
+      },
+      {
+        "bit": 75,
+        "label": "shame",
+        "confidence": 0.385,
+        "active_concepts": [
+          "water",
+          "stone",
+          "sun",
+          "bear",
+          "eagle"
+        ]
+      },
+      {
+        "bit": 78,
+        "label": "soldier",
+        "confidence": 0.425,
+        "active_concepts": [
+          "fire",
+          "moon",
+          "wolf",
+          "enemy",
+          "soldier"
+        ]
+      },
+      {
+        "bit": 80,
+        "label": "wisdom",
+        "confidence": 0.258,
+        "active_concepts": [
+          "moon",
+          "bear",
+          "love",
+          "hope",
+          "trust"
+        ]
+      },
+      {
+        "bit": 81,
+        "label": "trust",
+        "confidence": 0.644,
+        "active_concepts": [
+          "trust",
+          "knowledge"
+        ]
+      },
+      {
+        "bit": 82,
+        "label": "anger",
+        "confidence": 0.377,
+        "active_concepts": [
+          "earth",
+          "sun",
+          "love",
+          "anger",
+          "hot"
+        ]
+      },
+      {
+        "bit": 83,
+        "label": "child",
+        "confidence": 0.46,
+        "active_concepts": [
+          "ocean",
+          "fish",
+          "horse",
+          "child"
+        ]
+      },
+      {
+        "bit": 84,
+        "label": "belief",
+        "confidence": 0.678,
+        "active_concepts": [
+          "hope",
+          "belief"
+        ]
+      },
+      {
+        "bit": 85,
+        "label": "slow",
+        "confidence": 0.556,
+        "active_concepts": [
+          "fast",
+          "slow",
+          "small",
+          "old"
+        ]
+      },
+      {
+        "bit": 86,
+        "label": "knowledge",
+        "confidence": 0.244,
+        "active_concepts": [
+          "earth",
+          "mountain",
+          "ocean",
+          "forest",
+          "moon"
+        ]
+      },
+      {
+        "bit": 87,
+        "label": "lion",
+        "confidence": 0.378,
+        "active_concepts": [
+          "river",
+          "cat",
+          "fish",
+          "lion",
+          "eagle"
+        ]
+      }
+    ]
+  },
+  "dual_analysis": [
+    {
+      "bit_a": 4,
+      "bit_b": 55,
+      "corr": -0.695,
+      "concepts_a": [
+        "king",
+        "queen"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "social": 1.0
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "social-vs-physical",
+      "separation_word": "mother",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 9,
+      "bit_b": 55,
+      "corr": -0.645,
+      "concepts_a": [
+        "king",
+        "queen",
+        "mother",
+        "child",
+        "teacher"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "social": 1.0
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "social-vs-physical",
+      "separation_word": "father",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 54,
+      "bit_b": 61,
+      "corr": -0.567,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "mountain",
+        "river"
+      ],
+      "concepts_b": [
+        "small"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "properties": 1.0
+      },
+      "axis_label": "physical-vs-properties",
+      "separation_word": "eagle",
+      "coherence": 0.8
+    },
+    {
+      "bit_a": 6,
+      "bit_b": 54,
+      "corr": -0.567,
+      "concepts_a": [
+        "small"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "mountain",
+        "river"
+      ],
+      "domain_a": {
+        "properties": 1.0
+      },
+      "domain_b": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "axis_label": "properties-vs-physical",
+      "separation_word": "big",
+      "coherence": 0.8
+    },
+    {
+      "bit_a": 55,
+      "bit_b": 71,
+      "corr": -0.487,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "queen"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "social": 1.0
+      },
+      "axis_label": "physical-vs-social",
+      "separation_word": "concrete",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 33,
+      "bit_b": 36,
+      "corr": -0.487,
+      "concepts_a": [
+        "dream"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "abstract": 1.0
+      },
+      "domain_b": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "axis_label": "abstract-vs-physical",
+      "separation_word": "idea",
+      "coherence": 0.8
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 65,
+      "corr": -0.487,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "anger"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "emotions": 1.0
+      },
+      "axis_label": "physical-vs-emotions",
+      "separation_word": "sea",
+      "coherence": 0.8
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 76,
+      "corr": -0.487,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "sun"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "physical": 1.0
+      },
+      "axis_label": "physical-internal",
+      "separation_word": "animal",
+      "coherence": 0.8
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 54,
+      "corr": -0.459,
+      "concepts_a": [
+        "stone",
+        "sun",
+        "dog",
+        "cat",
+        "bird"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "mountain",
+        "river"
+      ],
+      "domain_a": {
+        "animals": 0.417,
+        "properties": 0.333,
+        "physical": 0.167,
+        "social": 0.083
+      },
+      "domain_b": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "axis_label": "animals-vs-physical",
+      "separation_word": "young",
+      "coherence": 0.508
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 82,
+      "corr": -0.403,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "earth",
+        "sun",
+        "love",
+        "anger",
+        "hot"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "physical": 0.4,
+        "emotions": 0.4,
+        "properties": 0.2
+      },
+      "axis_label": "physical-internal",
+      "separation_word": "wolf",
+      "coherence": 0.5
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 38,
+      "corr": -0.373,
+      "concepts_a": [
+        "stone",
+        "sun",
+        "dog",
+        "cat",
+        "bird"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "animals": 0.417,
+        "properties": 0.333,
+        "physical": 0.167,
+        "social": 0.083
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "animals-vs-physical",
+      "separation_word": "young",
+      "coherence": 0.542
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 35,
+      "corr": -0.359,
+      "concepts_a": [
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ],
+      "concepts_b": [
+        "fire",
+        "stone",
+        "river",
+        "wolf",
+        "snake"
+      ],
+      "domain_a": {
+        "physical": 0.4,
+        "animals": 0.4,
+        "emotions": 0.2
+      },
+      "domain_b": {
+        "social": 0.333,
+        "properties": 0.267,
+        "physical": 0.2,
+        "animals": 0.2
+      },
+      "axis_label": "physical-vs-social",
+      "separation_word": "animal",
+      "coherence": 0.367
+    },
+    {
+      "bit_a": 7,
+      "bit_b": 55,
+      "corr": -0.356,
+      "concepts_a": [
+        "water",
+        "mother",
+        "father",
+        "teacher",
+        "soldier"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "social": 0.833,
+        "physical": 0.167
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "social-vs-physical",
+      "separation_word": "friend",
+      "coherence": 0.75
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 48,
+      "corr": -0.338,
+      "concepts_a": [
+        "stone",
+        "sun",
+        "dog",
+        "cat",
+        "bird"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "stone",
+        "river",
+        "ocean"
+      ],
+      "domain_a": {
+        "animals": 0.417,
+        "properties": 0.333,
+        "physical": 0.167,
+        "social": 0.083
+      },
+      "domain_b": {
+        "abstract": 0.4,
+        "physical": 0.333,
+        "emotions": 0.267
+      },
+      "axis_label": "animals-vs-abstract",
+      "separation_word": "animal",
+      "coherence": 0.408
+    },
+    {
+      "bit_a": 14,
+      "bit_b": 26,
+      "corr": -0.337,
+      "concepts_a": [
+        "mountain",
+        "teacher",
+        "fast"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "ocean"
+      ],
+      "domain_a": {
+        "physical": 0.333,
+        "social": 0.333,
+        "properties": 0.333
+      },
+      "domain_b": {
+        "physical": 0.533,
+        "animals": 0.467
+      },
+      "axis_label": "physical-internal",
+      "separation_word": "young",
+      "coherence": 0.433
+    },
+    {
+      "bit_a": 5,
+      "bit_b": 28,
+      "corr": -0.337,
+      "concepts_a": [
+        "moon",
+        "fish"
+      ],
+      "concepts_b": [
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river"
+      ],
+      "domain_a": {
+        "physical": 0.5,
+        "animals": 0.5
+      },
+      "domain_b": {
+        "physical": 0.533,
+        "animals": 0.467
+      },
+      "axis_label": "physical-internal",
+      "separation_word": "prey",
+      "coherence": 0.516
+    },
+    {
+      "bit_a": 28,
+      "bit_b": 57,
+      "corr": -0.337,
+      "concepts_a": [
+        "water",
+        "earth",
+        "stone",
+        "mountain",
+        "river"
+      ],
+      "concepts_b": [
+        "trust",
+        "belief"
+      ],
+      "domain_a": {
+        "physical": 0.533,
+        "animals": 0.467
+      },
+      "domain_b": {
+        "emotions": 0.5,
+        "abstract": 0.5
+      },
+      "axis_label": "physical-vs-emotions",
+      "separation_word": "moon",
+      "coherence": 0.516
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 47,
+      "corr": -0.332,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "hot",
+        "big",
+        "small"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "properties": 1.0
+      },
+      "axis_label": "physical-vs-properties",
+      "separation_word": "eagle",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 2,
+      "bit_b": 48,
+      "corr": -0.331,
+      "concepts_a": [
+        "dog",
+        "horse",
+        "wolf",
+        "queen",
+        "child"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "stone",
+        "river",
+        "ocean"
+      ],
+      "domain_a": {
+        "social": 0.625,
+        "animals": 0.375
+      },
+      "domain_b": {
+        "abstract": 0.4,
+        "physical": 0.333,
+        "emotions": 0.267
+      },
+      "axis_label": "social-vs-abstract",
+      "separation_word": "animal",
+      "coherence": 0.512
+    },
+    {
+      "bit_a": 26,
+      "bit_b": 69,
+      "corr": -0.327,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "ocean"
+      ],
+      "concepts_b": [
+        "earth",
+        "stone",
+        "mountain",
+        "river",
+        "cat"
+      ],
+      "domain_a": {
+        "physical": 0.533,
+        "animals": 0.467
+      },
+      "domain_b": {
+        "abstract": 0.4,
+        "physical": 0.267,
+        "animals": 0.267,
+        "emotions": 0.067
+      },
+      "axis_label": "physical-vs-abstract",
+      "separation_word": "wolf",
+      "coherence": 0.467
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 78,
+      "corr": -0.323,
+      "concepts_a": [
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ],
+      "concepts_b": [
+        "fire",
+        "moon",
+        "wolf",
+        "enemy",
+        "soldier"
+      ],
+      "domain_a": {
+        "physical": 0.4,
+        "animals": 0.4,
+        "emotions": 0.2
+      },
+      "domain_b": {
+        "social": 0.5,
+        "physical": 0.333,
+        "animals": 0.167
+      },
+      "axis_label": "physical-vs-social",
+      "separation_word": "nature",
+      "coherence": 0.45
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 39,
+      "corr": -0.323,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "moon",
+        "dream"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "physical": 0.5,
+        "abstract": 0.5
+      },
+      "axis_label": "physical-internal",
+      "separation_word": "animal",
+      "coherence": 0.55
+    },
+    {
+      "bit_a": 32,
+      "bit_b": 55,
+      "corr": -0.323,
+      "concepts_a": [
+        "snake",
+        "king"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "animals": 0.5,
+        "social": 0.5
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "animals-vs-physical",
+      "separation_word": "queen",
+      "coherence": 0.584
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 43,
+      "corr": -0.323,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "dream",
+        "dark"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "abstract": 0.5,
+        "properties": 0.5
+      },
+      "axis_label": "physical-vs-abstract",
+      "separation_word": "snake",
+      "coherence": 0.55
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 70,
+      "corr": -0.323,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "dream",
+        "child"
+      ],
+      "domain_a": {
+        "physical": 0.6,
+        "animals": 0.4
+      },
+      "domain_b": {
+        "abstract": 0.5,
+        "social": 0.5
+      },
+      "axis_label": "physical-vs-abstract",
+      "separation_word": "sea",
+      "coherence": 0.55
+    },
+    {
+      "bit_a": 55,
+      "bit_b": 72,
+      "corr": -0.323,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "hope",
+        "king"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "emotions": 0.5,
+        "social": 0.5
+      },
+      "axis_label": "physical-vs-emotions",
+      "separation_word": "animal",
+      "coherence": 0.584
+    },
+    {
+      "bit_a": 50,
+      "bit_b": 55,
+      "corr": -0.319,
+      "concepts_a": [
+        "bear",
+        "truth",
+        "thought",
+        "mother",
+        "father"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "social": 0.429,
+        "abstract": 0.286,
+        "animals": 0.143,
+        "properties": 0.143
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "social-vs-physical",
+      "separation_word": "friend",
+      "coherence": 0.548
+    },
+    {
+      "bit_a": 29,
+      "bit_b": 63,
+      "corr": -0.312,
+      "concepts_a": [
+        "ocean",
+        "hate",
+        "father",
+        "enemy",
+        "doctor"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "stone",
+        "mountain",
+        "river"
+      ],
+      "domain_a": {
+        "social": 0.6,
+        "physical": 0.2,
+        "emotions": 0.2
+      },
+      "domain_b": {
+        "physical": 0.333,
+        "animals": 0.333,
+        "emotions": 0.333
+      },
+      "axis_label": "social-vs-physical",
+      "separation_word": "mother",
+      "coherence": 0.467
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 62,
+      "corr": -0.311,
+      "concepts_a": [
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ],
+      "concepts_b": [
+        "fire",
+        "earth",
+        "cat",
+        "bird",
+        "bear"
+      ],
+      "domain_a": {
+        "physical": 0.4,
+        "animals": 0.4,
+        "emotions": 0.2
+      },
+      "domain_b": {
+        "animals": 0.5,
+        "social": 0.333,
+        "physical": 0.167
+      },
+      "axis_label": "physical-vs-animals",
+      "separation_word": "sea",
+      "coherence": 0.45
+    },
+    {
+      "bit_a": 6,
+      "bit_b": 38,
+      "corr": -0.31,
+      "concepts_a": [
+        "small"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "properties": 1.0
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "properties-vs-physical",
+      "separation_word": "big",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 61,
+      "corr": -0.31,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "small"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "properties": 1.0
+      },
+      "axis_label": "physical-vs-properties",
+      "separation_word": "eagle",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 67,
+      "corr": -0.31,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "big"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "properties": 1.0
+      },
+      "axis_label": "physical-vs-properties",
+      "separation_word": "sea",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 33,
+      "bit_b": 38,
+      "corr": -0.31,
+      "concepts_a": [
+        "dream"
+      ],
+      "concepts_b": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "domain_a": {
+        "abstract": 1.0
+      },
+      "domain_b": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "axis_label": "abstract-vs-physical",
+      "separation_word": "idea",
+      "coherence": 0.834
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 58,
+      "corr": -0.31,
+      "concepts_a": [
+        "fire",
+        "water",
+        "earth",
+        "stone",
+        "mountain"
+      ],
+      "concepts_b": [
+        "snake"
+      ],
+      "domain_a": {
+        "physical": 0.667,
+        "animals": 0.333
+      },
+      "domain_b": {
+        "animals": 1.0
+      },
+      "axis_label": "physical-vs-animals",
+      "separation_word": "light",
+      "coherence": 0.834
+    }
+  ],
+  "hierarchy_analysis": [
+    {
+      "layer": 1,
+      "n_bits": 235,
+      "bits": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        10,
+        11
+      ],
+      "labels": [
+        "wisdom",
+        "ocean",
+        "teacher",
+        "mother",
+        "queen",
+        "moon",
+        "mother",
+        "mother",
+        "bit_10",
+        "belief"
+      ],
+      "mean_activation_rate": 0.045,
+      "stable_at_step": 512
+    },
+    {
+      "layer": 2,
+      "n_bits": 1,
+      "bits": [
+        6
+      ],
+      "labels": [
+        "bit_6"
+      ],
+      "mean_activation_rate": 0.0167,
+      "stable_at_step": 3000
+    },
+    {
+      "layer": 3,
+      "n_bits": 3,
+      "bits": [
+        71,
+        83,
+        170
+      ],
+      "labels": [
+        "bit_71",
+        "child",
+        "bit_170"
+      ],
+      "mean_activation_rate": 0.0278,
+      "stable_at_step": 25000
+    },
+    {
+      "layer": 4,
+      "n_bits": 4,
+      "bits": [
+        26,
+        38,
+        41,
+        189
+      ],
+      "labels": [
+        "cat",
+        "ocean",
+        "memory",
+        "bit_189"
+      ],
+      "mean_activation_rate": 0.4042,
+      "stable_at_step": 50000
+    },
+    {
+      "layer": 5,
+      "n_bits": 2,
+      "bits": [
+        13,
+        81
+      ],
+      "labels": [
+        "bit_13",
+        "trust"
+      ],
+      "mean_activation_rate": 0.025,
+      "stable_at_step": 75000
+    }
+  ],
+  "triadic_analysis": [
+    {
+      "bit_i": 2,
+      "bit_j": 35,
+      "bit_r": 78,
+      "label_i": "teacher",
+      "label_j": "slow",
+      "label_r": "soldier",
+      "p_r_given_ij": 1.0,
+      "strength": 0.625,
+      "ij_concepts": [
+        "doctor",
+        "soldier",
+        "wolf"
+      ],
+      "r_concepts": [
+        "doctor",
+        "enemy",
+        "fire",
+        "moon",
+        "soldier"
+      ],
+      "ij_domains": {
+        "social": 2,
+        "animals": 1
+      },
+      "tightness": 0.65087890625
+    },
+    {
+      "bit_i": 51,
+      "bit_j": 66,
+      "bit_r": 22,
+      "label_i": "enemy",
+      "label_j": "grief",
+      "label_r": "old",
+      "p_r_given_ij": 1.0,
+      "strength": 0.625,
+      "ij_concepts": [
+        "bird"
+      ],
+      "r_concepts": [
+        "belief",
+        "bird",
+        "earth",
+        "forest",
+        "mountain"
+      ],
+      "ij_domains": {
+        "animals": 1
+      },
+      "tightness": 0.0
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 51,
+      "bit_r": 66,
+      "label_i": "old",
+      "label_j": "enemy",
+      "label_r": "grief",
+      "p_r_given_ij": 1.0,
+      "strength": 0.6,
+      "ij_concepts": [
+        "bird",
+        "soldier",
+        "teacher"
+      ],
+      "r_concepts": [
+        "anger",
+        "bird",
+        "dog",
+        "eagle",
+        "earth"
+      ],
+      "ij_domains": {
+        "social": 2,
+        "animals": 1
+      },
+      "tightness": 0.65576171875
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 50,
+      "bit_r": 53,
+      "label_i": "slow",
+      "label_j": "father",
+      "label_r": "father",
+      "p_r_given_ij": 1.0,
+      "strength": 0.571,
+      "ij_concepts": [
+        "father",
+        "light",
+        "soldier"
+      ],
+      "r_concepts": [
+        "cat",
+        "doctor",
+        "father",
+        "light",
+        "reason"
+      ],
+      "ij_domains": {
+        "social": 2,
+        "properties": 1
+      },
+      "tightness": 0.642578125
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 80,
+      "bit_r": 75,
+      "label_i": "big",
+      "label_j": "wisdom",
+      "label_r": "shame",
+      "p_r_given_ij": 1.0,
+      "strength": 0.533,
+      "ij_concepts": [
+        "bear",
+        "hot",
+        "new"
+      ],
+      "r_concepts": [
+        "anger",
+        "bear",
+        "eagle",
+        "fear",
+        "grief"
+      ],
+      "ij_domains": {
+        "properties": 2,
+        "animals": 1
+      },
+      "tightness": 0.63818359375
+    },
+    {
+      "bit_i": 69,
+      "bit_j": 80,
+      "bit_r": 75,
+      "label_i": "idea",
+      "label_j": "wisdom",
+      "label_r": "shame",
+      "p_r_given_ij": 1.0,
+      "strength": 0.533,
+      "ij_concepts": [
+        "bear",
+        "hope",
+        "truth"
+      ],
+      "r_concepts": [
+        "anger",
+        "bear",
+        "eagle",
+        "fear",
+        "grief"
+      ],
+      "ij_domains": {
+        "emotions": 1,
+        "abstract": 1,
+        "animals": 1
+      },
+      "tightness": 0.640625
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 66,
+      "bit_r": 2,
+      "label_i": "slow",
+      "label_j": "grief",
+      "label_r": "teacher",
+      "p_r_given_ij": 0.75,
+      "strength": 0.528,
+      "ij_concepts": [
+        "eagle",
+        "wolf"
+      ],
+      "r_concepts": [
+        "child",
+        "doctor",
+        "dog",
+        "horse",
+        "queen"
+      ],
+      "ij_domains": {
+        "animals": 2
+      },
+      "tightness": 0.6962890625
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 35,
+      "bit_r": 53,
+      "label_i": "mother",
+      "label_j": "slow",
+      "label_r": "father",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [
+        "doctor",
+        "father",
+        "soldier"
+      ],
+      "r_concepts": [
+        "cat",
+        "doctor",
+        "father",
+        "light",
+        "reason"
+      ],
+      "ij_domains": {
+        "social": 3
+      },
+      "tightness": 0.65380859375
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 42,
+      "bit_r": 2,
+      "label_i": "mother",
+      "label_j": "snake",
+      "label_r": "teacher",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [],
+      "r_concepts": [
+        "child",
+        "doctor",
+        "dog",
+        "horse",
+        "queen"
+      ],
+      "ij_domains": {},
+      "tightness": 0.0
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 66,
+      "bit_r": 2,
+      "label_i": "mother",
+      "label_j": "grief",
+      "label_r": "teacher",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [],
+      "r_concepts": [
+        "child",
+        "doctor",
+        "dog",
+        "horse",
+        "queen"
+      ],
+      "ij_domains": {},
+      "tightness": 0.0
+    },
+    {
+      "bit_i": 16,
+      "bit_j": 87,
+      "bit_r": 86,
+      "label_i": "dog",
+      "label_j": "lion",
+      "label_r": "knowledge",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [
+        "cat",
+        "fish",
+        "lion"
+      ],
+      "r_concepts": [
+        "cat",
+        "cold",
+        "earth",
+        "fish",
+        "forest"
+      ],
+      "ij_domains": {
+        "animals": 3
+      },
+      "tightness": 0.65771484375
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 62,
+      "bit_r": 66,
+      "label_i": "old",
+      "label_j": "soldier",
+      "label_r": "grief",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [
+        "bird",
+        "earth",
+        "soldier"
+      ],
+      "r_concepts": [
+        "anger",
+        "bird",
+        "dog",
+        "eagle",
+        "earth"
+      ],
+      "ij_domains": {
+        "animals": 1,
+        "physical": 1,
+        "social": 1
+      },
+      "tightness": 0.64990234375
+    },
+    {
+      "bit_i": 86,
+      "bit_j": 87,
+      "bit_r": 16,
+      "label_i": "knowledge",
+      "label_j": "lion",
+      "label_r": "dog",
+      "p_r_given_ij": 1.0,
+      "strength": 0.5,
+      "ij_concepts": [
+        "cat",
+        "fish",
+        "lion"
+      ],
+      "r_concepts": [
+        "cat",
+        "dog",
+        "fish",
+        "forest",
+        "horse"
+      ],
+      "ij_domains": {
+        "animals": 3
+      },
+      "tightness": 0.65771484375
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 42,
+      "bit_r": 66,
+      "label_i": "mother",
+      "label_j": "snake",
+      "label_r": "grief",
+      "p_r_given_ij": 1.0,
+      "strength": 0.488,
+      "ij_concepts": [],
+      "r_concepts": [
+        "anger",
+        "bird",
+        "dog",
+        "eagle",
+        "earth"
+      ],
+      "ij_domains": {},
+      "tightness": 0.0
+    },
+    {
+      "bit_i": 48,
+      "bit_j": 80,
+      "bit_r": 86,
+      "label_i": "wisdom",
+      "label_j": "wisdom",
+      "label_r": "knowledge",
+      "p_r_given_ij": 0.8,
+      "strength": 0.467,
+      "ij_concepts": [
+        "knowledge",
+        "truth",
+        "wisdom"
+      ],
+      "r_concepts": [
+        "cat",
+        "cold",
+        "earth",
+        "fish",
+        "forest"
+      ],
+      "ij_domains": {
+        "abstract": 3
+      },
+      "tightness": 0.66796875
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 66,
+      "bit_r": 51,
+      "label_i": "old",
+      "label_j": "grief",
+      "label_r": "enemy",
+      "p_r_given_ij": 0.75,
+      "strength": 0.45,
+      "ij_concepts": [
+        "bird",
+        "earth"
+      ],
+      "r_concepts": [
+        "bear",
+        "bird",
+        "enemy",
+        "king",
+        "ocean"
+      ],
+      "ij_domains": {
+        "animals": 1,
+        "physical": 1
+      },
+      "tightness": 0.6826171875
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 66,
+      "bit_r": 62,
+      "label_i": "old",
+      "label_j": "grief",
+      "label_r": "soldier",
+      "p_r_given_ij": 0.75,
+      "strength": 0.45,
+      "ij_concepts": [
+        "bird",
+        "earth"
+      ],
+      "r_concepts": [
+        "bear",
+        "bird",
+        "cat",
+        "earth",
+        "enemy"
+      ],
+      "ij_domains": {
+        "animals": 1,
+        "physical": 1
+      },
+      "tightness": 0.6826171875
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 31,
+      "bit_r": 66,
+      "label_i": "ocean",
+      "label_j": "big",
+      "label_r": "grief",
+      "p_r_given_ij": 1.0,
+      "strength": 0.447,
+      "ij_concepts": [
+        "bird",
+        "dog",
+        "horse",
+        "sun"
+      ],
+      "r_concepts": [
+        "anger",
+        "bird",
+        "dog",
+        "eagle",
+        "earth"
+      ],
+      "ij_domains": {
+        "animals": 3,
+        "physical": 1
+      },
+      "tightness": 0.64306640625
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 66,
+      "bit_r": 78,
+      "label_i": "slow",
+      "label_j": "grief",
+      "label_r": "soldier",
+      "p_r_given_ij": 0.75,
+      "strength": 0.417,
+      "ij_concepts": [
+        "eagle",
+        "wolf"
+      ],
+      "r_concepts": [
+        "doctor",
+        "enemy",
+        "fire",
+        "moon",
+        "soldier"
+      ],
+      "ij_domains": {
+        "animals": 2
+      },
+      "tightness": 0.6962890625
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 62,
+      "bit_r": 69,
+      "label_i": "big",
+      "label_j": "soldier",
+      "label_r": "idea",
+      "p_r_given_ij": 1.0,
+      "strength": 0.417,
+      "ij_concepts": [
+        "bear",
+        "bird",
+        "cat"
+      ],
+      "r_concepts": [
+        "bear",
+        "bird",
+        "cat",
+        "earth",
+        "hope"
+      ],
+      "ij_domains": {
+        "animals": 3
+      },
+      "tightness": 0.6591796875
+    }
+  ],
+  "summary": {
+    "n_semantic_duals": 33,
+    "n_total_duals": 34,
+    "hierarchy_decreasing": false,
+    "n_triadic_analyzed": 20
+  }
+}

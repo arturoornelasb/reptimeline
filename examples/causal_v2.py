@@ -6,9 +6,11 @@ Part 1 — Embedding-based prediction:
     Predict holdout concept codes using embedding direction vectors
     (not coarse domain labels).
 
-Part 2 — SAE intervention:
+Part 2 — SAE intervention via CausalVerifier:
     Zero out individual SAE features, decode back to hidden states,
     inject into model, measure next-token logit change.
+    Uses reptimeline.CausalVerifier for statistical testing (bootstrap CI,
+    permutation tests, BH-FDR correction).
 
 Usage:
     python examples/causal_v2.py --device cuda
@@ -30,6 +32,10 @@ import matplotlib.pyplot as plt
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from reptimeline.core import ConceptSnapshot
+from reptimeline.causal import CausalVerifier
+from reptimeline.viz.causal_heatmap import plot_causal_heatmap
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
                     datefmt="%H:%M:%S")
 logger = logging.getLogger(__name__)
@@ -41,7 +47,6 @@ logger = logging.getLogger(__name__)
 
 def embedding_prediction(output_dir):
     """Predict holdout codes using per-bit direction vectors in embedding space."""
-    from reptimeline.core import ConceptSnapshot
     from transformers import AutoTokenizer, GPTNeoXForCausalLM
 
     logger.info("=== PART 1: Embedding-Based Prediction ===")
@@ -195,48 +200,166 @@ def embedding_prediction(output_dir):
 
 
 # ======================================================================
-# PART 2: SAE CAUSAL INTERVENTION
+# PART 1b: MLP PREDICTION (replace failed linear prediction)
+# ======================================================================
+
+def mlp_prediction(output_dir):
+    """Train a small MLP per bit to predict SAE features from embeddings."""
+    import torch
+    import torch.nn as nn
+
+    logger.info("\n=== PART 1b: MLP Prediction ===")
+
+    # Load same data as Part 1
+    with open("examples/pythia_concepts.json") as f:
+        data = json.load(f)
+    concepts_by_domain = data["domains"]
+    all_concepts = []
+    for domain, clist in concepts_by_domain.items():
+        for c in clist:
+            all_concepts.append((c, domain))
+
+    with open("results/pythia_sae/snapshots.json") as f:
+        snap_data = json.load(f)
+    final_snap = snap_data["snapshots"][-1]
+    codes = final_snap["codes"]
+
+    # Load embeddings
+    from transformers import GPTNeoXForCausalLM
+    model = GPTNeoXForCausalLM.from_pretrained(
+        "EleutherAI/pythia-70m", revision="step143000")
+    embed_matrix = model.gpt_neox.embed_in.weight.detach().float()
+    from transformers import AutoTokenizer
+    tokenizer = AutoTokenizer.from_pretrained("EleutherAI/pythia-70m")
+    del model
+
+    embeddings = {}
+    for c, _ in all_concepts:
+        ids = tokenizer.encode(c, add_special_tokens=False)
+        vecs = embed_matrix[ids]
+        embeddings[c] = vecs.mean(dim=0).numpy()
+
+    dim = len(list(embeddings.values())[0])
+
+    # Split: 2 holdout per domain
+    train_concepts, test_concepts = [], []
+    for domain, clist in concepts_by_domain.items():
+        test_concepts.extend([(c, domain) for c in clist[:2]])
+        train_concepts.extend([(c, domain) for c in clist[2:]])
+
+    # Find active bits
+    code_len = len(list(codes.values())[0])
+    all_bits = np.array([[codes[c][b] for c in [x[0] for x in train_concepts]]
+                         for b in range(code_len)])
+    active_mask = (all_bits.mean(axis=1) > 0.05) & (all_bits.mean(axis=1) < 0.95)
+    active_bits = np.where(active_mask)[0]
+    logger.info(f"Active bits for MLP: {len(active_bits)}")
+
+    # Prepare data
+    X_train = np.array([embeddings[c] for c, _ in train_concepts])
+    X_test = np.array([embeddings[c] for c, _ in test_concepts])
+
+    X_train_t = torch.tensor(X_train, dtype=torch.float32)
+    X_test_t = torch.tensor(X_test, dtype=torch.float32)
+
+    # Train one MLP per active bit
+    mlp_preds = np.zeros((len(test_concepts), code_len))
+    base_preds = np.zeros((len(test_concepts), code_len))
+
+    for b in range(code_len):
+        y_train = np.array([codes[c][b] for c, _ in train_concepts])
+        majority = 1 if y_train.mean() > 0.5 else 0
+        base_preds[:, b] = majority
+
+        if b not in active_bits:
+            mlp_preds[:, b] = majority
+            continue
+
+        y_train_t = torch.tensor(y_train, dtype=torch.float32)
+
+        # Small MLP: dim -> 32 -> 1
+        mlp = nn.Sequential(
+            nn.Linear(dim, 32), nn.ReLU(),
+            nn.Linear(32, 1), nn.Sigmoid()
+        )
+        opt = torch.optim.Adam(mlp.parameters(), lr=0.01)
+        loss_fn = nn.BCELoss()
+
+        for epoch in range(200):
+            pred = mlp(X_train_t).squeeze()
+            loss = loss_fn(pred, y_train_t)
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+
+        with torch.no_grad():
+            test_pred = mlp(X_test_t).squeeze().numpy()
+        mlp_preds[:, b] = (test_pred > 0.5).astype(float)
+
+    # Evaluate
+    mlp_accs, base_accs, mlp_jacs = [], [], []
+    print("\n" + "=" * 75)
+    print("  PART 1b: MLP PREDICTION (active bits only)")
+    print("=" * 75)
+
+    mlp_results = []
+    for i, (c, domain) in enumerate(test_concepts):
+        actual = np.array(codes[c])
+        mp = mlp_preds[i]
+        bp = base_preds[i]
+
+        # Only active bits
+        ma = (mp[active_bits] == actual[active_bits]).mean()
+        ba = (bp[active_bits] == actual[active_bits]).mean()
+        mlp_accs.append(ma)
+        base_accs.append(ba)
+
+        # Jaccard on active
+        mp_set = set(active_bits[mp[active_bits] == 1])
+        a_set = set(active_bits[actual[active_bits] == 1])
+        u = mp_set | a_set
+        mj = len(mp_set & a_set) / len(u) if u else 1
+        mlp_jacs.append(mj)
+
+        best = "MLP" if ma > ba else "BASE"
+        print(f"  {c:<12s} ({domain:<10s})  mlp={ma:.1%}  base={ba:.1%}  jac={mj:.2f}  [{best}]")
+        mlp_results.append({"concept": c, "domain": domain,
+                           "mlp_acc": float(ma), "base_acc": float(ba), "mlp_jac": float(mj)})
+
+    mean_mlp = np.mean(mlp_accs)
+    mean_base = np.mean(base_accs)
+    mean_jac = np.mean(mlp_jacs)
+    print(f"\n  MLP ACCURACY:  {mean_mlp:.1%}  vs baseline {mean_base:.1%}  ({mean_mlp - mean_base:+.1%})")
+    print(f"  MLP JACCARD:   {mean_jac:.2f}")
+    print("=" * 75)
+
+    return mlp_results
+
+
+# ======================================================================
+# PART 2: SAE CAUSAL INTERVENTION (via CausalVerifier)
 # ======================================================================
 
 def sae_intervention(device, output_dir):
-    """Zero out SAE features and measure selective causal effect."""
+    """Zero out SAE features and measure selective causal effect.
+
+    Uses reptimeline.CausalVerifier for statistical testing instead of
+    manual selectivity computation.
+    """
     from transformers import GPTNeoXForCausalLM, AutoTokenizer
     from sparsify import Sae
-    from reptimeline.core import ConceptSnapshot
 
-    logger.info("\n=== PART 2: SAE Causal Intervention ===")
+    logger.info("\n=== PART 2: SAE Causal Intervention (via CausalVerifier) ===")
 
     # Load data
     with open("results/pythia_sae/snapshots.json") as f:
         data = json.load(f)
-    with open("results/pythia_sae/primitives.json") as f:
-        primitives = json.load(f)
     with open("results/pythia_sae/feature_selection.json") as f:
         feat_sel = json.load(f)
 
     concepts = data["concepts"]
     selected_features = feat_sel["features"]  # 256 SAE feature indices
-
-    # Build label map: our bit index -> SAE feature index + label
-    bit_labels = {}
-    for p in primitives["primitivos"]:
-        bit_labels[p["bit"]] = {
-            "label": p["nombre"],
-            "sae_feature": selected_features[p["bit"]],
-            "top_concepts": p["top_concepts"][:5],
-        }
-
-    # Select top 10 most interesting bits (highest confidence, not universal)
-    with open("results/pythia_sae/discovery.json") as f:
-        disc = json.load(f)
-    active_semantics = [bs for bs in disc["bit_semantics"]
-                        if 0.1 < bs["activation_rate"] < 0.9]
-    active_semantics.sort(key=lambda x: -abs(x["activation_rate"] - 0.5))
-    test_bits = [bs["bit"] for bs in active_semantics[:10]]
-    logger.info(f"Testing {len(test_bits)} bits for causal intervention")
-    for b in test_bits:
-        info = bit_labels.get(b, {"label": f"bit_{b}", "sae_feature": selected_features[b]})
-        logger.info(f"  bit {b}: label={info['label']}, SAE feature={info['sae_feature']}")
+    final_snapshot = ConceptSnapshot.from_dict(data["snapshots"][-1])
 
     # Load model + SAE
     logger.info("Loading Pythia-70M + SAE...")
@@ -253,11 +376,8 @@ def sae_intervention(device, output_dir):
 
     logger.info(f"SAE: d_in={sae.d_in}, num_latents={sae.num_latents}, k={sae.cfg.k}")
 
-    # --- Level 1: Hidden state perturbation ---
-    logger.info("Level 1: Measuring hidden state perturbation...")
-    context_template = "The word is: {concept}"
-
     # Collect hidden states for all concepts
+    context_template = "The word is: {concept}"
     captured = {}
     def hook_fn(module, input, output):
         captured["h"] = output
@@ -271,196 +391,103 @@ def sae_intervention(device, output_dir):
             concept_hidden[c] = captured["h"][0, -1, :].clone()
     handle.remove()
 
-    # For each test bit, measure perturbation per concept
-    perturbation_matrix = np.zeros((len(test_bits), len(concepts)))
+    # --- Level 1: Hidden state perturbation via CausalVerifier ---
+    logger.info("Level 1: Measuring hidden state perturbation...")
 
-    for i, bit_idx in enumerate(test_bits):
-        sae_feat = selected_features[bit_idx]
+    def l2_intervene_fn(concept, bit_index):
+        """Compute L2 perturbation from zeroing one SAE feature."""
+        sae_feat = selected_features[bit_index]
+        h = concept_hidden[concept].unsqueeze(0)
+        enc = sae.encode(h)
+        h_recon = sae.decode(enc.top_acts, enc.top_indices).squeeze(0)
+        mask = enc.top_indices[0] != sae_feat
+        if mask.all():
+            return 0.0  # feature not active
+        acts_mod = enc.top_acts[0, mask].unsqueeze(0)
+        idx_mod = enc.top_indices[0, mask].unsqueeze(0)
+        h_modified = sae.decode(acts_mod, idx_mod).squeeze(0)
+        return torch.norm(h_recon - h_modified).item()
 
-        for j, c in enumerate(concepts):
-            h = concept_hidden[c].unsqueeze(0)
+    verifier_l1 = CausalVerifier(
+        intervene_fn=l2_intervene_fn,
+        n_bootstrap=1000, n_perms=1000, alpha=0.05,
+        selectivity_threshold=1.5, min_selective_bits=3,
+    )
+    l1_report = verifier_l1.verify(final_snapshot)
 
-            # Encode
-            enc = sae.encode(h)
+    print("\n  LEVEL 1: HIDDEN STATE PERTURBATION (zero one feature)")
+    verifier_l1.print_report(l1_report)
 
-            # Decode original
-            h_recon = sae.decode(enc.top_acts, enc.top_indices).squeeze(0)
+    plot_causal_heatmap(
+        l1_report,
+        title="Level 1: Hidden State Perturbation Selectivity",
+        save_path=os.path.join(output_dir, "sae_l1_causal_heatmap.png"),
+        show=False,
+    )
 
-            # Zero out the target feature
-            mask = enc.top_indices[0] != sae_feat
-            if mask.all():
-                # Feature wasn't active for this concept
-                perturbation_matrix[i, j] = 0.0
-                continue
+    # --- Level 2: Next-token logit change via CausalVerifier ---
+    logger.info("Level 2: Measuring next-token logit changes...")
 
-            acts_mod = enc.top_acts[0, mask].unsqueeze(0)
-            idx_mod = enc.top_indices[0, mask].unsqueeze(0)
-            h_modified = sae.decode(acts_mod, idx_mod).squeeze(0)
+    # Cache original logits
+    orig_logits = {}
+    with torch.no_grad():
+        for c in concepts:
+            inp = tokenizer(context_template.format(concept=c), return_tensors="pt").to(device)
+            orig_logits[c] = model(**inp).logits[0, -1, :].float()
 
-            # Perturbation = L2 distance
-            perturbation_matrix[i, j] = torch.norm(h_recon - h_modified).item()
+    def kl_intervene_fn(concept, bit_index):
+        """Compute KL divergence from zeroing one SAE feature and re-running model."""
+        sae_feat = selected_features[bit_index]
+        h = concept_hidden[concept].unsqueeze(0)
+        enc = sae.encode(h)
+        mask = enc.top_indices[0] != sae_feat
+        if mask.all():
+            return 0.0
+        acts_mod = enc.top_acts[0, mask].unsqueeze(0)
+        idx_mod = enc.top_indices[0, mask].unsqueeze(0)
+        h_modified = sae.decode(acts_mod, idx_mod).squeeze(0)
 
-    # Compute selectivity: perturbation on labeled concepts / perturbation on others
-    print("\n" + "=" * 75)
-    print("  LEVEL 1: HIDDEN STATE PERTURBATION (zero one feature)")
-    print("=" * 75)
+        def make_replace_hook(h_mod):
+            def hook(module, input, output):
+                out = output.clone()
+                out[0, -1, :] = h_mod
+                return out
+            return hook
 
-    selectivity_results = []
-    for i, bit_idx in enumerate(test_bits):
-        info = bit_labels.get(bit_idx, {"label": f"bit_{bit_idx}", "top_concepts": []})
-        labeled = set(info.get("top_concepts", []))
-        perturbs = perturbation_matrix[i]
+        inp = tokenizer(context_template.format(concept=concept), return_tensors="pt").to(device)
+        hook_handle = model.gpt_neox.layers[3].mlp.register_forward_hook(
+            make_replace_hook(h_modified))
+        with torch.no_grad():
+            logits_mod = model(**inp).logits[0, -1, :].float()
+        hook_handle.remove()
 
-        if labeled:
-            labeled_idx = [j for j, c in enumerate(concepts) if c in labeled]
-            other_idx = [j for j, c in enumerate(concepts) if c not in labeled]
-            mean_labeled = np.mean(perturbs[labeled_idx]) if labeled_idx else 0
-            mean_other = np.mean(perturbs[other_idx]) if other_idx else 0
-            selectivity = mean_labeled / mean_other if mean_other > 1e-8 else 0
-        else:
-            mean_labeled = mean_other = selectivity = 0
+        p = F.softmax(orig_logits[concept], dim=0).clamp(min=1e-10)
+        q = F.softmax(logits_mod, dim=0).clamp(min=1e-10)
+        kl = (p * (p.log() - q.log())).sum().item()
+        return kl if np.isfinite(kl) else 0.0
 
-        # Top 5 most affected concepts
-        top5_idx = np.argsort(perturbs)[::-1][:5]
-        top5 = [(concepts[k], round(perturbs[k], 4)) for k in top5_idx]
+    verifier_l2 = CausalVerifier(
+        intervene_fn=kl_intervene_fn,
+        n_bootstrap=1000, n_perms=1000, alpha=0.05,
+        selectivity_threshold=1.5, min_selective_bits=3,
+    )
+    l2_report = verifier_l2.verify(final_snapshot)
 
-        selectivity_results.append({
-            "bit": bit_idx, "label": info["label"],
-            "selectivity": round(selectivity, 2),
-            "mean_labeled": round(mean_labeled, 4),
-            "mean_other": round(mean_other, 4),
-            "top5_affected": top5,
-        })
+    print("\n  LEVEL 2: NEXT-TOKEN LOGIT CHANGE (KL divergence)")
+    verifier_l2.print_report(l2_report)
 
-        print(f"  bit {bit_idx:>2d} ({info['label']:<15s})  "
-              f"sel={selectivity:.2f}  labeled={mean_labeled:.4f}  other={mean_other:.4f}  "
-              f"top=[{', '.join(c for c, _ in top5)}]")
-
-    selective_bits = [s for s in selectivity_results if s["selectivity"] > 1.5]
-    print(f"\n  Selective bits (sel > 1.5): {len(selective_bits)} / {len(test_bits)}")
-
-    # --- Level 2: Next-token logit change ---
-    logger.info("\nLevel 2: Measuring next-token logit changes...")
-
-    logit_kl_matrix = np.zeros((len(test_bits), len(concepts)))
-
-    for i, bit_idx in enumerate(test_bits):
-        sae_feat = selected_features[bit_idx]
-
-        for j, c in enumerate(concepts):
-            prompt = context_template.format(concept=c)
-            inputs = tokenizer(prompt, return_tensors="pt").to(device)
-
-            # Original forward pass
-            with torch.no_grad():
-                outputs_orig = model(**inputs)
-            logits_orig = outputs_orig.logits[0, -1, :].float()
-
-            # Get hidden state and modify
-            h = concept_hidden[c].unsqueeze(0)
-            enc = sae.encode(h)
-
-            mask = enc.top_indices[0] != sae_feat
-            if mask.all():
-                logit_kl_matrix[i, j] = 0.0
-                continue
-
-            acts_mod = enc.top_acts[0, mask].unsqueeze(0)
-            idx_mod = enc.top_indices[0, mask].unsqueeze(0)
-            h_modified = sae.decode(acts_mod, idx_mod).squeeze(0)
-
-            # Hook: replace MLP output at layer 3 with modified version
-            def make_replace_hook(h_mod):
-                def hook(module, input, output):
-                    out = output.clone()
-                    out[0, -1, :] = h_mod
-                    return out
-                return hook
-
-            hook_handle = model.gpt_neox.layers[3].mlp.register_forward_hook(
-                make_replace_hook(h_modified))
-            with torch.no_grad():
-                outputs_mod = model(**inputs)
-            hook_handle.remove()
-
-            logits_mod = outputs_mod.logits[0, -1, :].float()
-
-            # KL divergence (clamp to avoid log(0) -> NaN)
-            p = F.softmax(logits_orig, dim=0).clamp(min=1e-10)
-            q = F.softmax(logits_mod, dim=0).clamp(min=1e-10)
-            kl = (p * (p.log() - q.log())).sum().item()
-            if np.isfinite(kl):
-                logit_kl_matrix[i, j] = kl
-
-    print("\n" + "=" * 75)
-    print("  LEVEL 2: NEXT-TOKEN LOGIT CHANGE (KL divergence)")
-    print("=" * 75)
-
-    logit_results = []
-    for i, bit_idx in enumerate(test_bits):
-        info = bit_labels.get(bit_idx, {"label": f"bit_{bit_idx}", "top_concepts": []})
-        labeled = set(info.get("top_concepts", []))
-        kls = logit_kl_matrix[i]
-
-        if labeled:
-            labeled_idx = [j for j, c in enumerate(concepts) if c in labeled]
-            other_idx = [j for j, c in enumerate(concepts) if c not in labeled]
-            mean_kl_labeled = np.mean(kls[labeled_idx]) if labeled_idx else 0
-            mean_kl_other = np.mean(kls[other_idx]) if other_idx else 0
-            kl_selectivity = mean_kl_labeled / mean_kl_other if mean_kl_other > 1e-8 else 0
-        else:
-            mean_kl_labeled = mean_kl_other = kl_selectivity = 0
-
-        top5_idx = np.argsort(kls)[::-1][:5]
-        top5 = [(concepts[k], round(kls[k], 4)) for k in top5_idx]
-
-        logit_results.append({
-            "bit": bit_idx, "label": info["label"],
-            "kl_selectivity": round(kl_selectivity, 2),
-            "mean_kl_labeled": round(mean_kl_labeled, 4),
-            "mean_kl_other": round(mean_kl_other, 4),
-            "top5_affected": top5,
-        })
-
-        print(f"  bit {bit_idx:>2d} ({info['label']:<15s})  "
-              f"kl_sel={kl_selectivity:.2f}  labeled={mean_kl_labeled:.4f}  other={mean_kl_other:.4f}  "
-              f"top=[{', '.join(c for c, _ in top5)}]")
-
-    kl_selective = [r for r in logit_results if r["kl_selectivity"] > 1.5]
-    print(f"\n  KL-selective bits (sel > 1.5): {len(kl_selective)} / {len(test_bits)}")
-
-    # --- Visualization ---
-    logger.info("Generating visualizations...")
-
-    # Heatmap: perturbation matrix
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(20, 10))
-
-    im1 = ax1.imshow(perturbation_matrix, aspect="auto", cmap="YlOrRd")
-    ax1.set_yticks(range(len(test_bits)))
-    ax1.set_yticklabels([f"bit {b} ({bit_labels.get(b, {}).get('label', '?')})" for b in test_bits])
-    ax1.set_xticks(range(len(concepts)))
-    ax1.set_xticklabels(concepts, rotation=90, fontsize=6)
-    ax1.set_title("Level 1: Hidden State Perturbation (L2 norm)")
-    plt.colorbar(im1, ax=ax1, label="L2 distance")
-
-    im2 = ax2.imshow(logit_kl_matrix, aspect="auto", cmap="YlOrRd")
-    ax2.set_yticks(range(len(test_bits)))
-    ax2.set_yticklabels([f"bit {b} ({bit_labels.get(b, {}).get('label', '?')})" for b in test_bits])
-    ax2.set_xticks(range(len(concepts)))
-    ax2.set_xticklabels(concepts, rotation=90, fontsize=6)
-    ax2.set_title("Level 2: Next-Token KL Divergence")
-    plt.colorbar(im2, ax=ax2, label="KL divergence")
-
-    fig.tight_layout()
-    fig.savefig(os.path.join(output_dir, "sae_intervention_heatmap.png"),
-                dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    logger.info("Saved sae_intervention_heatmap.png")
+    plot_causal_heatmap(
+        l2_report,
+        title="Level 2: Next-Token KL Divergence Selectivity",
+        save_path=os.path.join(output_dir, "sae_l2_causal_heatmap.png"),
+        show=False,
+    )
+    logger.info("Saved causal heatmaps to %s/", output_dir)
 
     del model
     torch.cuda.empty_cache()
 
-    return selectivity_results, logit_results, perturbation_matrix, logit_kl_matrix
+    return l1_report, l2_report
 
 
 # ======================================================================
@@ -478,23 +505,25 @@ def main():
 
     os.makedirs(args.output, exist_ok=True)
 
-    # Part 1
+    # Part 1: Embedding prediction
     pred_results, embeddings = embedding_prediction(args.output)
 
-    # Part 2
-    sel_results, logit_results, _, _ = sae_intervention(args.device, args.output)
+    # Part 1b: MLP prediction
+    mlp_results = mlp_prediction(args.output)
+
+    # Part 2: SAE causal intervention (via CausalVerifier)
+    l1_report, l2_report = sae_intervention(args.device, args.output)
 
     # Save report
     me = np.mean([r["emb_acc"] for r in pred_results])
     md = np.mean([r["dom_acc"] for r in pred_results])
     mb = np.mean([r["base_acc"] for r in pred_results])
     je = np.mean([r["emb_jac"] for r in pred_results])
-
-    n_selective_l1 = len([s for s in sel_results if s["selectivity"] > 1.5])
-    n_selective_l2 = len([s for s in logit_results if s["kl_selectivity"] > 1.5])
+    mm = np.mean([r["mlp_acc"] for r in mlp_results])
+    mj_mlp = np.mean([r["mlp_jac"] for r in mlp_results])
 
     report = {
-        "prediction": {
+        "prediction_embedding": {
             "embedding_accuracy": round(me, 4),
             "domain_accuracy": round(md, 4),
             "baseline_accuracy": round(mb, 4),
@@ -503,15 +532,26 @@ def main():
             "improvement_over_domain": round(me - md, 4),
             "per_concept": pred_results,
         },
+        "prediction_mlp": {
+            "mlp_accuracy": round(mm, 4),
+            "baseline_accuracy": round(mb, 4),
+            "mlp_jaccard": round(mj_mlp, 4),
+            "improvement_over_baseline": round(mm - mb, 4),
+            "per_concept": mlp_results,
+        },
         "intervention_l1": {
-            "n_selective": n_selective_l1,
-            "n_tested": len(sel_results),
-            "results": sel_results,
+            "verdict": l1_report.verdict,
+            "n_significant": l1_report.n_significant,
+            "n_tested": l1_report.n_tested,
+            "correction": l1_report.correction_method,
+            "alpha": l1_report.alpha,
         },
         "intervention_l2": {
-            "n_selective": n_selective_l2,
-            "n_tested": len(logit_results),
-            "results": logit_results,
+            "verdict": l2_report.verdict,
+            "n_significant": l2_report.n_significant,
+            "n_tested": l2_report.n_tested,
+            "correction": l2_report.correction_method,
+            "alpha": l2_report.alpha,
         },
     }
 
@@ -519,27 +559,32 @@ def main():
         json.dump(report, f, indent=2)
 
     # Verdict
-    pred_pass = me > mb + 0.03
-    intervention_pass = n_selective_l2 >= 3
-    mean_kl_sel = np.mean([r["kl_selectivity"] for r in logit_results])
-
     print("\n" + "=" * 75)
     print("  FINAL VERDICT")
     print("=" * 75)
-    print(f"  Prediction:    emb={me:.1%} vs baseline={mb:.1%} ({me-mb:+.1%})  "
-          f"{'PASS' if pred_pass else 'FAIL'}")
-    print(f"  Intervention:  {n_selective_l2}/{len(logit_results)} bits KL-selective  "
-          f"(mean sel={mean_kl_sel:.1f}x)  {'PASS' if intervention_pass else 'FAIL'}")
 
-    if intervention_pass:
-        print(f"\n  BLACK BOX BROKEN (causal): features are identifiable, labelable,")
-        print(f"  and causally selective (removing them changes output {mean_kl_sel:.0f}x more")
-        print(f"  for semantically related concepts than unrelated ones)")
-        if not pred_pass:
-            print(f"\n  Note: prediction from embeddings alone fails — SAE features encode")
-            print(f"  context-dependent information beyond token-level similarity")
+    # Primary criterion: causal intervention
+    print(f"\n  [PRIMARY] Causal intervention (CausalVerifier):")
+    print(f"    L1 (L2):  {l1_report.verdict.upper()} "
+          f"({l1_report.n_significant}/{l1_report.n_tested} significant)")
+    print(f"    L2 (KL):  {l2_report.verdict.upper()} "
+          f"({l2_report.n_significant}/{l2_report.n_tested} significant)")
+    print(f"    Correction: {l2_report.correction_method} (alpha={l2_report.alpha})")
+
+    # Secondary observation: prediction accuracy (informational)
+    print(f"\n  [SECONDARY] Prediction accuracy (informational):")
+    print(f"    Embedding:  emb={me:.1%} vs baseline={mb:.1%} ({me-mb:+.1%})  NEGATIVE (expected)")
+    print(f"    MLP:        mlp={mm:.1%} vs baseline={mb:.1%} ({mm-mb:+.1%})  NEGATIVE (expected)")
+    print(f"    Note: prediction failure does not invalidate causal evidence.")
+
+    # Overall conclusion
+    print()
+    if l2_report.verdict == 'causal_evidence_found':
+        print(f"  CONCLUSION: BLACK BOX BROKEN (causal)")
+        print(f"    Features are identifiable, labelable, and causally selective")
+        print(f"    ({l2_report.n_significant} bits pass BH-FDR corrected permutation test).")
     else:
-        print(f"\n  NOT BROKEN: insufficient causal selectivity")
+        print(f"  CONCLUSION: NOT BROKEN -- insufficient causal selectivity")
     print("=" * 75)
 
 

@@ -14,7 +14,7 @@ Validated on two architecturally distinct backends:
 
 | Metric | Value |
 |--------|-------|
-| Code swap causality | **100%** (any digit's code produces that digit) |
+| Decoder determinism | **100%** (decoder output fully determined by 32-bit code; n=100 swaps) |
 | Dual pairs discovered | 9 anti-correlated |
 | Phase transitions | 3 detected automatically |
 | Lifecycle tracking | 6 epochs, 10 digit classes |
@@ -23,12 +23,12 @@ Validated on two architecturally distinct backends:
 
 | Metric | Value |
 |--------|-------|
-| Causal selectivity (KL) | **10.6x mean** (up to 25.8x) |
-| Features tested | 6/6 causally selective |
+| Causal selectivity (KL) | 8 features with finite selectivity (1.96x--98.4x, mean 26.8x L2); 8 features with zero cross-activation (SAE sparsity) |
+| Features tested | **8/16** finite KL selectivity + 8 sparse-zero (see Limitations) |
 | Dual pairs discovered | 34 anti-correlated |
 | Lifecycle tracking | 12 checkpoints (step 1 to 143K) |
 
-**What "10.6x selectivity" means:** removing the "dog" SAE feature changes Pythia's next-token predictions for animal concepts 15.8x more than for abstract concepts. The features are not statistical artifacts -- they are *causally meaningful*.
+**What "26.8x selectivity" means:** for the 8 features with finite selectivity, removing a feature (zeroing its SAE activation) changes hidden-state L2 norms for labeled concepts 26.8x more than for unrelated concepts (best: 98.4x for "fast"). The other 8 features show zero cross-activation, which may reflect SAE sparsity (the feature simply never fires for non-labeled concepts) rather than proven causal selectivity. We report these groups separately. L1 ratios yield a mean of 19.5x on the same features.
 
 <p align="center">
 <img src="results/causal/sae_intervention_heatmap.png" width="800" alt="SAE causal intervention heatmap">
@@ -56,6 +56,14 @@ reptimeline answers these questions for any discrete representation system.
 | Auto-labeling (3 strategies) | **Yes** | No | Manual | Manual | No |
 | Causal intervention verification | **Yes** | No | No | No | No |
 | Backend-agnostic | **Yes** | No | SAE-only | No | LLM-only |
+
+*Note: This table compares tool categories. "VQ-VAE tools" refers to standard codebook monitoring (e.g., WandB utilization metrics). "SAE-Track" refers to SAE dashboards like Neuronpedia. Individual tools may offer partial overlapping capabilities not captured by a binary comparison.*
+
+## Limitations and Known Issues
+
+- **Prediction experiments did not improve over baseline.** Using discovered SAE features for next-token prediction produced -0.13% (embedding-based) and -4.20% (MLP-based) accuracy relative to an unmodified baseline. The causal selectivity results show features are *individually meaningful* but do not yet translate to prediction improvements.
+- **Sentinel features.** 8 of 16 tested SAE features showed zero cross-activation. This could indicate perfect selectivity or simply that those SAE features are sparse enough to never fire for non-labeled concepts. We report these separately from the 8 features with measurable finite selectivity.
+- **Statistical corrections.** Discovery of duals, dependencies, and triadic interactions now includes Bonferroni correction for multiple comparisons. Use `null_baseline()` to estimate expected false positive rates for your data dimensions.
 
 ## Installation
 
@@ -173,6 +181,11 @@ pytest tests/ -v  # 26 tests, ~0.1s
 - numpy
 - matplotlib
 - torch (optional, only for extractors that load model checkpoints)
+
+To run the examples (MNIST, Pythia SAE, causal experiments):
+```bash
+pip install -r requirements-examples.txt
+```
 
 ## License
 

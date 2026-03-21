@@ -37,12 +37,13 @@ dependencies = [
 
 [project.optional-dependencies]
 torch = ["torch>=2.0"]
+docs = ["pdoc3>=0.10"]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "ruff>=0.4",
 ]
-all = ["reptimeline[torch,dev]"]
+all = ["reptimeline[torch,dev,docs]"]
 
 [project.scripts]
 reptimeline = "reptimeline.cli:main"

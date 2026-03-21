@@ -1,0 +1,6 @@
+# Requirements for running examples (not needed for the library itself).
+# Install with: pip install -r requirements-examples.txt
+torch>=2.0
+transformers>=4.35
+torchvision>=0.15
+sparsify

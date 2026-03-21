@@ -1,0 +1,1881 @@
+{
+  "n_concepts": 60,
+  "code_dimension": 256,
+  "n_active_bits": 64,
+  "n_dead_bits": 192,
+  "n_duals": 34,
+  "n_deps": 227,
+  "n_triadic": 74,
+  "n_hierarchy": 256,
+  "duals": [
+    {
+      "bit_a": 4,
+      "bit_b": 55,
+      "corr": -0.694808333779651
+    },
+    {
+      "bit_a": 9,
+      "bit_b": 55,
+      "corr": -0.6446583712203046
+    },
+    {
+      "bit_a": 54,
+      "bit_b": 61,
+      "corr": -0.567480306535024
+    },
+    {
+      "bit_a": 6,
+      "bit_b": 54,
+      "corr": -0.5674803065350239
+    },
+    {
+      "bit_a": 55,
+      "bit_b": 71,
+      "corr": -0.4871223004474543
+    },
+    {
+      "bit_a": 33,
+      "bit_b": 36,
+      "corr": -0.48712230044745414
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 65,
+      "corr": -0.48712230044745375
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 76,
+      "corr": -0.48712230044745347
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 54,
+      "corr": -0.45883146774112343
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 82,
+      "corr": -0.40291148201268995
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 38,
+      "corr": -0.3734080224074694
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 35,
+      "corr": -0.3594253787238926
+    },
+    {
+      "bit_a": 7,
+      "bit_b": 55,
+      "corr": -0.35634832254989934
+    },
+    {
+      "bit_a": 31,
+      "bit_b": 48,
+      "corr": -0.3380617018914067
+    },
+    {
+      "bit_a": 14,
+      "bit_b": 26,
+      "corr": -0.3370065388122553
+    },
+    {
+      "bit_a": 5,
+      "bit_b": 28,
+      "corr": -0.33660138533707523
+    },
+    {
+      "bit_a": 28,
+      "bit_b": 57,
+      "corr": -0.33660138533707473
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 47,
+      "corr": -0.3319544925383384
+    },
+    {
+      "bit_a": 2,
+      "bit_b": 48,
+      "corr": -0.331496772065898
+    },
+    {
+      "bit_a": 26,
+      "bit_b": 69,
+      "corr": -0.32676070742611873
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 78,
+      "corr": -0.32280008313750147
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 39,
+      "corr": -0.3225895835405529
+    },
+    {
+      "bit_a": 32,
+      "bit_b": 55,
+      "corr": -0.3225895835405528
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 43,
+      "corr": -0.3225895835405528
+    },
+    {
+      "bit_a": 36,
+      "bit_b": 70,
+      "corr": -0.3225895835405528
+    },
+    {
+      "bit_a": 55,
+      "bit_b": 72,
+      "corr": -0.3225895835405527
+    },
+    {
+      "bit_a": 50,
+      "bit_b": 55,
+      "corr": -0.3191367833459585
+    },
+    {
+      "bit_a": 29,
+      "bit_b": 63,
+      "corr": -0.3117349569515423
+    },
+    {
+      "bit_a": 1,
+      "bit_b": 62,
+      "corr": -0.31127150873973347
+    },
+    {
+      "bit_a": 6,
+      "bit_b": 38,
+      "corr": -0.30991159665316337
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 61,
+      "corr": -0.30991159665316337
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 67,
+      "corr": -0.30991159665316337
+    },
+    {
+      "bit_a": 33,
+      "bit_b": 38,
+      "corr": -0.30991159665316276
+    },
+    {
+      "bit_a": 38,
+      "bit_b": 58,
+      "corr": -0.3099115966531624
+    }
+  ],
+  "deps": [
+    {
+      "parent": 23,
+      "child": 0,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 0,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 1,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 2,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 2,
+      "confidence": 1.0
+    },
+    {
+      "parent": 42,
+      "child": 2,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 2,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 3,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 3,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 3,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 3,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 3,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 7,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 7,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 7,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 8,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 9,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 9,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 9,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 11,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 11,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 11,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 42,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 63,
+      "child": 14,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 15,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 15,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 15,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 15,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 15,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 16,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 16,
+      "confidence": 1.0
+    },
+    {
+      "parent": 1,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 26,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 42,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 74,
+      "child": 19,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 22,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 22,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 24,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 24,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 24,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 24,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 24,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 26,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 27,
+      "confidence": 1.0
+    },
+    {
+      "parent": 48,
+      "child": 27,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 27,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 27,
+      "confidence": 1.0
+    },
+    {
+      "parent": 60,
+      "child": 27,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 28,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 26,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 28,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 29,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 31,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 31,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 35,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 35,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 36,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 38,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 41,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 41,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 41,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 42,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 45,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 45,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 45,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 45,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 26,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 28,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 74,
+      "child": 46,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 28,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 31,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 74,
+      "child": 47,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 48,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 48,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 50,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 50,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 50,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 51,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 51,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 51,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 53,
+      "confidence": 1.0
+    },
+    {
+      "parent": 28,
+      "child": 53,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 53,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 53,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 54,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 55,
+      "confidence": 1.0
+    },
+    {
+      "parent": 1,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 74,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 75,
+      "child": 56,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 60,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 62,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 62,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 62,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 63,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 63,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 74,
+      "child": 64,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 66,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 68,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 68,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 68,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 68,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 69,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 69,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 69,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 74,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 75,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 75,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 78,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 78,
+      "confidence": 1.0
+    },
+    {
+      "parent": 42,
+      "child": 78,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 78,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 80,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 80,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 28,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 82,
+      "confidence": 1.0
+    },
+    {
+      "parent": 1,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 83,
+      "confidence": 1.0
+    },
+    {
+      "parent": 8,
+      "child": 85,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 85,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 85,
+      "confidence": 1.0
+    },
+    {
+      "parent": 42,
+      "child": 85,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 85,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 86,
+      "confidence": 1.0
+    },
+    {
+      "parent": 36,
+      "child": 86,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 86,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 86,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 86,
+      "confidence": 1.0
+    },
+    {
+      "parent": 23,
+      "child": 87,
+      "confidence": 1.0
+    },
+    {
+      "parent": 38,
+      "child": 87,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 87,
+      "confidence": 1.0
+    },
+    {
+      "parent": 55,
+      "child": 87,
+      "confidence": 1.0
+    },
+    {
+      "parent": 54,
+      "child": 38,
+      "confidence": 0.9803921568627451
+    },
+    {
+      "parent": 54,
+      "child": 1,
+      "confidence": 0.9736842105263158
+    },
+    {
+      "parent": 55,
+      "child": 1,
+      "confidence": 0.9736842105263158
+    },
+    {
+      "parent": 54,
+      "child": 66,
+      "confidence": 0.9629629629629629
+    },
+    {
+      "parent": 55,
+      "child": 66,
+      "confidence": 0.9629629629629629
+    },
+    {
+      "parent": 38,
+      "child": 48,
+      "confidence": 0.96
+    },
+    {
+      "parent": 54,
+      "child": 48,
+      "confidence": 0.96
+    },
+    {
+      "parent": 36,
+      "child": 42,
+      "confidence": 0.9534883720930233
+    },
+    {
+      "parent": 55,
+      "child": 74,
+      "confidence": 0.9534883720930233
+    },
+    {
+      "parent": 54,
+      "child": 8,
+      "confidence": 0.95
+    },
+    {
+      "parent": 55,
+      "child": 8,
+      "confidence": 0.95
+    },
+    {
+      "parent": 54,
+      "child": 23,
+      "confidence": 0.95
+    },
+    {
+      "parent": 54,
+      "child": 36,
+      "confidence": 0.9464285714285714
+    },
+    {
+      "parent": 54,
+      "child": 55,
+      "confidence": 0.9464285714285714
+    },
+    {
+      "parent": 36,
+      "child": 38,
+      "confidence": 0.9411764705882353
+    },
+    {
+      "parent": 55,
+      "child": 38,
+      "confidence": 0.9411764705882353
+    },
+    {
+      "parent": 36,
+      "child": 63,
+      "confidence": 0.9354838709677419
+    },
+    {
+      "parent": 54,
+      "child": 28,
+      "confidence": 0.9347826086956522
+    },
+    {
+      "parent": 36,
+      "child": 23,
+      "confidence": 0.9333333333333333
+    },
+    {
+      "parent": 55,
+      "child": 23,
+      "confidence": 0.9333333333333333
+    },
+    {
+      "parent": 54,
+      "child": 35,
+      "confidence": 0.9333333333333333
+    },
+    {
+      "parent": 54,
+      "child": 80,
+      "confidence": 0.9333333333333333
+    },
+    {
+      "parent": 54,
+      "child": 42,
+      "confidence": 0.9302325581395349
+    },
+    {
+      "parent": 55,
+      "child": 42,
+      "confidence": 0.9302325581395349
+    },
+    {
+      "parent": 36,
+      "child": 74,
+      "confidence": 0.9302325581395349
+    },
+    {
+      "parent": 54,
+      "child": 74,
+      "confidence": 0.9302325581395349
+    },
+    {
+      "parent": 36,
+      "child": 54,
+      "confidence": 0.9298245614035088
+    },
+    {
+      "parent": 55,
+      "child": 54,
+      "confidence": 0.9298245614035088
+    },
+    {
+      "parent": 55,
+      "child": 36,
+      "confidence": 0.9285714285714286
+    },
+    {
+      "parent": 36,
+      "child": 55,
+      "confidence": 0.9285714285714286
+    },
+    {
+      "parent": 54,
+      "child": 26,
+      "confidence": 0.926829268292683
+    },
+    {
+      "parent": 55,
+      "child": 26,
+      "confidence": 0.926829268292683
+    },
+    {
+      "parent": 36,
+      "child": 8,
+      "confidence": 0.925
+    },
+    {
+      "parent": 36,
+      "child": 0,
+      "confidence": 0.9166666666666666
+    },
+    {
+      "parent": 38,
+      "child": 0,
+      "confidence": 0.9166666666666666
+    },
+    {
+      "parent": 36,
+      "child": 31,
+      "confidence": 0.9166666666666666
+    },
+    {
+      "parent": 74,
+      "child": 31,
+      "confidence": 0.9166666666666666
+    },
+    {
+      "parent": 36,
+      "child": 28,
+      "confidence": 0.9130434782608695
+    },
+    {
+      "parent": 55,
+      "child": 28,
+      "confidence": 0.9130434782608695
+    },
+    {
+      "parent": 36,
+      "child": 60,
+      "confidence": 0.9090909090909091
+    },
+    {
+      "parent": 54,
+      "child": 60,
+      "confidence": 0.9090909090909091
+    },
+    {
+      "parent": 55,
+      "child": 60,
+      "confidence": 0.9090909090909091
+    },
+    {
+      "parent": 54,
+      "child": 69,
+      "confidence": 0.9047619047619048
+    },
+    {
+      "parent": 38,
+      "child": 75,
+      "confidence": 0.9047619047619048
+    },
+    {
+      "parent": 54,
+      "child": 75,
+      "confidence": 0.9047619047619048
+    },
+    {
+      "parent": 54,
+      "child": 63,
+      "confidence": 0.9032258064516129
+    },
+    {
+      "parent": 36,
+      "child": 26,
+      "confidence": 0.9024390243902439
+    },
+    {
+      "parent": 36,
+      "child": 11,
+      "confidence": 0.9
+    },
+    {
+      "parent": 38,
+      "child": 11,
+      "confidence": 0.9
+    },
+    {
+      "parent": 48,
+      "child": 11,
+      "confidence": 0.9
+    },
+    {
+      "parent": 26,
+      "child": 16,
+      "confidence": 0.9
+    },
+    {
+      "parent": 28,
+      "child": 16,
+      "confidence": 0.9
+    },
+    {
+      "parent": 54,
+      "child": 16,
+      "confidence": 0.9
+    },
+    {
+      "parent": 55,
+      "child": 16,
+      "confidence": 0.9
+    },
+    {
+      "parent": 42,
+      "child": 22,
+      "confidence": 0.9
+    },
+    {
+      "parent": 54,
+      "child": 22,
+      "confidence": 0.9
+    },
+    {
+      "parent": 55,
+      "child": 22,
+      "confidence": 0.9
+    }
+  ],
+  "triadic": [
+    {
+      "bit_i": 2,
+      "bit_j": 35,
+      "bit_r": 78
+    },
+    {
+      "bit_i": 51,
+      "bit_j": 66,
+      "bit_r": 22
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 51,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 50,
+      "bit_r": 53
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 80,
+      "bit_r": 75
+    },
+    {
+      "bit_i": 69,
+      "bit_j": 80,
+      "bit_r": 75
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 66,
+      "bit_r": 2
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 35,
+      "bit_r": 53
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 42,
+      "bit_r": 2
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 66,
+      "bit_r": 2
+    },
+    {
+      "bit_i": 16,
+      "bit_j": 87,
+      "bit_r": 86
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 62,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 86,
+      "bit_j": 87,
+      "bit_r": 16
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 42,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 48,
+      "bit_j": 80,
+      "bit_r": 86
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 66,
+      "bit_r": 51
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 66,
+      "bit_r": 62
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 31,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 66,
+      "bit_r": 78
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 62,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 80,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 0,
+      "bit_j": 15,
+      "bit_r": 28
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 41,
+      "bit_r": 75
+    },
+    {
+      "bit_i": 15,
+      "bit_j": 26,
+      "bit_r": 0
+    },
+    {
+      "bit_i": 15,
+      "bit_j": 28,
+      "bit_r": 0
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 31,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 41,
+      "bit_j": 63,
+      "bit_r": 48
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 75,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 69,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 75,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 2,
+      "bit_j": 8,
+      "bit_r": 9
+    },
+    {
+      "bit_i": 2,
+      "bit_j": 74,
+      "bit_r": 31
+    },
+    {
+      "bit_i": 41,
+      "bit_j": 48,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 87,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 38,
+      "bit_r": 1
+    },
+    {
+      "bit_i": 7,
+      "bit_j": 53,
+      "bit_r": 35
+    },
+    {
+      "bit_i": 46,
+      "bit_j": 66,
+      "bit_r": 75
+    },
+    {
+      "bit_i": 50,
+      "bit_j": 53,
+      "bit_r": 35
+    },
+    {
+      "bit_i": 60,
+      "bit_j": 87,
+      "bit_r": 1
+    },
+    {
+      "bit_i": 74,
+      "bit_j": 78,
+      "bit_r": 62
+    },
+    {
+      "bit_i": 80,
+      "bit_j": 86,
+      "bit_r": 48
+    },
+    {
+      "bit_i": 86,
+      "bit_j": 87,
+      "bit_r": 26
+    },
+    {
+      "bit_i": 86,
+      "bit_j": 87,
+      "bit_r": 74
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 62,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 60,
+      "bit_r": 75
+    },
+    {
+      "bit_i": 60,
+      "bit_j": 87,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 74,
+      "bit_j": 87,
+      "bit_r": 26
+    },
+    {
+      "bit_i": 8,
+      "bit_j": 16,
+      "bit_r": 86
+    },
+    {
+      "bit_i": 16,
+      "bit_j": 63,
+      "bit_r": 60
+    },
+    {
+      "bit_i": 60,
+      "bit_j": 62,
+      "bit_r": 35
+    },
+    {
+      "bit_i": 75,
+      "bit_j": 80,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 1,
+      "bit_j": 87,
+      "bit_r": 60
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 86,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 26,
+      "bit_j": 87,
+      "bit_r": 16
+    },
+    {
+      "bit_i": 26,
+      "bit_j": 87,
+      "bit_r": 86
+    },
+    {
+      "bit_i": 28,
+      "bit_j": 78,
+      "bit_r": 2
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 53,
+      "bit_r": 7
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 53,
+      "bit_r": 50
+    },
+    {
+      "bit_i": 46,
+      "bit_j": 75,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 63,
+      "bit_j": 87,
+      "bit_r": 60
+    },
+    {
+      "bit_i": 66,
+      "bit_j": 78,
+      "bit_r": 2
+    },
+    {
+      "bit_i": 74,
+      "bit_j": 87,
+      "bit_r": 16
+    },
+    {
+      "bit_i": 74,
+      "bit_j": 87,
+      "bit_r": 86
+    },
+    {
+      "bit_i": 42,
+      "bit_j": 53,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 22,
+      "bit_j": 74,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 50,
+      "bit_j": 55,
+      "bit_r": 48
+    },
+    {
+      "bit_i": 50,
+      "bit_j": 74,
+      "bit_r": 48
+    },
+    {
+      "bit_i": 48,
+      "bit_j": 60,
+      "bit_r": 63
+    },
+    {
+      "bit_i": 8,
+      "bit_j": 35,
+      "bit_r": 48
+    },
+    {
+      "bit_i": 31,
+      "bit_j": 75,
+      "bit_r": 69
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 63,
+      "bit_r": 60
+    },
+    {
+      "bit_i": 35,
+      "bit_j": 69,
+      "bit_r": 60
+    },
+    {
+      "bit_i": 63,
+      "bit_j": 86,
+      "bit_r": 66
+    },
+    {
+      "bit_i": 80,
+      "bit_j": 86,
+      "bit_r": 66
+    }
+  ],
+  "bit_semantics": [
+    {
+      "bit": 0,
+      "activation_rate": 0.2,
+      "top_concepts": [
+        "mountain",
+        "moon",
+        "joy",
+        "pride",
+        "trust"
+      ]
+    },
+    {
+      "bit": 1,
+      "activation_rate": 0.6333,
+      "top_concepts": [
+        "water",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ]
+    },
+    {
+      "bit": 2,
+      "activation_rate": 0.1333,
+      "top_concepts": [
+        "dog",
+        "horse",
+        "wolf",
+        "queen",
+        "child"
+      ]
+    },
+    {
+      "bit": 3,
+      "activation_rate": 0.0833,
+      "top_concepts": [
+        "ocean",
+        "lion",
+        "mother",
+        "child",
+        "fast"
+      ]
+    },
+    {
+      "bit": 4,
+      "activation_rate": 0.0333,
+      "top_concepts": [
+        "king",
+        "queen"
+      ]
+    },
+    {
+      "bit": 5,
+      "activation_rate": 0.0333,
+      "top_concepts": [
+        "moon",
+        "fish"
+      ]
+    },
+    {
+      "bit": 6,
+      "activation_rate": 0.0167,
+      "top_concepts": [
+        "small"
+      ]
+    },
+    {
+      "bit": 7,
+      "activation_rate": 0.1,
+      "top_concepts": [
+        "water",
+        "mother",
+        "father",
+        "teacher",
+        "soldier"
+      ]
+    },
+    {
+      "bit": 8,
+      "activation_rate": 0.6667,
+      "top_concepts": [
+        "fire",
+        "earth",
+        "mountain",
+        "river",
+        "ocean"
+      ]
+    },
+    {
+      "bit": 9,
+      "activation_rate": 0.0833,
+      "top_concepts": [
+        "king",
+        "queen",
+        "mother",
+        "child",
+        "teacher"
+      ]
+    },
+    {
+      "bit": 10,
+      "activation_rate": 0.0167,
+      "top_concepts": [
+        "bear"
+      ]
+    },
+    {
+      "bit": 11,
+      "activation_rate": 0.1667,
+      "top_concepts": [
+        "water",
+        "shame",
+        "dream",
+        "memory",
+        "knowledge"
+      ]
+    },
+    {
+      "bit": 12,
+      "activation_rate": 0.0167,
+      "top_concepts": [
+        "pride"
+      ]
+    },
+    {
+      "bit": 13,
+      "activation_rate": 0.0167,
+      "top_concepts": [
+        "friend"
+      ]
+    },
+    {
+      "bit": 14,
+      "activation_rate": 0.05,
+      "top_concepts": [
+        "mountain",
+        "teacher",
+        "fast"
+      ]
+    },
+    {
+      "bit": 15,
+      "activation_rate": 0.0833,
+      "top_concepts": [
+        "joy",
+        "mother",
+        "fast",
+        "slow",
+        "old"
+      ]
+    },
+    {
+      "bit": 16,
+      "activation_rate": 0.1667,
+      "top_concepts": [
+        "stone",
+        "mountain",
+        "forest",
+        "dog",
+        "cat"
+      ]
+    },
+    {
+      "bit": 17,
+      "activation_rate": 0.0333,
+      "top_concepts": [
+        "reason",
+        "big"
+      ]
+    },
+    {
+      "bit": 18,
+      "activation_rate": 0.0333,
+      "top_concepts": [
+        "reason",
+        "old"
+      ]
+    },
+    {
+      "bit": 19,
+      "activation_rate": 0.05,
+      "top_concepts": [
+        "dog",
+        "hate",
+        "pride"
+      ]
+    }
+  ]
+}

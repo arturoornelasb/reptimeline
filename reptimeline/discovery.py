@@ -100,7 +100,8 @@ class BitDiscovery:
                  dual_threshold: float = -0.3,
                  dep_confidence: float = 0.9,
                  triadic_threshold: float = 0.7,
-                 triadic_min_interaction: float = 0.2):
+                 triadic_min_interaction: float = 0.2,
+                 apply_correction: bool = True):
         """
         Args:
             dead_threshold: Bits with activation rate below this are "dead".
@@ -109,12 +110,15 @@ class BitDiscovery:
             triadic_threshold: P(r|i,j) above this for triadic detection.
             triadic_min_interaction: Minimum interaction strength
                 (P(r|i,j) - max(P(r|i), P(r|j))).
+            apply_correction: Apply multiple comparison correction
+                (Bonferroni for duals/deps, BH for triadic).
         """
         self.dead_threshold = dead_threshold
         self.dual_threshold = dual_threshold
         self.dep_confidence = dep_confidence
         self.triadic_threshold = triadic_threshold
         self.triadic_min_interaction = triadic_min_interaction
+        self.apply_correction = apply_correction
 
     def discover(self, snapshot: ConceptSnapshot,
                  timeline: Optional[Timeline] = None,
@@ -159,6 +163,8 @@ class BitDiscovery:
             metadata={
                 'n_concepts': len(concepts),
                 'n_bits': n_bits,
+                'correction_applied': self.apply_correction,
+                'correction_method': 'bonferroni_duals_deps__bh_triadic' if self.apply_correction else 'none',
             },
         )
 
@@ -214,11 +220,18 @@ class BitDiscovery:
             corr = np.corrcoef(codes.T)
         corr = np.nan_to_num(corr, nan=0.0)
 
+        # Bonferroni correction: tighten threshold for many comparisons
+        threshold = self.dual_threshold
+        n_tests = n_bits * (n_bits - 1) // 2
+        if self.apply_correction and n_tests > 1:
+            correction_factor = min(1.0, 1.0 + 0.1 * np.log10(n_tests))
+            threshold = self.dual_threshold * correction_factor
+
         duals = []
         seen = set()
         for i in range(n_bits):
             for j in range(i + 1, n_bits):
-                if corr[i, j] < self.dual_threshold:
+                if corr[i, j] < threshold:
                     key = (min(i, j), max(i, j))
                     if key not in seen:
                         seen.add(key)
@@ -241,11 +254,20 @@ class BitDiscovery:
     def _discover_dependencies(self, codes: np.ndarray,
                                n_bits: int) -> List[DiscoveredDependency]:
         """Find bit pairs where child almost never activates without parent."""
+        n_concepts = codes.shape[0]
+        min_samples = max(3, int(np.sqrt(n_concepts)))
+
+        # Bonferroni correction on confidence threshold
+        dep_threshold = self.dep_confidence
+        n_tests = n_bits * (n_bits - 1)
+        if self.apply_correction and n_tests > 1:
+            dep_threshold = min(0.99, self.dep_confidence + 0.01 * np.log10(n_tests))
+
         deps = []
         for child in range(n_bits):
             child_active = codes[:, child] == 1
             n_child = int(child_active.sum())
-            if n_child < 3:  # too few activations
+            if n_child < min_samples:
                 continue
 
             for parent in range(n_bits):
@@ -256,7 +278,7 @@ class BitDiscovery:
                 both = int((child_active & parent_active).sum())
                 confidence = both / n_child
 
-                if confidence >= self.dep_confidence:
+                if confidence >= dep_threshold:
                     deps.append(DiscoveredDependency(
                         bit_parent=parent,
                         bit_child=child,
@@ -348,6 +370,33 @@ class BitDiscovery:
                     ))
 
         triadic.sort(key=lambda t: t.interaction_strength, reverse=True)
+
+        # BH-FDR correction via permutation p-values
+        if self.apply_correction and triadic:
+            from reptimeline.stats import benjamini_hochberg
+            rng = np.random.RandomState(42)
+            n_perms = 200
+            p_values = []
+            for td in triadic:
+                observed = td.interaction_strength
+                count_ge = 0
+                for _ in range(n_perms):
+                    perm_r = rng.permutation(codes[:, td.bit_r])
+                    n_ij = int((active_masks[td.bit_i] & active_masks[td.bit_j]).sum())
+                    if n_ij == 0:
+                        count_ge += 1
+                        continue
+                    p_r_ij_perm = perm_r[active_masks[td.bit_i] & active_masks[td.bit_j]].sum() / n_ij
+                    p_r_i_perm = perm_r[active_masks[td.bit_i]].sum() / active_counts[td.bit_i]
+                    p_r_j_perm = perm_r[active_masks[td.bit_j]].sum() / active_counts[td.bit_j]
+                    perm_interaction = p_r_ij_perm - max(p_r_i_perm, p_r_j_perm)
+                    if perm_interaction >= observed:
+                        count_ge += 1
+                p_values.append((count_ge + 1) / (n_perms + 1))
+
+            significant = benjamini_hochberg(np.array(p_values), alpha=0.05)
+            triadic = [t for t, sig in zip(triadic, significant) if sig]
+
         return triadic
 
     # ------------------------------------------------------------------
@@ -496,3 +545,33 @@ class BitDiscovery:
                 print()
 
         print("=" * 60)
+
+    # ------------------------------------------------------------------
+    # Null baseline: expected false positives from random data
+    # ------------------------------------------------------------------
+
+    def null_baseline(self, n_concepts: int, n_bits: int,
+                      n_trials: int = 10, seed: int = 42) -> Dict:
+        """Run discovery on random binary codes to estimate false positive rates.
+
+        Returns dict with mean counts of duals, deps, and triadic deps
+        found in random data.
+        """
+        rng = np.random.RandomState(seed)
+        dual_counts, dep_counts, triadic_counts = [], [], []
+        for _ in range(n_trials):
+            random_codes = rng.randint(0, 2, size=(n_concepts, n_bits))
+            duals = self._discover_duals(random_codes, n_bits)
+            deps = self._discover_dependencies(random_codes, n_bits)
+            triadic = self._discover_triadic_deps(random_codes, n_bits)
+            dual_counts.append(len(duals))
+            dep_counts.append(len(deps))
+            triadic_counts.append(len(triadic))
+        return {
+            'mean_random_duals': float(np.mean(dual_counts)),
+            'mean_random_deps': float(np.mean(dep_counts)),
+            'mean_random_triadic': float(np.mean(triadic_counts)),
+            'n_trials': n_trials,
+            'n_concepts': n_concepts,
+            'n_bits': n_bits,
+        }

@@ -1,5 +1,7 @@
 {
-  "prediction": {
+  "_disclaimer": "Pre-computed results from a specific run. Prediction accuracy values (embedding, MLP) are expected to be negative relative to baseline -- see paper Section 5.1. Intervention selectivity is the primary validation metric.",
+  "_generated": "2026-03-21",
+  "prediction_embedding": {
     "embedding_accuracy": 0.8451,
     "domain_accuracy": 0.849,
     "baseline_accuracy": 0.8464,
@@ -129,10 +131,392 @@
       }
     ]
   },
+  "prediction_mlp": {
+    "mlp_accuracy": 0.8043,
+    "baseline_accuracy": 0.8464,
+    "mlp_jaccard": 0.4485,
+    "improvement_over_baseline": -0.042,
+    "per_concept": [
+      {
+        "concept": "fire",
+        "domain": "physical",
+        "mlp_acc": 0.782608695652174,
+        "base_acc": 0.8260869565217391,
+        "mlp_jac": 0.4117647058823529
+      },
+      {
+        "concept": "water",
+        "domain": "physical",
+        "mlp_acc": 0.782608695652174,
+        "base_acc": 0.8043478260869565,
+        "mlp_jac": 0.4117647058823529
+      },
+      {
+        "concept": "dog",
+        "domain": "animals",
+        "mlp_acc": 0.8260869565217391,
+        "base_acc": 0.8260869565217391,
+        "mlp_jac": 0.4666666666666667
+      },
+      {
+        "concept": "cat",
+        "domain": "animals",
+        "mlp_acc": 0.7608695652173914,
+        "base_acc": 0.8043478260869565,
+        "mlp_jac": 0.3888888888888889
+      },
+      {
+        "concept": "love",
+        "domain": "emotions",
+        "mlp_acc": 0.8695652173913043,
+        "base_acc": 0.8695652173913043,
+        "mlp_jac": 0.5714285714285714
+      },
+      {
+        "concept": "hate",
+        "domain": "emotions",
+        "mlp_acc": 0.8695652173913043,
+        "base_acc": 0.9130434782608695,
+        "mlp_jac": 0.6
+      },
+      {
+        "concept": "truth",
+        "domain": "abstract",
+        "mlp_acc": 0.782608695652174,
+        "base_acc": 0.8043478260869565,
+        "mlp_jac": 0.4444444444444444
+      },
+      {
+        "concept": "logic",
+        "domain": "abstract",
+        "mlp_acc": 0.8478260869565217,
+        "base_acc": 0.8478260869565217,
+        "mlp_jac": 0.5333333333333333
+      },
+      {
+        "concept": "king",
+        "domain": "social",
+        "mlp_acc": 0.8043478260869565,
+        "base_acc": 0.8043478260869565,
+        "mlp_jac": 0.4375
+      },
+      {
+        "concept": "queen",
+        "domain": "social",
+        "mlp_acc": 0.717391304347826,
+        "base_acc": 0.8478260869565217,
+        "mlp_jac": 0.3157894736842105
+      },
+      {
+        "concept": "light",
+        "domain": "properties",
+        "mlp_acc": 0.8260869565217391,
+        "base_acc": 0.8478260869565217,
+        "mlp_jac": 0.4666666666666667
+      },
+      {
+        "concept": "dark",
+        "domain": "properties",
+        "mlp_acc": 0.782608695652174,
+        "base_acc": 0.782608695652174,
+        "mlp_jac": 0.3333333333333333
+      }
+    ]
+  },
   "intervention_l1": {
-    "n_selective": 4,
-    "n_tested": 6,
+    "n_selective": 14,
+    "n_tested": 16,
     "results": [
+      {
+        "bit": 4,
+        "label": "queen",
+        "selectivity": 999.0,
+        "mean_labeled": 0.8519,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "king",
+            0.8566
+          ],
+          [
+            "queen",
+            0.8473
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 5,
+        "label": "moon",
+        "selectivity": 999.0,
+        "mean_labeled": 0.916,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "fish",
+            0.9575
+          ],
+          [
+            "moon",
+            0.8745
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 17,
+        "label": "reason",
+        "selectivity": 999.0,
+        "mean_labeled": 1.1427,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "reason",
+            1.342
+          ],
+          [
+            "big",
+            0.9434
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 18,
+        "label": "reason",
+        "selectivity": 999.0,
+        "mean_labeled": 1.1754,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "reason",
+            1.2162
+          ],
+          [
+            "old",
+            1.1347
+          ],
+          [
+            "small",
+            0.0
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 14,
+        "label": "fast",
+        "selectivity": 54.43,
+        "mean_labeled": 0.9711,
+        "mean_other": 0.0178,
+        "top5_affected": [
+          [
+            "fast",
+            1.0833
+          ],
+          [
+            "knowledge",
+            1.0169
+          ],
+          [
+            "mountain",
+            0.9241
+          ],
+          [
+            "teacher",
+            0.9059
+          ],
+          [
+            "big",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 19,
+        "label": "pride",
+        "selectivity": 999.0,
+        "mean_labeled": 1.061,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "pride",
+            1.0775
+          ],
+          [
+            "hate",
+            1.0613
+          ],
+          [
+            "dog",
+            1.0441
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 3,
+        "label": "mother",
+        "selectivity": 999.0,
+        "mean_labeled": 0.9477,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "mother",
+            1.0607
+          ],
+          [
+            "child",
+            1.0361
+          ],
+          [
+            "fast",
+            1.0062
+          ],
+          [
+            "lion",
+            0.8596
+          ],
+          [
+            "ocean",
+            0.7757
+          ]
+        ]
+      },
+      {
+        "bit": 9,
+        "label": "mother",
+        "selectivity": 999.0,
+        "mean_labeled": 0.9557,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "child",
+            1.0954
+          ],
+          [
+            "mother",
+            1.0242
+          ],
+          [
+            "teacher",
+            0.9364
+          ],
+          [
+            "queen",
+            0.8784
+          ],
+          [
+            "king",
+            0.8438
+          ]
+        ]
+      },
+      {
+        "bit": 15,
+        "label": "fast",
+        "selectivity": 999.0,
+        "mean_labeled": 1.0845,
+        "mean_other": 0.0,
+        "top5_affected": [
+          [
+            "old",
+            1.3098
+          ],
+          [
+            "fast",
+            1.0628
+          ],
+          [
+            "slow",
+            1.0389
+          ],
+          [
+            "joy",
+            1.0166
+          ],
+          [
+            "mother",
+            0.9942
+          ]
+        ]
+      },
+      {
+        "bit": 7,
+        "label": "mother",
+        "selectivity": 55.21,
+        "mean_labeled": 1.0682,
+        "mean_other": 0.0193,
+        "top5_affected": [
+          [
+            "teacher",
+            1.186
+          ],
+          [
+            "soldier",
+            1.1324
+          ],
+          [
+            "father",
+            1.1072
+          ],
+          [
+            "doctor",
+            1.0641
+          ],
+          [
+            "mother",
+            1.013
+          ]
+        ]
+      },
       {
         "bit": 2,
         "label": "teacher",
@@ -142,52 +526,52 @@
         "top5_affected": [
           [
             "doctor",
-            1.2466
+            1.2472
           ],
           [
             "soldier",
-            1.2033
+            1.2039
           ],
           [
             "dog",
-            1.0639
+            1.0641
           ],
           [
             "child",
-            1.0604
+            1.0596
           ],
           [
             "queen",
-            0.9862
+            0.987
           ]
         ]
       },
       {
         "bit": 11,
         "label": "belief",
-        "selectivity": 10.17,
-        "mean_labeled": 0.9845,
+        "selectivity": 10.16,
+        "mean_labeled": 0.9843,
         "mean_other": 0.0968,
         "top5_affected": [
           [
             "reason",
-            1.2046
+            1.2055
           ],
           [
             "dream",
-            1.0846
+            1.084
           ],
           [
             "knowledge",
-            1.0826
+            1.0829
           ],
           [
             "dark",
-            1.0816
+            1.081
           ],
           [
             "shame",
-            1.0483
+            1.0487
           ]
         ]
       },
@@ -195,7 +579,7 @@
         "bit": 16,
         "label": "dog",
         "selectivity": 10.83,
-        "mean_labeled": 0.9494,
+        "mean_labeled": 0.9495,
         "mean_other": 0.0877,
         "top5_affected": [
           [
@@ -204,15 +588,15 @@
           ],
           [
             "forest",
-            0.9982
+            0.9985
           ],
           [
             "horse",
-            0.9923
+            0.9925
           ],
           [
             "stone",
-            0.9796
+            0.98
           ],
           [
             "cat",
@@ -224,28 +608,28 @@
         "bit": 0,
         "label": "wisdom",
         "selectivity": 6.64,
-        "mean_labeled": 0.9625,
-        "mean_other": 0.1449,
+        "mean_labeled": 0.9621,
+        "mean_other": 0.1448,
         "top5_affected": [
           [
             "dream",
-            1.5753
+            1.574
           ],
           [
             "belief",
-            1.2353
+            1.2349
           ],
           [
             "wisdom",
-            1.0799
+            1.0801
           ],
           [
             "mother",
-            1.0653
+            1.0652
           ],
           [
             "thought",
-            1.0613
+            1.0606
           ]
         ]
       },
@@ -253,28 +637,28 @@
         "bit": 8,
         "label": "ocean",
         "selectivity": 1.43,
-        "mean_labeled": 0.9977,
-        "mean_other": 0.6979,
+        "mean_labeled": 0.9976,
+        "mean_other": 0.698,
         "top5_affected": [
           [
             "hate",
-            1.3487
+            1.3486
           ],
           [
             "shame",
-            1.3313
+            1.3315
           ],
           [
             "old",
-            1.3042
+            1.3037
           ],
           [
             "sun",
-            1.2554
+            1.2555
           ],
           [
             "big",
-            1.2308
+            1.2311
           ]
         ]
       },
@@ -282,208 +666,498 @@
         "bit": 1,
         "label": "ocean",
         "selectivity": 1.39,
-        "mean_labeled": 1.29,
-        "mean_other": 0.9303,
+        "mean_labeled": 1.2901,
+        "mean_other": 0.9302,
         "top5_affected": [
           [
             "idea",
-            3.121
+            3.122
           ],
           [
             "logic",
-            2.2546
+            2.2573
           ],
           [
             "knowledge",
-            2.185
+            2.1838
           ],
           [
             "fear",
-            2.1729
+            2.1727
           ],
           [
             "thought",
-            2.1479
+            2.1473
           ]
         ]
       }
     ]
   },
   "intervention_l2": {
-    "n_selective": 6,
-    "n_tested": 6,
+    "n_selective": 16,
+    "n_tested": 16,
     "results": [
       {
-        "bit": 2,
-        "label": "teacher",
-        "kl_selectivity": 25.75,
-        "mean_kl_labeled": 0.521,
-        "mean_kl_other": 0.0202,
+        "bit": 4,
+        "label": "queen",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.5867,
+        "mean_kl_other": 0.0,
         "top5_affected": [
           [
-            "child",
-            0.8698
-          ],
-          [
-            "dog",
-            0.5062
-          ],
-          [
-            "wolf",
-            0.4449
+            "king",
+            0.7523
           ],
           [
             "queen",
-            0.4128
+            0.4211
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 5,
+        "label": "moon",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.3371,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "moon",
+            0.3787
+          ],
+          [
+            "fish",
+            0.2956
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 17,
+        "label": "reason",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.4998,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "big",
+            0.5142
+          ],
+          [
+            "reason",
+            0.4854
+          ],
+          [
+            "old",
+            0.0
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 18,
+        "label": "reason",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.5042,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "reason",
+            0.5332
+          ],
+          [
+            "old",
+            0.4752
+          ],
+          [
+            "small",
+            0.0
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 14,
+        "label": "fast",
+        "kl_selectivity": 98.39,
+        "mean_kl_labeled": 0.5066,
+        "mean_kl_other": 0.0051,
+        "top5_affected": [
+          [
+            "fast",
+            0.5508
           ],
           [
             "teacher",
-            0.405
+            0.4972
+          ],
+          [
+            "mountain",
+            0.4716
+          ],
+          [
+            "knowledge",
+            0.2935
+          ],
+          [
+            "big",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 19,
+        "label": "pride",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.5127,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "hate",
+            0.6471
+          ],
+          [
+            "dog",
+            0.6304
+          ],
+          [
+            "pride",
+            0.2605
+          ],
+          [
+            "new",
+            0.0
+          ],
+          [
+            "slow",
+            0.0
+          ]
+        ]
+      },
+      {
+        "bit": 3,
+        "label": "mother",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.5435,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "child",
+            0.9484
+          ],
+          [
+            "fast",
+            0.569
+          ],
+          [
+            "mother",
+            0.4765
+          ],
+          [
+            "ocean",
+            0.4594
+          ],
+          [
+            "lion",
+            0.2642
+          ]
+        ]
+      },
+      {
+        "bit": 9,
+        "label": "mother",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.5547,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "child",
+            0.9432
+          ],
+          [
+            "king",
+            0.6995
+          ],
+          [
+            "mother",
+            0.4627
+          ],
+          [
+            "teacher",
+            0.3599
+          ],
+          [
+            "queen",
+            0.3082
+          ]
+        ]
+      },
+      {
+        "bit": 15,
+        "label": "fast",
+        "kl_selectivity": 999.0,
+        "mean_kl_labeled": 0.4666,
+        "mean_kl_other": 0.0,
+        "top5_affected": [
+          [
+            "fast",
+            0.6632
+          ],
+          [
+            "slow",
+            0.4907
+          ],
+          [
+            "old",
+            0.4748
+          ],
+          [
+            "mother",
+            0.4056
+          ],
+          [
+            "joy",
+            0.2985
+          ]
+        ]
+      },
+      {
+        "bit": 7,
+        "label": "mother",
+        "kl_selectivity": 52.8,
+        "mean_kl_labeled": 0.3766,
+        "mean_kl_other": 0.0071,
+        "top5_affected": [
+          [
+            "water",
+            0.4671
+          ],
+          [
+            "mother",
+            0.4028
+          ],
+          [
+            "doctor",
+            0.3924
+          ],
+          [
+            "teacher",
+            0.3717
+          ],
+          [
+            "father",
+            0.3248
+          ]
+        ]
+      },
+      {
+        "bit": 2,
+        "label": "teacher",
+        "kl_selectivity": 26.62,
+        "mean_kl_labeled": 0.5162,
+        "mean_kl_other": 0.0194,
+        "top5_affected": [
+          [
+            "child",
+            0.877
+          ],
+          [
+            "dog",
+            0.4908
+          ],
+          [
+            "wolf",
+            0.4134
+          ],
+          [
+            "queen",
+            0.4114
+          ],
+          [
+            "horse",
+            0.3885
           ]
         ]
       },
       {
         "bit": 11,
         "label": "belief",
-        "kl_selectivity": 10.36,
-        "mean_kl_labeled": 0.4258,
-        "mean_kl_other": 0.0411,
+        "kl_selectivity": 9.86,
+        "mean_kl_labeled": 0.4122,
+        "mean_kl_other": 0.0418,
         "top5_affected": [
           [
-            "reason",
-            0.6186
-          ],
-          [
             "light",
-            0.5506
+            0.6704
           ],
           [
-            "dream",
-            0.5257
+            "reason",
+            0.5852
           ],
           [
             "memory",
-            0.4969
+            0.5116
+          ],
+          [
+            "dream",
+            0.5005
           ],
           [
             "water",
-            0.4819
+            0.3887
           ]
         ]
       },
       {
         "bit": 16,
         "label": "dog",
-        "kl_selectivity": 15.78,
-        "mean_kl_labeled": 0.4968,
-        "mean_kl_other": 0.0315,
+        "kl_selectivity": 14.8,
+        "mean_kl_labeled": 0.4697,
+        "mean_kl_other": 0.0317,
         "top5_affected": [
           [
             "cat",
-            0.8784
+            0.7873
           ],
           [
             "dog",
-            0.5506
+            0.5288
           ],
           [
             "snake",
-            0.4304
-          ],
-          [
-            "horse",
-            0.4095
+            0.4349
           ],
           [
             "forest",
-            0.3948
+            0.3784
+          ],
+          [
+            "horse",
+            0.3646
           ]
         ]
       },
       {
         "bit": 0,
         "label": "wisdom",
-        "kl_selectivity": 7.62,
-        "mean_kl_labeled": 0.4843,
-        "mean_kl_other": 0.0636,
+        "kl_selectivity": 7.47,
+        "mean_kl_labeled": 0.4647,
+        "mean_kl_other": 0.0622,
         "top5_affected": [
           [
             "thought",
-            1.162
+            1.161
           ],
           [
             "trust",
-            0.9515
+            0.8205
           ],
           [
             "slow",
-            0.5333
+            0.5297
           ],
           [
             "dream",
-            0.5031
+            0.4925
           ],
           [
-            "queen",
-            0.4175
+            "mountain",
+            0.4155
           ]
         ]
       },
       {
         "bit": 8,
         "label": "ocean",
-        "kl_selectivity": 2.04,
-        "mean_kl_labeled": 0.6166,
-        "mean_kl_other": 0.3024,
+        "kl_selectivity": 2.16,
+        "mean_kl_labeled": 0.6384,
+        "mean_kl_other": 0.2954,
         "top5_affected": [
           [
             "fire",
-            0.9292
+            0.9391
           ],
           [
             "child",
-            0.9176
-          ],
-          [
-            "trust",
-            0.8822
-          ],
-          [
-            "cat",
-            0.8223
+            0.9364
           ],
           [
             "earth",
-            0.7761
+            0.8616
+          ],
+          [
+            "trust",
+            0.7758
+          ],
+          [
+            "cat",
+            0.7639
           ]
         ]
       },
       {
         "bit": 1,
         "label": "ocean",
-        "kl_selectivity": 2.12,
-        "mean_kl_labeled": 0.5866,
-        "mean_kl_other": 0.2771,
+        "kl_selectivity": 1.96,
+        "mean_kl_labeled": 0.5381,
+        "mean_kl_other": 0.2749,
         "top5_affected": [
           [
             "thought",
-            1.1132
+            1.1199
           ],
           [
             "child",
-            0.9581
-          ],
-          [
-            "trust",
-            0.8755
+            0.9412
           ],
           [
             "earth",
-            0.7824
+            0.8661
           ],
           [
-            "river",
-            0.7173
+            "trust",
+            0.7699
+          ],
+          [
+            "bird",
+            0.6283
           ]
         ]
       }
