@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reptimeline"
+version = "0.1.0"
+description = "Track how discrete representations evolve during training"
+readme = "README.md"
+license = {text = "BUSL-1.1"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Arturo Ornelas Brand", email = "arturoornelasb@gmail.com"},
+]
+keywords = [
+    "representation-learning",
+    "discrete-representations",
+    "interpretability",
+    "vq-vae",
+    "sparse-autoencoder",
+    "lifecycle-tracking",
+    "phase-transitions",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+torch = ["torch>=2.0"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+]
+all = ["reptimeline[torch,dev]"]
+
+[project.scripts]
+reptimeline = "reptimeline.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/arturoornelasb/reptimeline"
+Repository = "https://github.com/arturoornelasb/reptimeline"
+Issues = "https://github.com/arturoornelasb/reptimeline/issues"
+
+[tool.setuptools.packages.find]
+include = ["reptimeline*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
