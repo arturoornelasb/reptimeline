@@ -19,7 +19,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [x] Manejo de errores más granular: excepciones custom (SnapshotError, ExtractionError, DiscoveryError, ConfigurationError)
 
 ### Documentación
-- [x] Generar sitio de docs con pdoc3 + GitHub Pages workflow automático
+- [x] Generar sitio de docs con pdoc + GitHub Pages workflow automático
 - [x] Docstrings de API reference para todos los parámetros de thresholds en BitDiscovery
 - [x] Guía de migración para usuarios de triadic-microgpt (docs/migration-from-triadic.md)
 
@@ -84,7 +84,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - ~~Sin type checking~~ — mypy 0 errors, integrado en CI.
 - ~~Pre-commit hooks~~ — ruff check + ruff-format.
 - ~~Sin progress bars~~ — tqdm en extract_sequence y discovery triádica.
-- ~~Sin docs site~~ — pdoc3 + GitHub Pages deploy automático.
+- ~~Sin docs site~~ — pdoc + GitHub Pages deploy automático.
 - ~~Sin CONTRIBUTING.md~~ — Guía de contribución + issue templates.
 - ~~Build no verificado~~ — `python -m build` produce sdist + wheel correctamente.
 - ~~ValueError genérico~~ — Excepciones custom: SnapshotError, ExtractionError, DiscoveryError, ConfigurationError.

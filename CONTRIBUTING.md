@@ -24,7 +24,7 @@ ruff check reptimeline/ tests/
 mypy reptimeline/
 
 # Build docs
-pdoc3 --html --output-dir docs/ reptimeline
+pdoc -o docs/ reptimeline
 ```
 
 ## Code style

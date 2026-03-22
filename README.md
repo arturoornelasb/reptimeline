@@ -31,7 +31,7 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 | Testing | pytest, pytest-cov, 224 tests |
 | Linting | ruff (zero warnings), mypy (zero errors) |
 | CI | GitHub Actions (tests + lint + typecheck + coverage) |
-| Docs | pdoc3, auto-deployed to GitHub Pages |
+| Docs | pdoc, auto-deployed to GitHub Pages |
 | License | BUSL-1.1 (converts to AGPL-3.0 on 2030-03-21) |
 
 ## Installation

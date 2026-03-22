@@ -23,10 +23,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e ".[docs]"
-      - run: pdoc3 --html --output-dir docs/ --force reptimeline
+      - run: pdoc -o docs/ reptimeline
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/reptimeline/
+          path: docs/
 
   deploy:
     needs: build
