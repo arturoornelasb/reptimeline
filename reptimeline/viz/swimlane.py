@@ -86,8 +86,8 @@ def plot_swimlane(timeline: Timeline,
 
     # Legend
     patches = [
-        mpatches.Patch(color=[0.2, 0.4, 0.8], label='Active'),
-        mpatches.Patch(color=[1.0, 0.6, 0.1], label='Changed'),
+        mpatches.Patch(color=(0.2, 0.4, 0.8), label='Active'),
+        mpatches.Patch(color=(1.0, 0.6, 0.1), label='Changed'),
         mpatches.Patch(facecolor='white', edgecolor='gray', label='Inactive'),
     ]
     fig.legend(handles=patches, loc='upper right', fontsize=8)

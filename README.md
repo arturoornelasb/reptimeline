@@ -27,9 +27,10 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 | Language | Python 3.10 -- 3.13 |
 | Core dependencies | numpy >= 1.24, matplotlib >= 3.7 |
 | Optional | torch >= 2.0 (for model extractors) |
-| Testing | pytest, pytest-cov |
-| Linting | ruff (zero warnings) |
-| CI | GitHub Actions (tests + lint + coverage) |
+| Testing | pytest, pytest-cov, 212 tests |
+| Linting | ruff (zero warnings), mypy (zero errors) |
+| CI | GitHub Actions (tests + lint + typecheck + coverage) |
+| Docs | pdoc3, auto-deployed to GitHub Pages |
 | License | BUSL-1.1 (converts to AGPL-3.0 on 2030-03-21) |
 
 ## Installation

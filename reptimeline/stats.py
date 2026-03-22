@@ -58,12 +58,12 @@ def bootstrap_ci(
         b_sample = rng.choice(values_b, size=len(values_b), replace=True)
         stats.append(statistic_fn(a_sample, b_sample))
 
-    stats = np.array(stats)
+    stats_arr = np.array(stats)
     alpha = 1.0 - ci
     return BootstrapResult(
         observed=observed,
-        ci_low=float(np.percentile(stats, 100 * alpha / 2)),
-        ci_high=float(np.percentile(stats, 100 * (1 - alpha / 2))),
+        ci_low=float(np.percentile(stats_arr, 100 * alpha / 2)),
+        ci_high=float(np.percentile(stats_arr, 100 * (1 - alpha / 2))),
         n_bootstrap=n_bootstrap,
     )
 

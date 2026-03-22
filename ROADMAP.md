@@ -7,20 +7,19 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ### Distribución y CI
 - [ ] Publicar en PyPI (el README dice `pip install reptimeline` pero no está publicado)
 - [x] GitHub Actions: tests (Python 3.10-3.13), ruff lint, coverage en cada PR
-- [ ] Pre-commit hooks (ruff, type checking)
+- [x] Pre-commit hooks (.pre-commit-config.yaml con ruff check + ruff-format)
 - [x] Coverage reporting (pytest-cov configurado en pyproject.toml + coverage XML en CI)
 - [x] Badges en README: CI status, Python versions, license
 
 ### Calidad de código
 - [x] Codebase ruff-clean (0 warnings: import sorting, unused imports, line length, naming)
-- [ ] Agregar type checking con mypy o pyright (hay type hints pero no se verifican)
+- [x] Type checking con mypy (0 errors, integrado en CI)
 - [x] Logging estructurado en CLI y extractors (print_summary/print_report siguen como API de usuario)
-- [ ] Progress bars para operaciones largas (discovery triádica es O(K³))
+- [x] Progress bars con tqdm en extract_sequence y discovery triádica
 - [ ] Manejo de errores más granular: excepciones custom en vez de ValueError genérico
 
 ### Documentación
-- [ ] Generar sitio de docs con pdoc3 (ya está en optional deps, falta ejecutarlo)
-- [ ] Publicar docs en GitHub Pages o Read the Docs
+- [x] Generar sitio de docs con pdoc3 + GitHub Pages workflow automático
 - [ ] Docstrings de API reference para todos los parámetros de thresholds en BitDiscovery
 - [ ] Guía de migración para usuarios que vienen de triadic-microgpt
 
@@ -60,8 +59,8 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [ ] Paper publicado y citeable (actualmente en draft)
 
 ### Comunidad
-- [ ] CONTRIBUTING.md con guía de contribución
-- [ ] Issue templates en GitHub
+- [x] CONTRIBUTING.md con guía de contribución
+- [x] Issue templates en GitHub (bug report + feature request)
 - [ ] Ejemplos reproducibles que corran sin datos propietarios ni GPUs
 
 ## Bloqueos
@@ -76,11 +75,15 @@ What's needed to take reptimeline from research prototype to production-ready, c
 5. **Validación en producción.** 4 extractors implementados con 212 tests, pero VQ-VAE y FSQ solo tienen unit tests — falta validación con modelos reales.
 
 ### Menores (bloquean polish)
-6. **Sin docs site.** pdoc3 está en deps pero nunca se ejecutó.
-
 ### Resueltos
 - ~~Sin CI/CD~~ — GitHub Actions CI: tests (Python 3.10-3.13), ruff lint, coverage. Publish workflow con trusted publishing.
 - ~~Solo 2 backends~~ — 4 extractors (SAE, VQ-VAE, FSQ + triadic example). SAE validado con Pythia-70M.
 - ~~Sin logging~~ — CLI y extractors usan `logging` module.
 - ~~JSON sin schema version~~ — `schema_version: "0.1"` en `ConceptSnapshot` y `Timeline`.
 - ~~Ruff warnings~~ — Codebase 100% ruff-clean.
+- ~~Sin type checking~~ — mypy 0 errors, integrado en CI.
+- ~~Pre-commit hooks~~ — ruff check + ruff-format.
+- ~~Sin progress bars~~ — tqdm en extract_sequence y discovery triádica.
+- ~~Sin docs site~~ — pdoc3 + GitHub Pages deploy automático.
+- ~~Sin CONTRIBUTING.md~~ — Guía de contribución + issue templates.
+- ~~Build no verificado~~ — `python -m build` produce sdist + wheel correctamente.

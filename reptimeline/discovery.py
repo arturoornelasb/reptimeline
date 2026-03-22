@@ -321,9 +321,10 @@ class BitDiscovery:
             active_masks.append(mask)
             active_counts.append(int(mask.sum()))
 
-        for i in range(n_bits):
-            if active_counts[i] < min_support:
-                continue
+        from tqdm import tqdm
+
+        active_bits = [i for i in range(n_bits) if active_counts[i] >= min_support]
+        for i in tqdm(active_bits, desc="Triadic discovery", unit="bit"):
             i_mask = active_masks[i]
 
             for j in range(i + 1, n_bits):
@@ -440,7 +441,7 @@ class BitDiscovery:
                     consecutive_stable = 0
 
         # Count dependents per bit
-        n_dependents = defaultdict(int)
+        n_dependents: Dict[int, int] = defaultdict(int)
         for dep in deps:
             n_dependents[dep.bit_parent] += 1
 

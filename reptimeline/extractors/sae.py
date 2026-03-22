@@ -56,11 +56,11 @@ class SAEExtractor(RepresentationExtractor):
         self.model_loader = model_loader
         self.device = device
 
+        self._feat_to_bit: Optional[Dict[int, int]] = None
         if feature_indices is not None:
             self._feat_to_bit = {f: i for i, f in enumerate(feature_indices)}
             self._code_dim = len(feature_indices)
         else:
-            self._feat_to_bit = None
             self._code_dim = n_features
 
     def extract(self, checkpoint_path: str, concepts: Dict[str, Any],

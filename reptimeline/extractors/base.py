@@ -9,7 +9,7 @@ import logging
 import os
 import re
 from abc import ABC, abstractmethod
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 from reptimeline.core import ConceptSnapshot
 
@@ -20,13 +20,14 @@ class RepresentationExtractor(ABC):
     """Extracts discrete concept representations from model checkpoints."""
 
     @abstractmethod
-    def extract(self, checkpoint_path: str, concepts: List[str],
+    def extract(self, checkpoint_path: str, concepts: Any,
                 device: str = 'cpu') -> ConceptSnapshot:
         """Extract a snapshot from a single checkpoint.
 
         Args:
             checkpoint_path: Path to the model checkpoint file.
-            concepts: List of concept strings to extract.
+            concepts: Concept data to extract. Type varies by backend:
+                List[str] for name-based, Dict[str, Any] for data-based.
             device: Torch device string.
 
         Returns:
@@ -101,9 +102,10 @@ class RepresentationExtractor(ABC):
                        for i in range(max_checkpoints)]
             checkpoints = [checkpoints[i] for i in indices]
 
+        from tqdm import tqdm
+
         snapshots = []
-        for i, (step, path) in enumerate(checkpoints):
-            logger.info("[%d/%d] Extracting step %s...", i + 1, len(checkpoints), f"{step:,}")
+        for step, path in tqdm(checkpoints, desc="Extracting", unit="ckpt"):
             snapshot = self.extract(path, concepts, device)
             snapshots.append(snapshot)
 

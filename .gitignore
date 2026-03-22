@@ -21,4 +21,5 @@ htmlcov/
 *.png
 !docs/*.png
 !results/**/*.png
+docs/
 .claude/

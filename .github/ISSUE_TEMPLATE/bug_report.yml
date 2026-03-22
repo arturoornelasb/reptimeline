@@ -1,0 +1,30 @@
+name: Bug Report
+description: Report a bug in reptimeline
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal code or steps to reproduce the issue.
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        - reptimeline version:
+        - Python version:
+        - OS:
+      render: text
+    validations:
+      required: true

@@ -219,13 +219,15 @@ class Reconciler:
             if prim.dual:
                 dual_info = self.overlay._name_to_info.get(prim.dual)
                 if dual_info:
-                    key = tuple(sorted([prim.bit, dual_info.bit]))
+                    bits_sorted = sorted([prim.bit, dual_info.bit])
+                    key = (bits_sorted[0], bits_sorted[1])
                     theory_duals[key] = (prim.name, prim.dual)
 
         # Discovered duals
         discovered_pairs: Dict[Tuple[int, int], float] = {}
         for dd in report.discovered_duals:
-            key = tuple(sorted([dd.bit_a, dd.bit_b]))
+            bits_sorted = sorted([dd.bit_a, dd.bit_b])
+            key = (bits_sorted[0], bits_sorted[1])
             discovered_pairs[key] = dd.anti_correlation
 
         # Theory says dual but model doesn't show it
@@ -426,21 +428,21 @@ class Reconciler:
         if report.dual_mismatches:
             print("  DUAL MISMATCHES")
             print("  " + "-" * 56)
-            for m in report.dual_mismatches:
-                print(f"    {m.description}")
+            for dm in report.dual_mismatches:
+                print(f"    {dm.description}")
             print()
 
         # Dep mismatches
         if report.dep_mismatches:
-            n_model = sum(1 for m in report.dep_mismatches
-                          if m.mismatch_type == 'missing_in_model')
-            n_theory = sum(1 for m in report.dep_mismatches
-                           if m.mismatch_type == 'missing_in_theory')
+            n_model = sum(1 for dp in report.dep_mismatches
+                          if dp.mismatch_type == 'missing_in_model')
+            n_theory = sum(1 for dp in report.dep_mismatches
+                           if dp.mismatch_type == 'missing_in_theory')
             print(f"  DEPENDENCY MISMATCHES "
                   f"({n_model} theory-only, {n_theory} model-only)")
             print("  " + "-" * 56)
-            for m in report.dep_mismatches[:20]:
-                print(f"    {m.description}")
+            for dp in report.dep_mismatches[:20]:
+                print(f"    {dp.description}")
             if len(report.dep_mismatches) > 20:
                 print(f"    ... and {len(report.dep_mismatches) - 20} more")
             print()

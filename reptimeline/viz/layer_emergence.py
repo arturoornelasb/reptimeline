@@ -43,7 +43,7 @@ def plot_layer_emergence(report: PrimitiveReport,
 
     for i, le in enumerate(layers):
         color = LAYER_COLORS.get(le.layer, '#757575')
-        if le.first_activation_step is not None:
+        if le.first_activation_step is not None and le.last_activation_step is not None:
             # Draw range bar from first to last
             width = (le.last_activation_step - le.first_activation_step) or 100
             ax.barh(i, width, left=le.first_activation_step, height=0.6,
