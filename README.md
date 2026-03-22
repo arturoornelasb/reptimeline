@@ -270,6 +270,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - **Free** for research, education, evaluation, development, and personal use
 - **Commercial production use** requires a license -- contact arturoornelas62@gmail.com
 - Converts to [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) on 2030-03-21
+- All dependencies are commercially compatible (BSD, MIT, Apache-2.0, MPL-2.0 -- zero copyleft)
 
 ## Citation
 

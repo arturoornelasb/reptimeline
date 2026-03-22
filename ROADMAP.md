@@ -41,6 +41,8 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ## Comercial
 
 ### Licencia y legal
+- [x] Auditoría de dependencias: todas las dependencias son comercialmente compatibles (BSD, MIT, Apache-2.0, MPL-2.0)
+- [x] Eliminar dependencia AGPL: pdoc3 (AGPL-3.0) reemplazado por pdoc (Unlicense)
 - [ ] Definir términos de licencia comercial (precio, tiers, límites)
 - [ ] Página de pricing o contacto comercial (actualmente solo un email)
 - [ ] CLA (Contributor License Agreement) si se aceptan contribuciones externas
@@ -73,7 +75,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ### Importantes (bloquean escala)
 3. **Discovery triádica no escala.** O(K³) con K = bits activos. Para SAEs con miles de features activos, es prohibitivo sin paralelización o sampling.
 4. **Sentinel features sin resolver.** 8/16 features SAE mostraron zero cross-activation. No se puede distinguir entre selectividad perfecta y artefacto de sparsity.
-5. **Validación en producción.** 4 extractors implementados con 212 tests, pero VQ-VAE y FSQ solo tienen unit tests — falta validación con modelos reales.
+5. **Validación en producción.** 4 extractors implementados con 224 tests, pero VQ-VAE y FSQ solo tienen unit tests — falta validación con modelos reales.
 
 ### Resueltos
 - ~~Sin CI/CD~~ — GitHub Actions CI: tests (Python 3.10-3.13), ruff lint, coverage. Publish workflow con trusted publishing.
@@ -94,3 +96,5 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - ~~Sin export CSV~~ — Timeline.to_csv() + save_json/load_json + from_dict round-trip.
 - ~~Colores hardcoded~~ — layer_emergence.py usa colormap dinámico para cualquier número de capas.
 - ~~Sin plots interactivos~~ — 4 plots Plotly (phase dashboard, swimlane, churn, causal) con export a HTML.
+- ~~Dependencia AGPL~~ — pdoc3 (AGPL-3.0) reemplazado por pdoc (Unlicense). Cero copyleft en el árbol de dependencias.
+- ~~Sin auditoría de licencias~~ — Todas las dependencias verificadas: BSD, MIT, Apache-2.0, MPL-2.0. Código 100% original.
