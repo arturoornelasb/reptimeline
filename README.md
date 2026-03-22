@@ -25,7 +25,7 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 | Component | Details |
 |-----------|---------|
 | Language | Python 3.10 -- 3.13 |
-| Core dependencies | numpy >= 1.24, matplotlib >= 3.7 |
+| Core dependencies | numpy >= 1.24, matplotlib >= 3.7, tqdm >= 4.60 |
 | Optional | torch >= 2.0 (for model extractors) |
 | Testing | pytest, pytest-cov, 212 tests |
 | Linting | ruff (zero warnings), mypy (zero errors) |
@@ -222,17 +222,24 @@ examples/                 # Reference pipelines and extractors
 results/                  # Pre-computed results (MNIST, Pythia-70M)
 ```
 
-## Tests
+## Development
 
 ```bash
+# Install with dev deps + pre-commit hooks
+pip install -e ".[dev]"
+pre-commit install
+
 # Run tests with coverage
 pytest tests/ -v --cov=reptimeline
 
-# Lint
+# Lint + type check
 ruff check reptimeline/ tests/
+mypy reptimeline/
 ```
 
-CI runs both on every push and PR (Python 3.10 -- 3.13).
+CI runs lint, typecheck, and tests on every push and PR (Python 3.10 -- 3.13).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## License
 

@@ -66,7 +66,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ## Bloqueos
 
 ### Críticos (bloquean producción)
-1. **No está en PyPI.** El README dice `pip install reptimeline` pero el paquete no existe. Nadie puede instalarlo sin clonar el repo. (Publish workflow ya existe, falta configurar trusted publishing en PyPI.)
+1. **No está en PyPI.** `python -m build` ya produce sdist + wheel correctamente y el publish workflow existe. Falta: crear cuenta en PyPI y configurar trusted publishing.
 2. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
 
 ### Importantes (bloquean escala)
@@ -74,7 +74,6 @@ What's needed to take reptimeline from research prototype to production-ready, c
 4. **Sentinel features sin resolver.** 8/16 features SAE mostraron zero cross-activation. No se puede distinguir entre selectividad perfecta y artefacto de sparsity.
 5. **Validación en producción.** 4 extractors implementados con 212 tests, pero VQ-VAE y FSQ solo tienen unit tests — falta validación con modelos reales.
 
-### Menores (bloquean polish)
 ### Resueltos
 - ~~Sin CI/CD~~ — GitHub Actions CI: tests (Python 3.10-3.13), ruff lint, coverage. Publish workflow con trusted publishing.
 - ~~Solo 2 backends~~ — 4 extractors (SAE, VQ-VAE, FSQ + triadic example). SAE validado con Pythia-70M.
