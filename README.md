@@ -24,21 +24,17 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 
 | Component | Details |
 |-----------|---------|
-| Language | Python 3.10+ |
+| Language | Python 3.10 -- 3.13 |
 | Core dependencies | numpy >= 1.24, matplotlib >= 3.7 |
 | Optional | torch >= 2.0 (for model extractors) |
 | Testing | pytest, pytest-cov |
-| Linting | ruff |
+| Linting | ruff (zero warnings) |
+| CI | GitHub Actions (tests + lint + coverage) |
 | License | BUSL-1.1 (converts to AGPL-3.0 on 2030-03-21) |
 
 ## Installation
 
-From PyPI:
-```bash
-pip install reptimeline
-```
-
-From source:
+From source (recommended -- PyPI publication pending):
 ```bash
 git clone https://github.com/arturoornelasb/reptimeline.git
 cd reptimeline
@@ -141,7 +137,7 @@ reptimeline --snapshots data.json --causal effects.json --plot-dir plots/
 Your model checkpoints
         |
         v
-RepresentationExtractor    (you implement for your backend)
+RepresentationExtractor    (SAE, VQ-VAE, FSQ built-in, or your own)
         |  ConceptSnapshot objects
         v
 TimelineTracker            (births, deaths, connections, phase transitions)
@@ -228,8 +224,14 @@ results/                  # Pre-computed results (MNIST, Pythia-70M)
 ## Tests
 
 ```bash
-pytest tests/ -v
+# Run tests with coverage
+pytest tests/ -v --cov=reptimeline
+
+# Lint
+ruff check reptimeline/ tests/
 ```
+
+CI runs both on every push and PR (Python 3.10 -- 3.13).
 
 ## License
 

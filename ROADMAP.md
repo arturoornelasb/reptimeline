@@ -12,6 +12,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [x] Badges en README: CI status, Python versions, license
 
 ### Calidad de código
+- [x] Codebase ruff-clean (0 warnings: import sorting, unused imports, line length, naming)
 - [ ] Agregar type checking con mypy o pyright (hay type hints pero no se verifican)
 - [x] Logging estructurado en CLI y extractors (print_summary/print_report siguen como API de usuario)
 - [ ] Progress bars para operaciones largas (discovery triádica es O(K³))
@@ -66,16 +67,20 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ## Bloqueos
 
 ### Críticos (bloquean producción)
-1. **No está en PyPI.** El README dice `pip install reptimeline` pero el paquete no existe. Nadie puede instalarlo sin clonar el repo.
-2. **~~Sin CI/CD.~~** Resuelto: GitHub Actions CI con tests (Python 3.10-3.13), ruff lint, y coverage. Publish workflow para PyPI con trusted publishing.
-3. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
+1. **No está en PyPI.** El README dice `pip install reptimeline` pero el paquete no existe. Nadie puede instalarlo sin clonar el repo. (Publish workflow ya existe, falta configurar trusted publishing en PyPI.)
+2. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
 
 ### Importantes (bloquean escala)
-4. **~~Solo validado en 2 backends.~~** Resuelto parcialmente: 4 extractors implementados (SAE, VQ-VAE, FSQ + triadic example), 212 tests. SAE validado con Pythia-70M real. Falta validación en producción para VQ-VAE y FSQ.
-5. **Discovery triádica no escala.** O(K³) con K = bits activos. Para SAEs con miles de features activos, es prohibitivo sin paralelización o sampling.
-6. **Sentinel features sin resolver.** 8/16 features SAE mostraron zero cross-activation. No se puede distinguir entre selectividad perfecta y artefacto de sparsity.
+3. **Discovery triádica no escala.** O(K³) con K = bits activos. Para SAEs con miles de features activos, es prohibitivo sin paralelización o sampling.
+4. **Sentinel features sin resolver.** 8/16 features SAE mostraron zero cross-activation. No se puede distinguir entre selectividad perfecta y artefacto de sparsity.
+5. **Validación en producción.** 4 extractors implementados con 212 tests, pero VQ-VAE y FSQ solo tienen unit tests — falta validación con modelos reales.
 
 ### Menores (bloquean polish)
-7. **Sin docs site.** pdoc3 está en deps pero nunca se ejecutó.
-8. **~~Sin logging.~~** Resuelto: CLI y extractors usan `logging` module.
-9. **~~JSON sin schema version.~~** Resuelto: `schema_version: "0.1"` en todos los `to_dict()`.
+6. **Sin docs site.** pdoc3 está en deps pero nunca se ejecutó.
+
+### Resueltos
+- ~~Sin CI/CD~~ — GitHub Actions CI: tests (Python 3.10-3.13), ruff lint, coverage. Publish workflow con trusted publishing.
+- ~~Solo 2 backends~~ — 4 extractors (SAE, VQ-VAE, FSQ + triadic example). SAE validado con Pythia-70M.
+- ~~Sin logging~~ — CLI y extractors usan `logging` module.
+- ~~JSON sin schema version~~ — `schema_version: "0.1"` en `ConceptSnapshot` y `Timeline`.
+- ~~Ruff warnings~~ — Codebase 100% ruff-clean.
