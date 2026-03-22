@@ -28,6 +28,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [ ] Export a formatos estándar: CSV, Parquet, WandB, TensorBoard
 - [ ] Serialización robusta: versión de schema en los JSON de salida
 - [ ] Paralelización de discovery triádica (actualmente single-thread, O(K³))
+- [x] Extractors built-in: SAEExtractor, VQVAEExtractor, FSQExtractor (4 backends validados con tests)
 - [ ] Más extractors: concept bottleneck models, DINO features, quantized LLMs
 - [ ] Tests de rendimiento con datasets grandes (actual validación: 10-60 conceptos)
 
@@ -46,7 +47,8 @@ What's needed to take reptimeline from research prototype to production-ready, c
 
 ### Validación
 - [ ] Resolver el resultado negativo en predicción (-0.13% embedding, -4.20% MLP vs baseline)
-- [ ] Validar en más backends reales: VQ-VAE en producción, SAE a escala, concept bottleneck
+- [x] SAE validado con Pythia-70M (32K features); VQ-VAE y FSQ con unit tests
+- [ ] Validar VQ-VAE y FSQ en producción real; validar concept bottleneck models
 - [ ] Case studies documentados más allá de MNIST y Pythia-70M
 - [ ] Benchmarks de rendimiento: tiempo de análisis vs tamaño de codebook
 
@@ -69,7 +71,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 3. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
 
 ### Importantes (bloquean escala)
-4. **Solo validado en 2 backends.** MNIST (32-bit) y Pythia-70M (32K features). Para vender como "backend-agnostic" se necesitan más validaciones reales.
+4. **~~Solo validado en 2 backends.~~** Resuelto parcialmente: 4 extractors implementados (SAE, VQ-VAE, FSQ + triadic example), 212 tests. SAE validado con Pythia-70M real. Falta validación en producción para VQ-VAE y FSQ.
 5. **Discovery triádica no escala.** O(K³) con K = bits activos. Para SAEs con miles de features activos, es prohibitivo sin paralelización o sampling.
 6. **Sentinel features sin resolver.** 8/16 features SAE mostraron zero cross-activation. No se puede distinguir entre selectividad perfecta y artefacto de sparsity.
 

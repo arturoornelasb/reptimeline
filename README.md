@@ -48,7 +48,25 @@ pip install -r requirements-examples.txt
 
 ## Quick Start
 
-### 1. Implement an extractor for your backend
+### 1. Use a built-in extractor or implement your own
+
+Three backends ship ready to use:
+
+```python
+from reptimeline.extractors import SAEExtractor, VQVAEExtractor, FSQExtractor
+
+# Sparse Autoencoder (top-k binarization, intervention support)
+sae = SAEExtractor(n_features=32768, encode_fn=my_sae.encode,
+                   decode_fn=my_sae.decode, feature_indices=selected)
+
+# VQ-VAE (codebook index → binary indicator)
+vqvae = VQVAEExtractor(n_codebook=512, encode_fn=my_vqvae.encode)
+
+# FSQ (finite scalar quantization, nonzero or one-hot binarization)
+fsq = FSQExtractor(n_levels=[3, 5, 3, 3], encode_fn=my_fsq.encode)
+```
+
+Or implement `RepresentationExtractor` for any other discrete bottleneck:
 
 ```python
 from reptimeline.extractors.base import RepresentationExtractor
@@ -68,7 +86,7 @@ class MyExtractor(RepresentationExtractor):
         ...  # Indices where both codes are active
 ```
 
-See `examples/` for complete implementations (MNIST binary AE, Pythia-70M SAE, triadic bits).
+See `examples/` for complete pipelines (MNIST binary AE, Pythia-70M SAE, triadic bits).
 
 ### 2. Analyze representation evolution
 
@@ -198,7 +216,7 @@ reptimeline/
     churn_heatmap.py      # Per-concept code churn
     layer_emergence.py    # Layer stabilization order
     causal_heatmap.py     # Causal intervention effects
-tests/                    # 16 test modules (pytest)
+tests/                    # 16 test modules, 212 tests (pytest)
 examples/                 # Reference pipelines and extractors
 results/                  # Pre-computed results (MNIST, Pythia-70M)
 ```
