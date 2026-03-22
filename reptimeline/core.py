@@ -5,6 +5,8 @@ These dataclasses are backend-agnostic — they work with any discrete
 representation system (triadic bits, VQ-VAE, FSQ, sparse autoencoders).
 """
 
+import csv
+import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
@@ -200,3 +202,124 @@ class Timeline:
             'curves': self.curves,
             'stability': {str(k): v for k, v in self.stability.items()},
         }
+
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]) -> 'Timeline':
+        """Deserialize a Timeline from a dict."""
+        snapshots = [ConceptSnapshot.from_dict(s) for s in d['snapshots']]
+        births = [
+            CodeEvent(event_type=e['event_type'], step=e['step'],
+                      concept=e['concept'], code_index=e['code_index'])
+            for e in d.get('births', [])
+        ]
+        deaths = [
+            CodeEvent(event_type=e['event_type'], step=e['step'],
+                      concept=e['concept'], code_index=e['code_index'])
+            for e in d.get('deaths', [])
+        ]
+        connections = [
+            ConnectionEvent(event_type=e['event_type'], step=e['step'],
+                            concept_a=e['concept_a'], concept_b=e['concept_b'],
+                            shared_indices=e.get('shared_indices', []))
+            for e in d.get('connections', [])
+        ]
+        phase_transitions = [
+            PhaseTransition(step=pt['step'], metric=pt['metric'],
+                            delta=pt['delta'], direction=pt['direction'])
+            for pt in d.get('phase_transitions', [])
+        ]
+        stability = {int(k): v for k, v in d.get('stability', {}).items()}
+        return cls(
+            steps=d['steps'],
+            snapshots=snapshots,
+            births=births,
+            deaths=deaths,
+            connections=connections,
+            phase_transitions=phase_transitions,
+            curves=d.get('curves', {}),
+            stability=stability,
+        )
+
+    def save_json(self, path: str) -> None:
+        """Save Timeline to a JSON file."""
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(self.to_dict(), f, indent=2, ensure_ascii=False)
+
+    @classmethod
+    def load_json(cls, path: str) -> 'Timeline':
+        """Load Timeline from a JSON file."""
+        with open(path, 'r', encoding='utf-8') as f:
+            return cls.from_dict(json.load(f))
+
+    def to_csv(self, directory: str) -> Dict[str, str]:
+        """Export Timeline data as CSV files in the given directory.
+
+        Creates:
+            - events.csv: births, deaths (step, event_type, concept, code_index)
+            - connections.csv: connection events
+            - curves.csv: metric curves (step, entropy, churn_rate, utilization)
+            - stability.csv: per-bit stability scores
+            - codes.csv: all concept codes at each step
+
+        Args:
+            directory: Output directory (created if needed).
+
+        Returns:
+            Dict mapping filename to full path.
+        """
+        import os
+        os.makedirs(directory, exist_ok=True)
+        written = {}
+
+        # events.csv
+        path = os.path.join(directory, 'events.csv')
+        with open(path, 'w', newline='', encoding='utf-8') as f:
+            w = csv.writer(f)
+            w.writerow(['step', 'event_type', 'concept', 'code_index'])
+            for e in self.births + self.deaths:
+                w.writerow([e.step, e.event_type, e.concept, e.code_index])
+        written['events.csv'] = path
+
+        # connections.csv
+        path = os.path.join(directory, 'connections.csv')
+        with open(path, 'w', newline='', encoding='utf-8') as f:
+            w = csv.writer(f)
+            w.writerow(['step', 'event_type', 'concept_a', 'concept_b', 'shared_indices'])
+            for c in self.connections:
+                w.writerow([c.step, c.event_type, c.concept_a, c.concept_b,
+                            ';'.join(str(i) for i in c.shared_indices)])
+        written['connections.csv'] = path
+
+        # curves.csv
+        path = os.path.join(directory, 'curves.csv')
+        with open(path, 'w', newline='', encoding='utf-8') as f:
+            w = csv.writer(f)
+            metric_names = sorted(self.curves.keys())
+            w.writerow(['step'] + metric_names)
+            for i, step in enumerate(self.steps):
+                row = [step] + [self.curves[m][i] for m in metric_names]
+                w.writerow(row)
+        written['curves.csv'] = path
+
+        # stability.csv
+        if self.stability:
+            path = os.path.join(directory, 'stability.csv')
+            with open(path, 'w', newline='', encoding='utf-8') as f:
+                w = csv.writer(f)
+                w.writerow(['bit_index', 'stability'])
+                for idx in sorted(self.stability.keys()):
+                    w.writerow([idx, f"{self.stability[idx]:.6f}"])
+            written['stability.csv'] = path
+
+        # codes.csv
+        path = os.path.join(directory, 'codes.csv')
+        with open(path, 'w', newline='', encoding='utf-8') as f:
+            w = csv.writer(f)
+            n_bits = self.snapshots[-1].code_dim if self.snapshots else 0
+            w.writerow(['step', 'concept'] + [f'bit_{i}' for i in range(n_bits)])
+            for snap in self.snapshots:
+                for concept in sorted(snap.codes.keys()):
+                    w.writerow([snap.step, concept] + snap.codes[concept])
+        written['codes.csv'] = path
+
+        return written

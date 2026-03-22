@@ -1,25 +1,26 @@
 """
 Layer emergence plot — visualizes when each layer's primitives activate.
 
-Specific to the triadic overlay: shows the 6-layer hierarchy and
-whether lower layers stabilize before higher layers (as the theory predicts).
+Shows the layer hierarchy and whether lower layers stabilize before higher
+layers (as the theory predicts). Works with any number of layers.
 """
 
 from typing import Optional
 
+import matplotlib.cm as cm
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
 from reptimeline.overlays.primitive_overlay import PrimitiveReport
 
-LAYER_COLORS = {
-    1: '#1565C0',  # deep blue
-    2: '#2E7D32',  # green
-    3: '#F57F17',  # amber
-    4: '#E65100',  # deep orange
-    5: '#AD1457',  # pink
-    6: '#6A1B9A',  # purple
-}
+
+def _layer_colors(n_layers: int) -> dict:
+    """Generate a color palette for an arbitrary number of layers."""
+    if n_layers <= 6:
+        palette = ['#1565C0', '#2E7D32', '#F57F17', '#E65100', '#AD1457', '#6A1B9A']
+        return {i + 1: palette[i] for i in range(n_layers)}
+    cmap = cm.get_cmap('tab20', n_layers)
+    return {i + 1: cmap(i) for i in range(n_layers)}
 
 
 def plot_layer_emergence(report: PrimitiveReport,
@@ -40,9 +41,11 @@ def plot_layer_emergence(report: PrimitiveReport,
 
     layers = report.layer_emergence
     y_positions = list(range(len(layers)))
+    n_layers = max((le.layer for le in layers), default=0)
+    colors = _layer_colors(n_layers)
 
     for i, le in enumerate(layers):
-        color = LAYER_COLORS.get(le.layer, '#757575')
+        color = colors.get(le.layer, '#757575')
         if le.first_activation_step is not None and le.last_activation_step is not None:
             # Draw range bar from first to last
             width = (le.last_activation_step - le.first_activation_step) or 100
@@ -71,8 +74,8 @@ def plot_layer_emergence(report: PrimitiveReport,
 
     # Legend
     patches = [
-        mpatches.Patch(color=LAYER_COLORS[i], label=f'Layer {i}')
-        for i in sorted(LAYER_COLORS.keys())
+        mpatches.Patch(color=colors[i], label=f'Layer {i}')
+        for i in sorted(colors.keys())
     ]
     ax.legend(handles=patches, loc='lower right', fontsize=8)
 

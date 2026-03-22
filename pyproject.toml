@@ -39,6 +39,7 @@ dependencies = [
 
 [project.optional-dependencies]
 torch = ["torch>=2.0"]
+plotly = ["plotly>=5.0"]
 docs = ["pdoc3>=0.10"]
 dev = [
     "pytest>=7.0",
@@ -46,7 +47,7 @@ dev = [
     "ruff>=0.4",
     "mypy>=1.10",
 ]
-all = ["reptimeline[torch,dev,docs]"]
+all = ["reptimeline[torch,plotly,dev,docs]"]
 
 [project.scripts]
 reptimeline = "reptimeline.cli:main"

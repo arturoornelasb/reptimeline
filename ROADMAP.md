@@ -21,11 +21,12 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ### Documentación
 - [x] Generar sitio de docs con pdoc3 + GitHub Pages workflow automático
 - [x] Docstrings de API reference para todos los parámetros de thresholds en BitDiscovery
-- [ ] Guía de migración para usuarios que vienen de triadic-microgpt
+- [x] Guía de migración para usuarios de triadic-microgpt (docs/migration-from-triadic.md)
 
 ### Funcionalidad
 - [ ] Soporte para snapshots incrementales (actualmente requiere todos los checkpoints en memoria)
-- [ ] Export a formatos estándar: CSV, Parquet, WandB, TensorBoard
+- [x] Export a CSV y JSON round-trip (Timeline.to_csv(), save_json/load_json, from_dict)
+- [ ] Export a Parquet, WandB, TensorBoard
 - [x] Serialización robusta: `schema_version: "0.1"` en ConceptSnapshot y Timeline JSON
 - [ ] Paralelización de discovery triádica (actualmente single-thread, O(K³))
 - [x] Extractors built-in: SAEExtractor, VQVAEExtractor, FSQExtractor (4 backends validados con tests)
@@ -33,9 +34,9 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [ ] Tests de rendimiento con datasets grandes (actual validación: 10-60 conceptos)
 
 ### Visualización
-- [ ] Plots interactivos (Plotly o similar) además de matplotlib estático
-- [ ] Colores de capas dinámicos en layer_emergence.py (actualmente hardcoded a 6)
-- [ ] Export de plots a HTML standalone
+- [x] Plots interactivos con Plotly (4 plots: phase dashboard, swimlane, churn heatmap, causal heatmap)
+- [x] Colores de capas dinámicos en layer_emergence.py (escala a cualquier número de capas)
+- [x] Export de plots a HTML standalone (via Plotly save_html)
 
 ## Comercial
 
@@ -89,3 +90,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - ~~ValueError genérico~~ — Excepciones custom: SnapshotError, ExtractionError, DiscoveryError, ConfigurationError.
 - ~~Sin docstrings de thresholds~~ — BitDiscovery.__init__ y discover() documentados con rangos, defaults y guías prácticas.
 - ~~Ejemplos requieren GPU~~ — Todos los examples/ usan default device=cpu; hardcoded paths eliminados.
+- ~~Sin guía de migración~~ — docs/migration-from-triadic.md con import mapping, paso a paso, y referencia de formatos.
+- ~~Sin export CSV~~ — Timeline.to_csv() + save_json/load_json + from_dict round-trip.
+- ~~Colores hardcoded~~ — layer_emergence.py usa colormap dinámico para cualquier número de capas.
+- ~~Sin plots interactivos~~ — 4 plots Plotly (phase dashboard, swimlane, churn, causal) con export a HTML.

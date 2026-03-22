@@ -18,7 +18,8 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 - **Auto-labeling** -- three strategies: embedding-based, contrastive, and LLM-based
 - **Causal verification** -- intervention testing with bootstrap CIs, permutation p-values, and BH-FDR correction
 - **Theory reconciliation** -- compare discovered structure against manually-defined domain primitives
-- **Visualizations** -- swimlane diagrams, phase dashboards, churn heatmaps, layer emergence, and causal heatmaps
+- **Visualizations** -- static (matplotlib) and interactive (Plotly) swimlane, phase dashboard, churn heatmap, layer emergence, causal heatmap
+- **Export** -- JSON round-trip (`save_json`/`load_json`), CSV export (events, curves, codes, stability)
 
 ## Tech Stack
 
@@ -26,8 +27,8 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 |-----------|---------|
 | Language | Python 3.10 -- 3.13 |
 | Core dependencies | numpy >= 1.24, matplotlib >= 3.7, tqdm >= 4.60 |
-| Optional | torch >= 2.0 (for model extractors) |
-| Testing | pytest, pytest-cov, 212 tests |
+| Optional | torch >= 2.0 (extractors), plotly >= 5.0 (interactive plots) |
+| Testing | pytest, pytest-cov, 224 tests |
 | Linting | ruff (zero warnings), mypy (zero errors) |
 | CI | GitHub Actions (tests + lint + typecheck + coverage) |
 | Docs | pdoc3, auto-deployed to GitHub Pages |
@@ -124,7 +125,26 @@ verifier = CausalVerifier(labels)
 causal_report = verifier.verify(intervene_fn, concepts)
 ```
 
-### 5. CLI
+### 5. Export results
+
+```python
+# JSON round-trip
+timeline.save_json("results/timeline.json")
+restored = Timeline.load_json("results/timeline.json")
+
+# CSV export (events, curves, codes, stability)
+timeline.to_csv("results/csv/")
+```
+
+### 6. Interactive plots (requires plotly)
+
+```python
+from reptimeline.viz.interactive import plot_phase_dashboard_interactive
+
+fig = plot_phase_dashboard_interactive(timeline, save_html="dashboard.html")
+```
+
+### 7. CLI
 
 ```bash
 reptimeline --snapshots data.json --discover --plot
@@ -216,9 +236,10 @@ reptimeline/
     swimlane.py           # Concept activation swimlane
     phase_dashboard.py    # Metric trends + phase transitions
     churn_heatmap.py      # Per-concept code churn
-    layer_emergence.py    # Layer stabilization order
+    layer_emergence.py    # Layer stabilization order (dynamic colors)
     causal_heatmap.py     # Causal intervention effects
-tests/                    # 16 test modules, 212 tests (pytest)
+    interactive.py        # Plotly interactive versions (optional)
+tests/                    # 18 test modules, 224 tests (pytest)
 examples/                 # Reference pipelines and extractors
 results/                  # Pre-computed results (MNIST, Pythia-70M)
 ```
@@ -265,3 +286,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
 Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026).
+
+Coming from triadic-microgpt? See the [migration guide](docs/migration-from-triadic.md).
