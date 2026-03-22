@@ -244,10 +244,13 @@ def causal_intervention(ckpt_dir, anchors_path, primitivos_path, device_str, out
 
 def main():
     parser = argparse.ArgumentParser(description="Causal intervention on TriadicGPT triadic bits")
-    parser.add_argument("--checkpoint", default="C:/Github/triadic-microgpt/checkpoints/danza_63bit_xl_v2")
-    parser.add_argument("--anchors", default="C:/Github/triadic-microgpt/playground/danza_data/anclas.json")
-    parser.add_argument("--primitivos", default="C:/Github/triadic-microgpt/playground/danza_data/primitivos.json")
-    parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    parser.add_argument("--checkpoint", required=True,
+                        help="Path to TriadicGPT checkpoint directory")
+    parser.add_argument("--anchors", required=True,
+                        help="Path to anclas.json anchor file")
+    parser.add_argument("--primitivos", required=True,
+                        help="Path to primitivos.json primitives file")
+    parser.add_argument("--device", default="cpu", choices=["cuda", "cpu"])
     parser.add_argument("--output", default="results/triadic_causal")
     args = parser.parse_args()
 

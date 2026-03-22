@@ -5,6 +5,7 @@ import os
 import pytest
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ExtractionError
 from reptimeline.extractors.base import RepresentationExtractor
 
 
@@ -99,5 +100,5 @@ class TestExtractSequence:
 
     def test_no_checkpoints_raises(self, tmp_path):
         ext = DummyExtractor()
-        with pytest.raises(FileNotFoundError):
+        with pytest.raises(ExtractionError):
             ext.extract_sequence(str(tmp_path), ['a'])

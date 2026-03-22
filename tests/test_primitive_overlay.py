@@ -5,6 +5,7 @@ import json
 import pytest
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ConfigurationError
 from reptimeline.extractors.base import RepresentationExtractor
 from reptimeline.overlays.primitive_overlay import (
     PrimitiveOverlay,
@@ -93,7 +94,7 @@ def overlay_timeline():
 class TestInit:
 
     def test_raises_without_path(self):
-        with pytest.raises(ValueError, match="primitivos_path is required"):
+        with pytest.raises(ConfigurationError, match="primitivos_path is required"):
             PrimitiveOverlay(None)
 
     def test_loads_primitives(self, overlay):

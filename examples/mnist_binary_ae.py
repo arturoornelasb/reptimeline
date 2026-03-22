@@ -145,7 +145,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train Binary AE on MNIST")
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--bottleneck", type=int, default=32)
-    parser.add_argument("--device", default="cuda")
+    parser.add_argument("--device", default="cpu")
     parser.add_argument("--output", default="results/mnist_bae/checkpoints")
     args = parser.parse_args()
 

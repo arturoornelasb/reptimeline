@@ -8,6 +8,7 @@ import pytest
 
 from reptimeline.cli import _load_snapshots, _save_timeline, main
 from reptimeline.core import CodeEvent, ConceptSnapshot, Timeline
+from reptimeline.exceptions import SnapshotError
 
 
 class TestLoadSnapshots:
@@ -39,11 +40,11 @@ class TestLoadSnapshots:
         assert len(snapshots) == 2
 
     def test_load_invalid_format_raises(self, tmp_path):
-        """Invalid JSON format raises ValueError."""
+        """Invalid JSON format raises SnapshotError."""
         data = {"wrong_key": [1, 2, 3]}
         path = tmp_path / "bad.json"
         path.write_text(json.dumps(data), encoding='utf-8')
-        with pytest.raises((ValueError, KeyError)):
+        with pytest.raises((SnapshotError, KeyError)):
             _load_snapshots(str(path))
 
     def test_snapshots_sorted_by_step(self, tmp_path):

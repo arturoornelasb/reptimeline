@@ -3,6 +3,7 @@
 import pytest
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import SnapshotError
 from reptimeline.tracker import TimelineTracker
 from tests.conftest import SyntheticExtractor, make_code
 
@@ -83,12 +84,12 @@ class TestEdgeCases:
         assert len(timeline.births) > 0
 
     def test_mismatched_code_lengths_raises(self):
-        """Mismatched code lengths should raise ValueError."""
+        """Mismatched code lengths should raise SnapshotError."""
         snap = ConceptSnapshot(step=0, codes={
             'short': [0, 1],
             'long': [0, 1, 0, 1],
         })
-        with pytest.raises(ValueError, match="Inconsistent code lengths"):
+        with pytest.raises(SnapshotError, match="Inconsistent code lengths"):
             snap.validate()
 
     def test_mismatched_codes_rejected_by_tracker(self):
@@ -101,7 +102,7 @@ class TestEdgeCases:
             }),
         ]
         tracker = TimelineTracker(extractor)
-        with pytest.raises(ValueError, match="Inconsistent code lengths"):
+        with pytest.raises(SnapshotError, match="Inconsistent code lengths"):
             tracker.analyze(snapshots)
 
     def test_consistent_codes_pass_validation(self):

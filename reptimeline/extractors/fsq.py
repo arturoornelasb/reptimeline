@@ -20,6 +20,7 @@ from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ConfigurationError
 from reptimeline.extractors.base import RepresentationExtractor
 
 
@@ -51,7 +52,7 @@ class FSQExtractor(RepresentationExtractor):
         device: str = 'cpu',
     ):
         if binarize not in ('nonzero', 'onehot'):
-            raise ValueError(f"binarize must be 'nonzero' or 'onehot', got '{binarize}'")
+            raise ConfigurationError(f"binarize must be 'nonzero' or 'onehot', got '{binarize}'")
         self.n_levels = n_levels
         self.n_dims = len(n_levels)
         self.encode_fn = encode_fn

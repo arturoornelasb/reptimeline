@@ -21,6 +21,7 @@ import logging
 import os
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import SnapshotError
 from reptimeline.extractors.base import RepresentationExtractor
 from reptimeline.tracker import TimelineTracker
 
@@ -75,7 +76,7 @@ def _load_snapshots(path: str):
     elif isinstance(data, dict) and 'snapshots' in data:
         raw_snapshots = data['snapshots']
     else:
-        raise ValueError(
+        raise SnapshotError(
             f"Expected a list of snapshots or a dict with 'snapshots' key. "
             f"Got: {type(data)} with keys {list(data.keys()) if isinstance(data, dict) else 'N/A'}"
         )

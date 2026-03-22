@@ -4,6 +4,7 @@ import numpy as np
 import pytest
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ConfigurationError
 from reptimeline.extractors.sae import SAEExtractor
 
 
@@ -116,7 +117,7 @@ class TestIntervene:
 
     def test_no_decode_fn_raises(self):
         sae = SAEExtractor(n_features=8, encode_fn=mock_encode)
-        with pytest.raises(ValueError, match="decode_fn"):
+        with pytest.raises(ConfigurationError, match="decode_fn"):
             sae.intervene({'indices': np.array([0]), 'acts': np.array([1.0])},
                           bit_index=0)
 

@@ -16,6 +16,7 @@ from reptimeline.core import (
     PhaseTransition,
     Timeline,
 )
+from reptimeline.exceptions import SnapshotError
 from reptimeline.extractors.base import RepresentationExtractor
 
 
@@ -47,7 +48,7 @@ class TimelineTracker:
             Timeline with all lifecycle events and curves.
         """
         if not snapshots:
-            raise ValueError("Need at least one snapshot")
+            raise SnapshotError("Need at least one snapshot")
 
         for snap in snapshots:
             snap.validate()

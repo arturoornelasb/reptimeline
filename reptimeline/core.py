@@ -8,6 +8,8 @@ representation system (triadic bits, VQ-VAE, FSQ, sparse autoencoders).
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
+from reptimeline.exceptions import SnapshotError
+
 SCHEMA_VERSION = "0.1"
 
 
@@ -56,7 +58,7 @@ class ConceptSnapshot:
         if len(unique_lengths) > 1:
             examples = {sz: [c for c, cl in lengths.items() if cl == sz][:3]
                         for sz in unique_lengths}
-            raise ValueError(
+            raise SnapshotError(
                 f"Inconsistent code lengths in snapshot at step {self.step}: "
                 f"{examples}"
             )

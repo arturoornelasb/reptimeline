@@ -25,6 +25,11 @@ from reptimeline.core import ConnectionEvent as ConnectionEvent
 from reptimeline.core import PhaseTransition as PhaseTransition
 from reptimeline.core import Timeline as Timeline
 from reptimeline.discovery import BitDiscovery as BitDiscovery
+from reptimeline.exceptions import ConfigurationError as ConfigurationError
+from reptimeline.exceptions import DiscoveryError as DiscoveryError
+from reptimeline.exceptions import ExtractionError as ExtractionError
+from reptimeline.exceptions import ReptimelineError as ReptimelineError
+from reptimeline.exceptions import SnapshotError as SnapshotError
 from reptimeline.overlays.primitive_overlay import PrimitiveOverlay as PrimitiveOverlay
 from reptimeline.reconcile import Reconciler as Reconciler
 from reptimeline.tracker import TimelineTracker as TimelineTracker

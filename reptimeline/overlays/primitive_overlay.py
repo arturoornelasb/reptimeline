@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
 from reptimeline.core import Timeline
+from reptimeline.exceptions import ConfigurationError
 
 
 @dataclass
@@ -95,7 +96,7 @@ class PrimitiveOverlay:
                 standalone package.
         """
         if primitivos_path is None:
-            raise ValueError(
+            raise ConfigurationError(
                 "primitivos_path is required. Pass the path to your "
                 "primitivos.json file (e.g., PrimitiveOverlay('primitivos.json'))."
             )

@@ -3,6 +3,7 @@
 import pytest
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ConfigurationError
 from reptimeline.extractors.fsq import FSQExtractor
 
 
@@ -127,7 +128,7 @@ class TestSimilarity:
 class TestValidation:
 
     def test_invalid_binarize_raises(self):
-        with pytest.raises(ValueError, match="binarize"):
+        with pytest.raises(ConfigurationError, match="binarize"):
             FSQExtractor(n_levels=[3], encode_fn=mock_encode, binarize='invalid')
 
 

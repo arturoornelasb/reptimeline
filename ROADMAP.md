@@ -16,11 +16,11 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - [x] Type checking con mypy (0 errors, integrado en CI)
 - [x] Logging estructurado en CLI y extractors (print_summary/print_report siguen como API de usuario)
 - [x] Progress bars con tqdm en extract_sequence y discovery triádica
-- [ ] Manejo de errores más granular: excepciones custom en vez de ValueError genérico
+- [x] Manejo de errores más granular: excepciones custom (SnapshotError, ExtractionError, DiscoveryError, ConfigurationError)
 
 ### Documentación
 - [x] Generar sitio de docs con pdoc3 + GitHub Pages workflow automático
-- [ ] Docstrings de API reference para todos los parámetros de thresholds en BitDiscovery
+- [x] Docstrings de API reference para todos los parámetros de thresholds en BitDiscovery
 - [ ] Guía de migración para usuarios que vienen de triadic-microgpt
 
 ### Funcionalidad
@@ -61,7 +61,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ### Comunidad
 - [x] CONTRIBUTING.md con guía de contribución
 - [x] Issue templates en GitHub (bug report + feature request)
-- [ ] Ejemplos reproducibles que corran sin datos propietarios ni GPUs
+- [x] Ejemplos reproducibles que corran sin datos propietarios ni GPUs (default device=cpu, hardcoded paths removed)
 
 ## Bloqueos
 
@@ -86,3 +86,6 @@ What's needed to take reptimeline from research prototype to production-ready, c
 - ~~Sin docs site~~ — pdoc3 + GitHub Pages deploy automático.
 - ~~Sin CONTRIBUTING.md~~ — Guía de contribución + issue templates.
 - ~~Build no verificado~~ — `python -m build` produce sdist + wheel correctamente.
+- ~~ValueError genérico~~ — Excepciones custom: SnapshotError, ExtractionError, DiscoveryError, ConfigurationError.
+- ~~Sin docstrings de thresholds~~ — BitDiscovery.__init__ y discover() documentados con rangos, defaults y guías prácticas.
+- ~~Ejemplos requieren GPU~~ — Todos los examples/ usan default device=cpu; hardcoded paths eliminados.

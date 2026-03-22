@@ -18,6 +18,7 @@ from typing import Dict, List, Optional
 import numpy as np
 
 from reptimeline.core import ConceptSnapshot, Timeline
+from reptimeline.exceptions import DiscoveryError
 
 
 @dataclass
@@ -102,16 +103,36 @@ class BitDiscovery:
                  triadic_threshold: float = 0.7,
                  triadic_min_interaction: float = 0.2,
                  apply_correction: bool = True):
-        """
+        """Configure discovery thresholds.
+
         Args:
-            dead_threshold: Bits with activation rate below this are "dead".
-            dual_threshold: Correlation below this counts as a dual pair.
-            dep_confidence: P(parent|child) above this counts as dependency.
-            triadic_threshold: P(r|i,j) above this for triadic detection.
-            triadic_min_interaction: Minimum interaction strength
-                (P(r|i,j) - max(P(r|i), P(r|j))).
-            apply_correction: Apply multiple comparison correction
-                (Bonferroni for duals/deps, BH for triadic).
+            dead_threshold: Activation rate below which a bit is considered
+                "dead" (never meaningfully activates). Range: [0, 1].
+                Default 0.02 = bits active for <2% of concepts are dead.
+                Lower for sparse codes (SAE), higher for dense codes.
+            dual_threshold: Pearson correlation below which two bits are
+                considered a dual (anti-correlated) pair. Range: [-1, 0].
+                Default -0.3. Use -0.5 for stricter dual detection.
+                After Bonferroni correction (if enabled), only pairs with
+                p < 0.05/n_pairs survive.
+            dep_confidence: Minimum P(parent=1 | child=1) to declare a
+                dependency edge. Range: [0, 1]. Default 0.9 = parent must
+                be active in 90%+ of cases where child is active.
+                After Bonferroni correction, edges with p >= 0.05/n_edges
+                are removed.
+            triadic_threshold: Minimum P(r=1 | i=1, j=1) for a 3-way
+                interaction. Range: [0, 1]. Default 0.7. Also used as
+                the ceiling: P(r|i) and P(r|j) individually must be
+                BELOW this threshold for the interaction to count.
+            triadic_min_interaction: Minimum interaction strength, defined
+                as P(r|i,j) - max(P(r|i), P(r|j)). Range: [0, 1].
+                Default 0.2. Higher values find only strong AND-gates.
+                After BH-FDR correction (if enabled), interactions with
+                adjusted p >= 0.05 are removed.
+            apply_correction: Whether to apply multiple comparison
+                correction. Bonferroni for duals and dependencies,
+                Benjamini-Hochberg FDR for triadic interactions.
+                Default True. Disable for exploratory analysis only.
         """
         self.dead_threshold = dead_threshold
         self.dual_threshold = dual_threshold
@@ -125,15 +146,31 @@ class BitDiscovery:
                  top_k: int = 10) -> DiscoveryReport:
         """Discover bit semantics from a single snapshot (or a full timeline).
 
+        Runs four analyses: bit semantics, dual pairs, dependency edges,
+        and triadic interactions. Optionally discovers hierarchy from
+        timeline stability data.
+
         Args:
             snapshot: A ConceptSnapshot with codes for many concepts.
                 Use the LAST snapshot from training for best results.
-            timeline: Optional full timeline for hierarchy discovery.
-            top_k: Number of top/anti concepts per bit.
+                More concepts = better statistical power. 30+ recommended.
+            timeline: Optional full Timeline for hierarchy discovery.
+                When provided, bits are assigned layers based on when
+                they first stabilize during training. Requires 3+
+                snapshots for stability detection.
+            top_k: Number of top-activating and anti-activating concepts
+                to report per bit. Default 10.
+
+        Returns:
+            DiscoveryReport with bit semantics, duals, dependencies,
+            triadic interactions, hierarchy, and metadata.
+
+        Raises:
+            ValueError: If snapshot has no concepts.
         """
         concepts = list(snapshot.codes.keys())
         if not concepts:
-            raise ValueError("Snapshot has no concepts")
+            raise DiscoveryError("Snapshot has no concepts")
 
         n_bits = snapshot.code_dim
         codes_matrix = np.array([snapshot.codes[c] for c in concepts])

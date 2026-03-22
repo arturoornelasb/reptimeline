@@ -496,7 +496,7 @@ def sae_intervention(device, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Causal v2: break Pythia SAE black box")
-    parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    parser.add_argument("--device", default="cpu", choices=["cuda", "cpu"])
     parser.add_argument("--output", default="results/causal")
     args = parser.parse_args()
 

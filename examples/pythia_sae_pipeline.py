@@ -305,7 +305,7 @@ def main():
         "--top-k", type=int, default=256, help="Number of SAE features to track (default: 256)"
     )
     parser.add_argument(
-        "--device", default="cuda", choices=["cuda", "cpu"], help="Device (default: cuda)"
+        "--device", default="cpu", choices=["cuda", "cpu"], help="Device (default: cpu)"
     )
     parser.add_argument(
         "--output",

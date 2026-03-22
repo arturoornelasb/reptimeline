@@ -391,7 +391,7 @@ def experiment_b(output_dir="results/causal"):
 
 def main():
     parser = argparse.ArgumentParser(description="Causal experiments for reptimeline")
-    parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    parser.add_argument("--device", default="cpu", choices=["cuda", "cpu"])
     parser.add_argument("--output", default="results/causal")
     args = parser.parse_args()
 

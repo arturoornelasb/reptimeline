@@ -209,7 +209,7 @@ def main():
     )
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--bottleneck", type=int, default=32, help="Number of binary bits")
-    parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"])
+    parser.add_argument("--device", default="cpu", choices=["cuda", "cpu"])
     parser.add_argument("--output", default="results/mnist_bae")
     parser.add_argument("--load-snapshots", action="store_true")
     parser.add_argument("--force-train", action="store_true")

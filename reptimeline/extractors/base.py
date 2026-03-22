@@ -12,6 +12,7 @@ from abc import ABC, abstractmethod
 from typing import Any, List, Optional, Tuple
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ExtractionError
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +96,7 @@ class RepresentationExtractor(ABC):
         """
         checkpoints = self.discover_checkpoints(directory)
         if not checkpoints:
-            raise FileNotFoundError(f"No step checkpoints found in {directory}")
+            raise ExtractionError(f"No step checkpoints found in {directory}")
 
         if max_checkpoints and len(checkpoints) > max_checkpoints:
             indices = [int(i * (len(checkpoints) - 1) / (max_checkpoints - 1))

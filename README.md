@@ -202,6 +202,7 @@ reptimeline/
   autolabel.py            # AutoLabeler: 3 labeling strategies
   reconcile.py            # Reconciler: discovered vs. theory
   causal.py               # CausalVerifier: intervention testing
+  exceptions.py           # Domain-specific exception hierarchy
   stats.py                # Bootstrap, permutation tests, BH-FDR
   cli.py                  # Command-line interface
   extractors/

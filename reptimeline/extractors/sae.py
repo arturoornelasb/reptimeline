@@ -19,6 +19,7 @@ from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 
 from reptimeline.core import ConceptSnapshot
+from reptimeline.exceptions import ConfigurationError
 from reptimeline.extractors.base import RepresentationExtractor
 
 
@@ -116,7 +117,7 @@ class SAEExtractor(RepresentationExtractor):
             L2 norm of (original_reconstruction - modified_reconstruction).
         """
         if self.decode_fn is None:
-            raise ValueError("decode_fn required for intervention")
+            raise ConfigurationError("decode_fn required for intervention")
 
         sae_feature = (self.feature_indices[bit_index]
                        if self.feature_indices else bit_index)
