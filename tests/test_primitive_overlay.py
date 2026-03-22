@@ -1,15 +1,16 @@
 """Tests for the PrimitiveOverlay module."""
 
 import json
+
 import pytest
 
 from reptimeline.core import ConceptSnapshot
-from reptimeline.tracker import TimelineTracker
-from reptimeline.overlays.primitive_overlay import (
-    PrimitiveOverlay, PrimitiveReport, ActivationEpoch,
-    DepsCompletion, LayerEmergence, DualCoherence,
-)
 from reptimeline.extractors.base import RepresentationExtractor
+from reptimeline.overlays.primitive_overlay import (
+    PrimitiveOverlay,
+    PrimitiveReport,
+)
+from reptimeline.tracker import TimelineTracker
 
 
 class SyntheticExtractor(RepresentationExtractor):

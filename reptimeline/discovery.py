@@ -13,7 +13,7 @@ ontology and reptimeline discovers what it is.
 
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 
 import numpy as np
 
@@ -164,7 +164,9 @@ class BitDiscovery:
                 'n_concepts': len(concepts),
                 'n_bits': n_bits,
                 'correction_applied': self.apply_correction,
-                'correction_method': 'bonferroni_duals_deps__bh_triadic' if self.apply_correction else 'none',
+                'correction_method': (
+                    'bonferroni_duals_deps__bh_triadic' if self.apply_correction else 'none'
+                ),
             },
         )
 
@@ -386,7 +388,8 @@ class BitDiscovery:
                     if n_ij == 0:
                         count_ge += 1
                         continue
-                    p_r_ij_perm = perm_r[active_masks[td.bit_i] & active_masks[td.bit_j]].sum() / n_ij
+                    mask_ij = active_masks[td.bit_i] & active_masks[td.bit_j]
+                    p_r_ij_perm = perm_r[mask_ij].sum() / n_ij
                     p_r_i_perm = perm_r[active_masks[td.bit_i]].sum() / active_counts[td.bit_i]
                     p_r_j_perm = perm_r[active_masks[td.bit_j]].sum() / active_counts[td.bit_j]
                     perm_interaction = p_r_ij_perm - max(p_r_i_perm, p_r_j_perm)

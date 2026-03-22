@@ -2,10 +2,9 @@
 Phase dashboard — multi-panel plot of entropy, churn, utilization + phase transitions.
 """
 
-from typing import Dict, List, Optional
+from typing import Optional
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 from reptimeline.core import Timeline
 

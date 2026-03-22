@@ -1,5 +1,5 @@
-from reptimeline.viz.swimlane import plot_swimlane
-from reptimeline.viz.phase_dashboard import plot_phase_dashboard
-from reptimeline.viz.churn_heatmap import plot_churn_heatmap
-from reptimeline.viz.layer_emergence import plot_layer_emergence
-from reptimeline.viz.causal_heatmap import plot_causal_heatmap
+from reptimeline.viz.causal_heatmap import plot_causal_heatmap as plot_causal_heatmap
+from reptimeline.viz.churn_heatmap import plot_churn_heatmap as plot_churn_heatmap
+from reptimeline.viz.layer_emergence import plot_layer_emergence as plot_layer_emergence
+from reptimeline.viz.phase_dashboard import plot_phase_dashboard as plot_phase_dashboard
+from reptimeline.viz.swimlane import plot_swimlane as plot_swimlane

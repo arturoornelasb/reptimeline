@@ -1,1 +1,1 @@
-from reptimeline.overlays.primitive_overlay import PrimitiveOverlay
+from reptimeline.overlays.primitive_overlay import PrimitiveOverlay as PrimitiveOverlay

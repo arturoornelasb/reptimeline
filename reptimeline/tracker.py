@@ -5,12 +5,16 @@ Consumes a sequence of ConceptSnapshot objects and computes lifecycle events:
 births, deaths, connections, phase transitions, churn, stability.
 """
 
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
 import numpy as np
 
 from reptimeline.core import (
-    ConceptSnapshot, CodeEvent, ConnectionEvent, PhaseTransition, Timeline,
+    CodeEvent,
+    ConceptSnapshot,
+    ConnectionEvent,
+    PhaseTransition,
+    Timeline,
 )
 from reptimeline.extractors.base import RepresentationExtractor
 

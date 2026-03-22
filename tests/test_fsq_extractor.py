@@ -1,6 +1,5 @@
 """Tests for FSQExtractor."""
 
-import numpy as np
 import pytest
 
 from reptimeline.core import ConceptSnapshot

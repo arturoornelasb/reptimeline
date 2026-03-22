@@ -5,14 +5,12 @@ Specific to the triadic overlay: shows the 6-layer hierarchy and
 whether lower layers stabilize before higher layers (as the theory predicts).
 """
 
-from typing import List, Optional
+from typing import Optional
 
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-import numpy as np
+import matplotlib.pyplot as plt
 
 from reptimeline.overlays.primitive_overlay import PrimitiveReport
-
 
 LAYER_COLORS = {
     1: '#1565C0',  # deep blue
@@ -45,8 +43,6 @@ def plot_layer_emergence(report: PrimitiveReport,
 
     for i, le in enumerate(layers):
         color = LAYER_COLORS.get(le.layer, '#757575')
-        activated_frac = le.primitives_activated / le.n_primitives if le.n_primitives > 0 else 0
-
         if le.first_activation_step is not None:
             # Draw range bar from first to last
             width = (le.last_activation_step - le.first_activation_step) or 100

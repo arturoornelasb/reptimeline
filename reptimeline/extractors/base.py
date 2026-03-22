@@ -5,12 +5,15 @@ Each backend (triadic, VQ-VAE, FSQ, sparse autoencoder) implements this
 interface to produce standardized ConceptSnapshot objects.
 """
 
+import logging
 import os
 import re
 from abc import ABC, abstractmethod
 from typing import List, Optional, Tuple
 
 from reptimeline.core import ConceptSnapshot
+
+logger = logging.getLogger(__name__)
 
 
 class RepresentationExtractor(ABC):
@@ -100,7 +103,7 @@ class RepresentationExtractor(ABC):
 
         snapshots = []
         for i, (step, path) in enumerate(checkpoints):
-            print(f"  [{i+1}/{len(checkpoints)}] Extracting step {step:,}...")
+            logger.info("[%d/%d] Extracting step %s...", i + 1, len(checkpoints), f"{step:,}")
             snapshot = self.extract(path, concepts, device)
             snapshots.append(snapshot)
 

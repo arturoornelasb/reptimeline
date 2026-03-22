@@ -1,5 +1,9 @@
 # reptimeline
 
+[![CI](https://github.com/arturoornelasb/reptimeline/actions/workflows/ci.yml/badge.svg)](https://github.com/arturoornelasb/reptimeline/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-orange.svg)](LICENSE)
+
 **Track how discrete representations evolve during neural network training.**
 
 reptimeline monitors lifecycle events in discrete representation systems: when concepts are "born" (first become distinguishable), when they "die" (collapse), when relationships form, and where phase transitions occur. It then discovers what each feature means, labels it, and tests causal effects.

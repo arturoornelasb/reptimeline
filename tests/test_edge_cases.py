@@ -4,7 +4,7 @@ import pytest
 
 from reptimeline.core import ConceptSnapshot
 from reptimeline.tracker import TimelineTracker
-from tests.conftest import make_code, SyntheticExtractor
+from tests.conftest import SyntheticExtractor, make_code
 
 
 class TestEdgeCases:

@@ -1,10 +1,13 @@
 """Tests for the Reconciler module."""
 
 import json
+
 import pytest
 
 from reptimeline.discovery import (
-    BitSemantics, DiscoveredDual, DiscoveredDependency,
+    BitSemantics,
+    DiscoveredDependency,
+    DiscoveredDual,
     DiscoveryReport,
 )
 from reptimeline.overlays.primitive_overlay import PrimitiveOverlay

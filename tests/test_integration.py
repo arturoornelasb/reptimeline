@@ -1,11 +1,12 @@
 """Integration tests using real pre-computed data from results/mnist_bae/."""
 
 import os
+
 import pytest
 
 from reptimeline.core import ConceptSnapshot
-from reptimeline.tracker import TimelineTracker
 from reptimeline.discovery import BitDiscovery
+from reptimeline.tracker import TimelineTracker
 
 SNAPSHOTS_PATH = os.path.join(
     os.path.dirname(__file__), '..', 'results', 'mnist_bae', 'snapshots.json'

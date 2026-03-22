@@ -1,13 +1,13 @@
 """Tests for the CLI module."""
 
 import json
-import os
 import subprocess
 import sys
+
 import pytest
 
 from reptimeline.cli import _load_snapshots, _save_timeline, main
-from reptimeline.core import ConceptSnapshot, Timeline, CodeEvent, ConnectionEvent, PhaseTransition
+from reptimeline.core import CodeEvent, ConceptSnapshot, Timeline
 
 
 class TestLoadSnapshots:

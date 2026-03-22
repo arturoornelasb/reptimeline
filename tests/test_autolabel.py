@@ -5,9 +5,9 @@ Tests for AutoLabeler — embedding-based and contrastive labeling.
 import numpy as np
 import pytest
 
+from reptimeline.autolabel import AutoLabeler
 from reptimeline.core import ConceptSnapshot
 from reptimeline.discovery import BitDiscovery
-from reptimeline.autolabel import AutoLabeler
 from tests.conftest import make_code
 
 
@@ -112,7 +112,7 @@ class TestLabelByLLM:
 
         labeler = AutoLabeler()
         labels = labeler.label_by_llm(report, llm_fn=mock_llm)
-        active = [l for l in labels if l.label != "DEAD"]
+        active = [lbl for lbl in labels if lbl.label != "DEAD"]
         assert len(active) > 0
         for lbl in active:
             assert lbl.method == 'llm'
@@ -128,7 +128,7 @@ class TestLabelByLLM:
 
         labeler = AutoLabeler()
         labels = labeler.label_by_llm(report, llm_fn=failing_llm)
-        active = [l for l in labels if l.label != "DEAD"]
+        active = [lbl for lbl in labels if lbl.label != "DEAD"]
         for lbl in active:
             assert "ERROR" in lbl.label
 
@@ -202,7 +202,7 @@ class TestZeroNormFallback:
 
         assert len(labels) == len(report.bit_semantics)
         # Fallback labels should have confidence 0.0
-        fallbacks = [l for l in labels if l.confidence == 0.0 and l.label != "DEAD"]
+        fallbacks = [lbl for lbl in labels if lbl.confidence == 0.0 and lbl.label != "DEAD"]
         assert len(fallbacks) > 0
 
 
@@ -228,7 +228,7 @@ class TestImports:
         assert BitLabel is not None
 
     def test_top_level_imports(self):
-        from reptimeline import TimelineTracker, BitDiscovery
+        from reptimeline import BitDiscovery, TimelineTracker
         assert TimelineTracker is not None
         assert BitDiscovery is not None
 

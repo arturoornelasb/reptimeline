@@ -6,14 +6,14 @@ What's needed to take reptimeline from research prototype to production-ready, c
 
 ### Distribución y CI
 - [ ] Publicar en PyPI (el README dice `pip install reptimeline` pero no está publicado)
-- [ ] GitHub Actions: tests, linting (ruff), coverage en cada PR
+- [x] GitHub Actions: tests (Python 3.10-3.13), ruff lint, coverage en cada PR
 - [ ] Pre-commit hooks (ruff, type checking)
-- [ ] Coverage reporting (pytest-cov está en deps pero no hay config ni badge)
-- [ ] Badges en README: PyPI version, tests, coverage, Python versions
+- [x] Coverage reporting (pytest-cov configurado en pyproject.toml + coverage XML en CI)
+- [x] Badges en README: CI status, Python versions, license
 
 ### Calidad de código
 - [ ] Agregar type checking con mypy o pyright (hay type hints pero no se verifican)
-- [ ] Logging estructurado (actualmente todo es print/stdout)
+- [x] Logging estructurado en CLI y extractors (print_summary/print_report siguen como API de usuario)
 - [ ] Progress bars para operaciones largas (discovery triádica es O(K³))
 - [ ] Manejo de errores más granular: excepciones custom en vez de ValueError genérico
 
@@ -26,7 +26,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ### Funcionalidad
 - [ ] Soporte para snapshots incrementales (actualmente requiere todos los checkpoints en memoria)
 - [ ] Export a formatos estándar: CSV, Parquet, WandB, TensorBoard
-- [ ] Serialización robusta: versión de schema en los JSON de salida
+- [x] Serialización robusta: `schema_version: "0.1"` en ConceptSnapshot y Timeline JSON
 - [ ] Paralelización de discovery triádica (actualmente single-thread, O(K³))
 - [x] Extractors built-in: SAEExtractor, VQVAEExtractor, FSQExtractor (4 backends validados con tests)
 - [ ] Más extractors: concept bottleneck models, DINO features, quantized LLMs
@@ -67,7 +67,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 
 ### Críticos (bloquean producción)
 1. **No está en PyPI.** El README dice `pip install reptimeline` pero el paquete no existe. Nadie puede instalarlo sin clonar el repo.
-2. **Sin CI/CD.** No hay GitHub Actions. Los 212 tests pasan localmente pero no hay garantía en PRs ni releases.
+2. **~~Sin CI/CD.~~** Resuelto: GitHub Actions CI con tests (Python 3.10-3.13), ruff lint, y coverage. Publish workflow para PyPI con trusted publishing.
 3. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
 
 ### Importantes (bloquean escala)
@@ -77,5 +77,5 @@ What's needed to take reptimeline from research prototype to production-ready, c
 
 ### Menores (bloquean polish)
 7. **Sin docs site.** pdoc3 está en deps pero nunca se ejecutó.
-8. **Sin logging.** Dificulta debugging en producción.
-9. **JSON sin schema version.** Si el formato cambia en v0.2, no hay forma de detectar archivos v0.1.
+8. **~~Sin logging.~~** Resuelto: CLI y extractors usan `logging` module.
+9. **~~JSON sin schema version.~~** Resuelto: `schema_version: "0.1"` en todos los `to_dict()`.

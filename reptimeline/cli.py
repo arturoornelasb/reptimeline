@@ -17,12 +17,14 @@ Usage:
 
 import argparse
 import json
+import logging
 import os
-import sys
 
-from reptimeline.core import ConceptSnapshot, Timeline
+from reptimeline.core import ConceptSnapshot
 from reptimeline.extractors.base import RepresentationExtractor
 from reptimeline.tracker import TimelineTracker
+
+logger = logging.getLogger(__name__)
 
 
 class _JaccardExtractor(RepresentationExtractor):
@@ -124,14 +126,19 @@ def main():
 
     args = parser.parse_args()
 
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s",
+    )
+
     # Load snapshots
-    print(f"Loading snapshots from: {args.snapshots}")
+    logger.info("Loading snapshots from: %s", args.snapshots)
     snapshots = _load_snapshots(args.snapshots)
-    print(f"  Loaded {len(snapshots)} snapshots "
-          f"(steps {snapshots[0].step:,} to {snapshots[-1].step:,})")
+    logger.info("  Loaded %d snapshots (steps %s to %s)",
+                len(snapshots), f"{snapshots[0].step:,}", f"{snapshots[-1].step:,}")
 
     concepts = snapshots[-1].concepts
-    print(f"  Concepts: {len(concepts)}")
+    logger.info("  Concepts: %d", len(concepts))
 
     # Analyze
     extractor = _JaccardExtractor()
@@ -173,43 +180,46 @@ def main():
         plot_dir = args.plot_dir or 'reptimeline_plots'
         os.makedirs(plot_dir, exist_ok=True)
         _generate_plots(timeline, report, causal_report, concepts, plot_dir)
-        print(f"\nPlots saved to {plot_dir}/")
+        logger.info("Plots saved to %s/", plot_dir)
 
     # Save
     if args.output:
         _save_timeline(timeline, args.output)
-        print(f"\nTimeline saved to {args.output}")
+        logger.info("Timeline saved to %s", args.output)
 
 
 def _generate_plots(timeline, report, causal_report, concepts, plot_dir):
     """Generate all visualization plots."""
     from reptimeline.viz import (
-        plot_swimlane, plot_phase_dashboard, plot_churn_heatmap, plot_layer_emergence,
         plot_causal_heatmap,
+        plot_churn_heatmap,
+        plot_layer_emergence,
+        plot_phase_dashboard,
+        plot_swimlane,
     )
 
-    print("\nGenerating plots...")
+    logger.info("Generating plots...")
 
     plot_swimlane(
         timeline, concepts=concepts[:20],  # limit for readability
         save_path=os.path.join(plot_dir, 'swimlane.png'),
         show=False,
     )
-    print("  swimlane.png")
+    logger.info("  swimlane.png")
 
     plot_phase_dashboard(
         timeline,
         save_path=os.path.join(plot_dir, 'phase_dashboard.png'),
         show=False,
     )
-    print("  phase_dashboard.png")
+    logger.info("  phase_dashboard.png")
 
     plot_churn_heatmap(
         timeline, concepts=concepts,
         save_path=os.path.join(plot_dir, 'churn_heatmap.png'),
         show=False,
     )
-    print("  churn_heatmap.png")
+    logger.info("  churn_heatmap.png")
 
     if report is not None:
         plot_layer_emergence(
@@ -217,7 +227,7 @@ def _generate_plots(timeline, report, causal_report, concepts, plot_dir):
             save_path=os.path.join(plot_dir, 'layer_emergence.png'),
             show=False,
         )
-        print("  layer_emergence.png")
+        logger.info("  layer_emergence.png")
 
     if causal_report is not None:
         plot_causal_heatmap(
@@ -225,7 +235,7 @@ def _generate_plots(timeline, report, causal_report, concepts, plot_dir):
             save_path=os.path.join(plot_dir, 'causal_heatmap.png'),
             show=False,
         )
-        print("  causal_heatmap.png")
+        logger.info("  causal_heatmap.png")
 
 
 def _load_effects(path):

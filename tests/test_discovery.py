@@ -5,9 +5,9 @@ Test BitDiscovery against synthetic data with known patterns.
 import pytest
 
 from reptimeline.core import ConceptSnapshot
-from reptimeline.discovery import BitDiscovery, DiscoveryReport
+from reptimeline.discovery import BitDiscovery
 from reptimeline.tracker import TimelineTracker
-from tests.conftest import make_code, SyntheticExtractor
+from tests.conftest import SyntheticExtractor, make_code
 
 
 class TestDiscoverySynthetic:

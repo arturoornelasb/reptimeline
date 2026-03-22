@@ -11,13 +11,12 @@ but requires an LLM API call.
 """
 
 import json
-import os
 from dataclasses import dataclass
-from typing import Callable, Dict, List, Optional, Tuple
+from typing import Callable, Dict, List, Optional
 
 import numpy as np
 
-from reptimeline.discovery import BitSemantics, DiscoveryReport
+from reptimeline.discovery import DiscoveryReport
 
 
 @dataclass
@@ -266,7 +265,7 @@ class AutoLabeler:
                 label = label.split('\n')[0].strip('"\'.,! ')
                 if len(label) > 30:
                     label = label[:30]
-            except Exception as e:
+            except Exception:
                 label = f"bit_{bs.bit_index}_ERROR"
 
             labels.append(BitLabel(
@@ -290,10 +289,10 @@ class AutoLabeler:
         print("=" * 60)
         print("  AUTO-LABELED BITS")
         print("=" * 60)
-        active_labels = [l for l in labels if l.label != "DEAD"]
-        dead_labels = [l for l in labels if l.label == "DEAD"]
+        active_labels = [lbl for lbl in labels if lbl.label != "DEAD"]
+        dead_labels = [lbl for lbl in labels if lbl.label == "DEAD"]
 
-        active_labels.sort(key=lambda l: l.confidence, reverse=True)
+        active_labels.sort(key=lambda lbl: lbl.confidence, reverse=True)
         for bl in active_labels:
             concepts = ", ".join(bl.active_concepts[:4])
             print(f"    bit {bl.bit_index:>2d} = {bl.label:<20s}"

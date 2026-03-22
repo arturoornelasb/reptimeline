@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
+from reptimeline.causal import CausalReport, CausalVerifier
 from reptimeline.core import ConceptSnapshot
-from reptimeline.causal import CausalVerifier, CausalReport, BitCausalResult
 
 
 def make_code(n_bits, active_indices):

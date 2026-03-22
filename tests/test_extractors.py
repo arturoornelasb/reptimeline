@@ -1,10 +1,11 @@
 """Tests for extractors/base.py — discover_checkpoints and extract_sequence."""
 
 import os
+
 import pytest
 
-from reptimeline.extractors.base import RepresentationExtractor
 from reptimeline.core import ConceptSnapshot
+from reptimeline.extractors.base import RepresentationExtractor
 
 
 class DummyExtractor(RepresentationExtractor):

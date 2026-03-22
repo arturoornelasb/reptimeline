@@ -6,9 +6,9 @@ representation system (triadic bits, VQ-VAE, FSQ, sparse autoencoders).
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
-import numpy as np
+SCHEMA_VERSION = "0.1"
 
 
 @dataclass
@@ -54,8 +54,8 @@ class ConceptSnapshot:
         lengths = {concept: len(code) for concept, code in self.codes.items()}
         unique_lengths = set(lengths.values())
         if len(unique_lengths) > 1:
-            examples = {l: [c for c, cl in lengths.items() if cl == l][:3]
-                        for l in unique_lengths}
+            examples = {sz: [c for c, cl in lengths.items() if cl == sz][:3]
+                        for sz in unique_lengths}
             raise ValueError(
                 f"Inconsistent code lengths in snapshot at step {self.step}: "
                 f"{examples}"
@@ -64,6 +64,7 @@ class ConceptSnapshot:
     def to_dict(self) -> Dict[str, Any]:
         """Serialize to a JSON-compatible dict."""
         return {
+            'schema_version': SCHEMA_VERSION,
             'step': self.step,
             'codes': self.codes,
             'continuous': self.continuous,
@@ -128,13 +129,16 @@ class Timeline:
         print("=" * 60)
         print("  REPRESENTATION TIMELINE")
         print("=" * 60)
-        print(f"  Steps:              {self.steps[0]:,} -> {self.steps[-1]:,} ({len(self.steps)} checkpoints)")
+        n_ckpt = len(self.steps)
+        print(f"  Steps:              {self.steps[0]:,} -> {self.steps[-1]:,}"
+              f" ({n_ckpt} checkpoints)")
         print(f"  Concepts tracked:   {len(self.snapshots[-1].concepts) if self.snapshots else 0}")
         print(f"  Code dimension:     {self.snapshots[-1].code_dim if self.snapshots else 0}")
         print()
         print(f"  Bit births:         {len(self.births)}")
         print(f"  Bit deaths:         {len(self.deaths)}")
-        print(f"  Connections formed: {len([c for c in self.connections if c.event_type == 'form'])}")
+        n_conn = len([c for c in self.connections if c.event_type == 'form'])
+        print(f"  Connections formed: {n_conn}")
         print(f"  Phase transitions:  {len(self.phase_transitions)}")
         print()
 
@@ -167,6 +171,7 @@ class Timeline:
     def to_dict(self) -> Dict[str, Any]:
         """Serialize Timeline to a JSON-compatible dict."""
         return {
+            'schema_version': SCHEMA_VERSION,
             'steps': self.steps,
             'snapshots': [s.to_dict() for s in self.snapshots],
             'births': [

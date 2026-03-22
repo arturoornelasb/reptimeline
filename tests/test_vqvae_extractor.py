@@ -86,7 +86,8 @@ class TestSharedFeatures:
 class TestExtract:
 
     def test_extract_produces_snapshot(self, tmp_path):
-        encode_fn = lambda x: np.array(x)
+        def encode_fn(x):
+            return np.array(x)
         extractor = VQVAEExtractor(n_codebook=8, encode_fn=encode_fn)
 
         ckpt = tmp_path / "model_step1000.pt"
@@ -105,7 +106,8 @@ class TestExtract:
         def loader(path):
             loaded.append(path)
 
-        encode_fn = lambda x: np.array([0])
+        def encode_fn(x):
+            return np.array([0])
         extractor = VQVAEExtractor(n_codebook=4, encode_fn=encode_fn,
                                     model_loader=loader)
 

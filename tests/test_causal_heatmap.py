@@ -1,11 +1,11 @@
 """Tests for causal heatmap visualization."""
 
 import matplotlib
+
 matplotlib.use('Agg')
 
-import pytest
 
-from reptimeline.causal import CausalReport, BitCausalResult
+from reptimeline.causal import BitCausalResult, CausalReport
 from reptimeline.stats import BootstrapResult
 from reptimeline.viz.causal_heatmap import plot_causal_heatmap
 

@@ -5,13 +5,12 @@ import pytest
 
 from reptimeline.stats import (
     BootstrapResult,
-    bootstrap_ci,
-    permutation_test,
     benjamini_hochberg,
+    bootstrap_ci,
     effect_size_cohens_d,
+    permutation_test,
     selectivity_ratio,
 )
-
 
 # ── bootstrap_ci ─────────────────────────────────────────────────
 

@@ -1,16 +1,21 @@
 """Tests for visualization modules (swimlane, phase_dashboard, churn_heatmap, layer_emergence)."""
 
 import matplotlib
+
 matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import pytest
 
-from reptimeline.core import ConceptSnapshot, Timeline, PhaseTransition
+from reptimeline.core import ConceptSnapshot, PhaseTransition, Timeline
+from reptimeline.overlays.primitive_overlay import LayerEmergence, PrimitiveReport
 from reptimeline.tracker import TimelineTracker
-from reptimeline.viz import plot_swimlane, plot_phase_dashboard, plot_churn_heatmap, plot_layer_emergence
-from reptimeline.overlays.primitive_overlay import PrimitiveReport, LayerEmergence, DualCoherence
-from reptimeline.extractors.base import RepresentationExtractor
+from reptimeline.viz import (
+    plot_churn_heatmap,
+    plot_layer_emergence,
+    plot_phase_dashboard,
+    plot_swimlane,
+)
 
 
 def make_code(n_bits, active_indices):
@@ -129,7 +134,6 @@ class TestPlotPhaseDashboard:
 
     def test_with_phase_transitions(self, timeline):
         """Phase dashboard with injected transitions covers annotation code."""
-        from reptimeline.core import Timeline
         # Inject a phase transition into the existing timeline
         tl = Timeline(
             steps=timeline.steps,

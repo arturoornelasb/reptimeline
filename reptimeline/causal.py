@@ -18,8 +18,12 @@ import numpy as np
 
 from reptimeline.core import ConceptSnapshot
 from reptimeline.stats import (
-    BootstrapResult, bootstrap_ci, permutation_test,
-    benjamini_hochberg, effect_size_cohens_d, selectivity_ratio,
+    BootstrapResult,
+    benjamini_hochberg,
+    bootstrap_ci,
+    effect_size_cohens_d,
+    permutation_test,
+    selectivity_ratio,
 )
 
 

@@ -14,7 +14,7 @@ Usage:
     intervene_fn = sae.make_intervene_fn(concept_hidden_states)
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 

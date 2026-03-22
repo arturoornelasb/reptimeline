@@ -12,15 +12,11 @@ Corrections can go in BOTH directions:
   - Fix the theory: suggest changes to primitivos.json
 """
 
-import json
-import os
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
-import numpy as np
-
-from reptimeline.discovery import BitDiscovery, BitSemantics, DiscoveryReport
-from reptimeline.overlays.primitive_overlay import PrimitiveOverlay, PrimitiveInfo
+from reptimeline.discovery import DiscoveryReport
+from reptimeline.overlays.primitive_overlay import PrimitiveOverlay
 
 
 @dataclass
@@ -180,8 +176,8 @@ class Reconciler:
                     description=(f"Bit {prim.bit} ({prim.name}) activates "
                                  f"for {bs.activation_rate:.0%} of concepts — "
                                  f"not discriminative"),
-                    suggestion=(f"This bit may have collapsed to 'always on'. "
-                                f"Check discretization pressure."),
+                    suggestion=("This bit may have collapsed to 'always on'. "
+                                "Check discretization pressure."),
                     evidence={
                         'activation_rate': bs.activation_rate,
                         'top_concepts': bs.top_concepts[:5],
@@ -374,8 +370,8 @@ class Reconciler:
             elif m.mismatch_type == 'missing_in_model':
                 corrections['review_primitives'].append({
                     'pair': [m.name_a, m.name_b],
-                    'reason': f"Listed as duals but model doesn't "
-                              f"anti-correlate them",
+                    'reason': "Listed as duals but model doesn't "
+                              "anti-correlate them",
                 })
 
         for m in dep_mismatches:

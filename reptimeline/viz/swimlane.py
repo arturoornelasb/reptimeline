@@ -4,10 +4,10 @@ Swimlane diagram — shows when each concept's bits activate/deactivate over tra
 One row per concept, columns are training steps. Bits are color-coded by state.
 """
 
-from typing import Dict, List, Optional
+from typing import List, Optional
 
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 import numpy as np
 
 from reptimeline.core import Timeline

@@ -5,7 +5,7 @@ Rows are bit indices, columns are steps. Color shows whether each bit
 changed from the previous step (aggregated across concepts).
 """
 
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
