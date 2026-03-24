@@ -55,7 +55,12 @@ reptimeline = "reptimeline.cli:main"
 [project.urls]
 Homepage = "https://github.com/arturoornelasb/reptimeline"
 Repository = "https://github.com/arturoornelasb/reptimeline"
+Documentation = "https://arturoornelasb.github.io/reptimeline/"
 Issues = "https://github.com/arturoornelasb/reptimeline/issues"
+Changelog = "https://github.com/arturoornelasb/reptimeline/blob/master/CHANGELOG.md"
+
+[tool.setuptools.package-data]
+reptimeline = ["py.typed"]
 
 [tool.setuptools.packages.find]
 include = ["reptimeline*"]
