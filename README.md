@@ -261,7 +261,7 @@ mypy reptimeline/
 
 CI runs lint, typecheck, and tests on every push and PR (Python 3.10 -- 3.13).
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/arturoornelasb/reptimeline/blob/master/CONTRIBUTING.md) for contribution guidelines.
 
 ## License
 
@@ -288,4 +288,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
 Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026).
 
-Coming from triadic-microgpt? See the [migration guide](docs/migration-from-triadic.md).
+Coming from triadic-microgpt? See the [migration guide](https://github.com/arturoornelasb/reptimeline/blob/master/docs/migration-from-triadic.md).
