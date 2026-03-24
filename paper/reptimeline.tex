@@ -223,7 +223,7 @@ Triadic (3-way) & --- & 74 & --- \\
 
 \subsection{TriadicGPT (63-bit Neurosymbolic Head)}
 
-\textbf{Setup.} TriadicGPT~\citep{ornelas2026prime} is a 40M-parameter GPT that jointly learns next-token prediction and 63-bit discrete semantic projections via a triadic head trained end-to-end. reptimeline tracked 53 concepts across 8 checkpoints from step~2{,}500 to step~50{,}000.
+\textbf{Setup.} TriadicGPT~\citep{ornelas2026microgpt} is a 40M-parameter GPT that jointly learns next-token prediction and 63-bit discrete semantic projections via a triadic head trained end-to-end. reptimeline tracked 53 concepts across 8 checkpoints from step~2{,}500 to step~50{,}000.
 
 \textbf{Lifecycle and phase discovery.} reptimeline revealed a \emph{four-phase training dynamic} invisible to standard scalar logging:
 \begin{enumerate}[nosep]
@@ -261,21 +261,21 @@ Table~\ref{tab:comparison} compares reptimeline with existing approaches for mon
 
 \begin{table}[h]
 \centering
-\caption{Feature comparison. reptimeline is the only tool combining lifecycle tracking, bottom-up discovery, auto-labeling, causal verification, and backend-agnostic operation.}
+\caption{Feature comparison across discrete representation tools. \checkmark\ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported.}
 \label{tab:comparison}
 \small
 \begin{tabular}{lccccc}
 \toprule
 Capability & \textbf{reptimeline} & VQ-VAE & SAE & CBM & RepE \\
 \midrule
-Per-code lifecycle & \checkmark & --- & Partial & --- & --- \\
+Per-code lifecycle & \checkmark & Partial & Partial & --- & --- \\
 Connection tracking & \checkmark & --- & --- & --- & --- \\
 Phase transition detection & \checkmark & --- & Manual & --- & --- \\
 3-way interaction discovery & \checkmark & --- & --- & --- & --- \\
 Bottom-up ontology discovery & \checkmark & --- & --- & --- & --- \\
 Auto-labeling (3 strategies) & \checkmark & --- & Manual & Manual & --- \\
-Causal intervention & \checkmark & --- & --- & --- & --- \\
-Backend-agnostic & \checkmark & --- & SAE & --- & LLM \\
+Causal intervention & \checkmark & --- & --- & --- & \checkmark \\
+Backend-agnostic & \checkmark & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -292,9 +292,9 @@ reptimeline differs fundamentally: it operates on the discrete codes themselves,
 \label{sec:conclusion}
 % ============================================================
 
-reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful (16/16 selective on Pythia-70M at 26.8$\times$ mean, 100\% causal on MNIST).
+reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful (8/16 with finite KL selectivity at 26.8$\times$ mean on Pythia-70M, 100\% decoder determinism on MNIST).
 
-\textbf{Availability.} \texttt{pip install reptimeline}. Source code, examples, and pre-computed results are available at \url{https://github.com/arturoornelasb/reptimeline}. Licensed under BUSL-1.1 (free for research; converts to AGPL-3.0 in 2030). 117~unit tests at 88\% coverage, 5~example pipelines, 4~visualization modules, and a VQ-VAE extractor for out-of-the-box use.
+\textbf{Availability.} \texttt{pip install reptimeline}. Source code, examples, and pre-computed results are available at \url{https://github.com/arturoornelasb/reptimeline}. Licensed under BUSL-1.1 (free for research; converts to AGPL-3.0 in 2030). 224~unit tests at 92\% coverage, 11~example pipelines, 6~visualization modules, and a VQ-VAE extractor for out-of-the-box use.
 
 \textbf{Future work.} (1)~Streaming mode for real-time monitoring during training. (2)~Integration with WandB/TensorBoard as a plugin. (3)~Extension to continuous representations via learned discretization.
 
@@ -337,11 +337,17 @@ A.~Power, Y.~Burda, H.~Edwards, I.~Babuschkin, and V.~Misra.
 \newblock Grokking: Generalization beyond overfitting on small algorithmic datasets.
 \newblock In \emph{ICLR Workshop}, 2022.
 
-\bibitem[Ornelas~Brand(2026)]{ornelas2026prime}
+\bibitem[Ornelas~Brand(2026a)]{ornelas2026prime}
 J.~A. Ornelas~Brand.
 \newblock Prime factorization as a neurosymbolic bridge: Projecting continuous embeddings into discrete algebraic space for deterministic verification.
 \newblock 2026.
-\newblock \doi{10.5281/zenodo.19205805}.
+\newblock \href{https://doi.org/10.5281/zenodo.19205805}{doi:10.5281/zenodo.19205805}.
+
+\bibitem[Ornelas~Brand(2026b)]{ornelas2026microgpt}
+J.~A. Ornelas~Brand.
+\newblock End-to-end prime factorization in a generative language model: Emergent algebraic semantics from joint training.
+\newblock 2026.
+\newblock \href{https://doi.org/10.5281/zenodo.19206545}{doi:10.5281/zenodo.19206545}.
 
 \bibitem[van~den Oord et~al.(2017)]{vandenoord2017neural}
 A.~van~den Oord, O.~Vinyals, and K.~Kavukcuoglu.
