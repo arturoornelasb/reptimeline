@@ -3,6 +3,7 @@
 [![CI](https://github.com/arturoornelasb/reptimeline/actions/workflows/ci.yml/badge.svg)](https://github.com/arturoornelasb/reptimeline/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-orange.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/1187751237.svg)](https://doi.org/10.5281/zenodo.19208627)
 
 **Track how discrete representations evolve during neural network training.**
 
