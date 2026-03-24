@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
       - run: pip install -e ".[docs]"
       - run: pdoc -o docs/ reptimeline
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: docs/
 
