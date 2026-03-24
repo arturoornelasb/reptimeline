@@ -6,6 +6,7 @@ Trains in ~2 minutes, saves checkpoints every 2 epochs.
 """
 
 import os
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -85,7 +86,7 @@ def train_binary_ae(
 
     # Save initial (random) checkpoint
     torch.save(model.state_dict(), os.path.join(output_dir, "model_step0.pt"))
-    print(f"Saved checkpoint: epoch 0 (random init)")
+    print("Saved checkpoint: epoch 0 (random init)")
 
     for epoch in range(1, epochs + 1):
         model.train()

@@ -77,7 +77,7 @@ def verify_tokenization(concepts, model_name, cache_dir=None):
 
 def run_pipeline(args):
     """Main pipeline: extract → analyze → discover → plot."""
-    from reptimeline import TimelineTracker, BitDiscovery
+    from reptimeline import BitDiscovery, TimelineTracker
     from reptimeline.core import ConceptSnapshot
 
     t_start = time.time()
@@ -90,7 +90,12 @@ def run_pipeline(args):
 
     concepts, domains, checkpoints, template = load_concepts(concepts_path)
     logger.info(f"Loaded {len(concepts)} concepts across {len(domains)} domains")
-    logger.info(f"Checkpoints: {len(checkpoints)} (step {checkpoints[0]['step']} → {checkpoints[-1]['step']})")
+    first_step = checkpoints[0]['step']
+    last_step = checkpoints[-1]['step']
+    logger.info(
+        f"Checkpoints: {len(checkpoints)} "
+        f"(step {first_step} -> {last_step})"
+    )
 
     # Verify tokenization
     concepts = verify_tokenization(

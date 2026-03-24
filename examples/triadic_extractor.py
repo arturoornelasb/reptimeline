@@ -24,12 +24,11 @@ Usage:
     timeline.print_summary()
 """
 
+import math
 import os
 import re
-import math
 from typing import List, Optional
 
-import numpy as np
 import torch
 
 from reptimeline.core import ConceptSnapshot

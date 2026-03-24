@@ -16,17 +16,17 @@ import logging
 import os
 import sys
 from collections import Counter, defaultdict
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List
 
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from reptimeline.core import ConceptSnapshot
-from reptimeline.tracker import TimelineTracker
-from reptimeline.discovery import BitDiscovery
 from reptimeline.autolabel import AutoLabeler
+from reptimeline.core import ConceptSnapshot
+from reptimeline.discovery import BitDiscovery
 from reptimeline.extractors.base import RepresentationExtractor
+from reptimeline.tracker import TimelineTracker
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
                     datefmt="%H:%M:%S")
@@ -61,7 +61,6 @@ def build_concept_domain_map(domains: Dict[str, List[str]]) -> Dict[str, str]:
 
 def extract_embeddings(concepts: List[str], cache_dir=None):
     """Extract Pythia-70M embeddings for concepts + broad vocabulary."""
-    import torch
     from transformers import AutoTokenizer, GPTNeoXForCausalLM
 
     logger.info("Loading Pythia-70M for embedding extraction...")
@@ -282,7 +281,7 @@ def print_summary(dual_results, hierarchy_results, triadic_results, labels_embed
 
     # Axis distribution
     axes = Counter(d["axis_label"] for d in dual_results)
-    print(f"\n  Axis types:")
+    print("\n  Axis types:")
     for axis, count in axes.most_common():
         print(f"    {axis}: {count}")
 
@@ -304,7 +303,9 @@ def print_summary(dual_results, hierarchy_results, triadic_results, labels_embed
         print(f"  (broad->fine hierarchy {'CONFIRMED' if is_decreasing else 'NOT confirmed'})")
 
     # -- Triadic --
-    print(f"\n  TRIADIC INTERACTIONS (top {min(10, len(triadic_results))} of {len(triadic_results)})")
+    n_shown = min(10, len(triadic_results))
+    print(f"\n  TRIADIC INTERACTIONS (top {n_shown} "
+          f"of {len(triadic_results)})")
     print("  " + "-" * 66)
     for t in triadic_results[:10]:
         print(f"    {t['label_i']} + {t['label_j']} -> {t['label_r']}  "
@@ -312,9 +313,9 @@ def print_summary(dual_results, hierarchy_results, triadic_results, labels_embed
               f"tight={t['tightness']:.2f}  [{', '.join(t['ij_concepts'][:3])}]")
 
     # -- Auto-labels summary --
-    active_embed = [l for l in labels_embed if l.label != "DEAD"]
-    active_contrast = [l for l in labels_contrast if l.label != "DEAD"]
-    print(f"\n  AUTO-LABELS")
+    active_embed = [lb for lb in labels_embed if lb.label != "DEAD"]
+    active_contrast = [lb for lb in labels_contrast if lb.label != "DEAD"]
+    print("\n  AUTO-LABELS")
     print("  " + "-" * 66)
     print(f"  Embedding strategy: {len(active_embed)} active bits labeled")
     print(f"  Contrastive strategy: {len(active_contrast)} active bits labeled")
@@ -347,7 +348,10 @@ def main():
     logger.info("Loading cached results...")
     snapshots, concepts, domains = load_results(args.results)
     concept_domain = build_concept_domain_map(domains)
-    logger.info(f"Loaded {len(snapshots)} snapshots, {len(concepts)} concepts, {len(domains)} domains")
+    logger.info(
+        f"Loaded {len(snapshots)} snapshots, "
+        f"{len(concepts)} concepts, {len(domains)} domains"
+    )
 
     # Step 2: Re-run discovery for full report
     logger.info("Re-running BitDiscovery for full report...")
@@ -401,14 +405,16 @@ def main():
         },
         "bit_labels": {
             "embedding": [
-                {"bit": l.bit_index, "label": l.label, "confidence": round(l.confidence, 3),
-                 "active_concepts": l.active_concepts[:5]}
-                for l in labels_embed if l.label != "DEAD"
+                {"bit": lb.bit_index, "label": lb.label,
+                 "confidence": round(lb.confidence, 3),
+                 "active_concepts": lb.active_concepts[:5]}
+                for lb in labels_embed if lb.label != "DEAD"
             ],
             "contrastive": [
-                {"bit": l.bit_index, "label": l.label, "confidence": round(l.confidence, 3),
-                 "active_concepts": l.active_concepts[:5]}
-                for l in labels_contrast if l.label != "DEAD"
+                {"bit": lb.bit_index, "label": lb.label,
+                 "confidence": round(lb.confidence, 3),
+                 "active_concepts": lb.active_concepts[:5]}
+                for lb in labels_contrast if lb.label != "DEAD"
             ],
         },
         "dual_analysis": dual_results,
@@ -418,7 +424,8 @@ def main():
             "n_semantic_duals": len([d for d in dual_results if d["coherence"] > 0.4]),
             "n_total_duals": len(dual_results),
             "hierarchy_decreasing": all(
-                hierarchy_results[i]["mean_activation_rate"] >= hierarchy_results[i+1]["mean_activation_rate"]
+                hierarchy_results[i]["mean_activation_rate"]
+                >= hierarchy_results[i+1]["mean_activation_rate"]
                 for i in range(len(hierarchy_results)-1)
             ) if len(hierarchy_results) >= 2 else None,
             "n_triadic_analyzed": len(triadic_results),

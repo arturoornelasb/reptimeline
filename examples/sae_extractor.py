@@ -19,10 +19,9 @@ Usage:
     timeline = tracker.analyze(snapshots)
 """
 
-import os
 import json
 import logging
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import numpy as np
 
@@ -121,7 +120,7 @@ class PythiaSAEExtractor(RepresentationExtractor):
 
     # -- Hidden state extraction ------------------------------------------
 
-    def _get_hidden_states(self, model, concepts: List[str]) -> Dict[str, "torch.Tensor"]:
+    def _get_hidden_states(self, model, concepts: List[str]) -> Dict[str, "torch.Tensor"]:  # noqa: F821
         """Run all concepts through the model, return MLP outputs at target layer.
 
         Uses a forward hook on gpt_neox.layers[N].mlp to capture activations.

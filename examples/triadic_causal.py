@@ -32,9 +32,9 @@ sys.path.insert(0, MICROGPT_SRC)
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from reptimeline.core import ConceptSnapshot
-from reptimeline.causal import CausalVerifier
-from reptimeline.viz.causal_heatmap import plot_causal_heatmap
+from reptimeline.causal import CausalVerifier  # noqa: E402
+from reptimeline.core import ConceptSnapshot  # noqa: E402
+from reptimeline.viz.causal_heatmap import plot_causal_heatmap  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S')
@@ -44,8 +44,8 @@ logger = logging.getLogger(__name__)
 def load_model_and_tokenizer(ckpt_dir, device):
     """Load DanzaTriadicGPT from checkpoint."""
     import torch
-    from torch_transformer import TriadicGPT, TriadicGPTConfig
     from fast_tokenizer import FastBPETokenizer as BPETokenizer
+    from torch_transformer import TriadicGPT, TriadicGPTConfig
 
     ckpt = torch.load(os.path.join(ckpt_dir, 'model_best.pt'),
                       map_location=device, weights_only=True)
@@ -190,7 +190,7 @@ def causal_intervention(ckpt_dir, anchors_path, primitivos_path, device_str, out
     logger.info("Saved triadic_causal_heatmap.png")
 
     # --- Save report ---
-    n_selective = sum(1 for br in report.bit_results
+    sum(1 for br in report.bit_results
                       if br.significant and br.selectivity >= 1.5)
     report_dict = {
         "backend": "TriadicGPT (DanzaTriadicGPT, D-A14 v2)",
@@ -227,16 +227,16 @@ def causal_intervention(ckpt_dir, anchors_path, primitivos_path, device_str, out
     print(f"  Significant bits: {report.n_significant}/{report.n_tested}")
     print(f"  Correction: {report.correction_method} (alpha={report.alpha})")
     if report.verdict == 'insufficient_evidence':
-        print(f"\n  EXPECTED NEGATIVE: TriadicGPT has parallel architecture.")
-        print(f"  The triadic head is a SIDE projection from hidden states,")
-        print(f"  not in the LM computation path. Flipping a triadic bit")
-        print(f"  direction perturbs the shared hidden space but changes")
-        print(f"  LM output non-selectively (mean KL > 0 but sel ~1.0x).")
-        print(f"\n  TriadicGPT causality evidence is STRUCTURAL, not interventional:")
-        print(f"  reptimeline discovers duals (vida/muerte, placer/dolor) that")
-        print(f"  match the gold semantic axes from the training ontology.")
+        print("\n  EXPECTED NEGATIVE: TriadicGPT has parallel architecture.")
+        print("  The triadic head is a SIDE projection from hidden states,")
+        print("  not in the LM computation path. Flipping a triadic bit")
+        print("  direction perturbs the shared hidden space but changes")
+        print("  LM output non-selectively (mean KL > 0 but sel ~1.0x).")
+        print("\n  TriadicGPT causality evidence is STRUCTURAL, not interventional:")
+        print("  reptimeline discovers duals (vida/muerte, placer/dolor) that")
+        print("  match the gold semantic axes from the training ontology.")
     else:
-        print(f"  PASS: triadic bits are causally selective")
+        print("  PASS: triadic bits are causally selective")
     print("=" * 75)
 
     return report

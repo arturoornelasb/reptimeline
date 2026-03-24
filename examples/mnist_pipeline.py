@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 def run_pipeline(args):
     """Main pipeline: train -> extract -> analyze -> discover -> plot."""
-    from reptimeline import TimelineTracker, BitDiscovery
+    from reptimeline import BitDiscovery, TimelineTracker
     from reptimeline.core import ConceptSnapshot
 
     t_start = time.time()
@@ -96,7 +96,7 @@ def run_pipeline(args):
             json.dump(snap_data, f, indent=2)
         logger.info(f"Saved snapshots to {snapshots_path}")
 
-    t_extract = time.time()
+    time.time()
 
     # -- Timeline analysis -----------------------------------------------
     logger.info("=== Timeline Analysis ===")
@@ -109,7 +109,7 @@ def run_pipeline(args):
     with open(timeline_path, "w") as f:
         json.dump(timeline.to_dict(), f, indent=2)
 
-    t_timeline = time.time()
+    time.time()
 
     # -- BitDiscovery ----------------------------------------------------
     logger.info("=== BitDiscovery ===")
@@ -143,7 +143,7 @@ def run_pipeline(args):
     with open(discovery_path, "w") as f:
         json.dump(report_dict, f, indent=2)
 
-    t_discovery = time.time()
+    time.time()
 
     # -- Plots -----------------------------------------------------------
     if not args.skip_plots:
@@ -188,7 +188,7 @@ def run_pipeline(args):
     print("MNIST PIPELINE COMPLETE")
     print("=" * 60)
     print(f"  Model:       BinaryAE ({args.bottleneck}-bit)")
-    print(f"  Dataset:     MNIST")
+    print("  Dataset:     MNIST")
     print(f"  Concepts:    {len(snapshots[-1].codes)} digit classes")
     print(f"  Checkpoints: {len(snapshots)}")
     print(f"  Births:      {len(timeline.births)}")

@@ -21,19 +21,18 @@ import json
 import logging
 import os
 import sys
-from collections import defaultdict
 
+import matplotlib
 import numpy as np
 import torch
 import torch.nn.functional as F
-import matplotlib
+
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from reptimeline.core import ConceptSnapshot
 from reptimeline.causal import CausalVerifier
+from reptimeline.core import ConceptSnapshot
 from reptimeline.viz.causal_heatmap import plot_causal_heatmap
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
@@ -93,10 +92,16 @@ def embedding_prediction(output_dir):
     thresholds = {}
 
     for bit_idx in active_indices:
-        active_cs = [c for c in train_concepts if c in final.codes and final.codes[c][bit_idx] == 1
-                     and c in embeddings]
-        inactive_cs = [c for c in train_concepts if c in final.codes and final.codes[c][bit_idx] == 0
-                       and c in embeddings]
+        active_cs = [
+            c for c in train_concepts
+            if c in final.codes and final.codes[c][bit_idx] == 1
+            and c in embeddings
+        ]
+        inactive_cs = [
+            c for c in train_concepts
+            if c in final.codes and final.codes[c][bit_idx] == 0
+            and c in embeddings
+        ]
 
         if len(active_cs) < 2 or len(inactive_cs) < 2:
             continue
@@ -129,7 +134,10 @@ def embedding_prediction(output_dir):
             codes = np.array([final.codes[c] for c in dc])
             domain_profiles[domain] = codes[:, active_mask].mean(axis=0)
 
-    overall = np.array([final.codes[c] for c in train_concepts if c in final.codes])[:, active_mask].mean(axis=0)
+    all_codes = np.array(
+        [final.codes[c] for c in train_concepts if c in final.codes]
+    )
+    overall = all_codes[:, active_mask].mean(axis=0)
 
     results = []
     for c in test_concepts:
@@ -329,7 +337,9 @@ def mlp_prediction(output_dir):
     mean_mlp = np.mean(mlp_accs)
     mean_base = np.mean(base_accs)
     mean_jac = np.mean(mlp_jacs)
-    print(f"\n  MLP ACCURACY:  {mean_mlp:.1%}  vs baseline {mean_base:.1%}  ({mean_mlp - mean_base:+.1%})")
+    mlp_diff = mean_mlp - mean_base
+    print(f"\n  MLP ACCURACY:  {mean_mlp:.1%}  vs baseline "
+          f"{mean_base:.1%}  ({mlp_diff:+.1%})")
     print(f"  MLP JACCARD:   {mean_jac:.2f}")
     print("=" * 75)
 
@@ -346,8 +356,8 @@ def sae_intervention(device, output_dir):
     Uses reptimeline.CausalVerifier for statistical testing instead of
     manual selectivity computation.
     """
-    from transformers import GPTNeoXForCausalLM, AutoTokenizer
     from sparsify import Sae
+    from transformers import AutoTokenizer, GPTNeoXForCausalLM
 
     logger.info("\n=== PART 2: SAE Causal Intervention (via CausalVerifier) ===")
 
@@ -455,10 +465,10 @@ def sae_intervention(device, output_dir):
             return hook
 
         inp = tokenizer(context_template.format(concept=concept), return_tensors="pt").to(device)
-        hook_handle = model.gpt_neox.layers[3].mlp.register_forward_hook(
+        hook_handle = model.gpt_neox.layers[3].mlp.register_forward_hook(  # noqa: F821
             make_replace_hook(h_modified))
         with torch.no_grad():
-            logits_mod = model(**inp).logits[0, -1, :].float()
+            logits_mod = model(**inp).logits[0, -1, :].float()  # noqa: F821
         hook_handle.remove()
 
         p = F.softmax(orig_logits[concept], dim=0).clamp(min=1e-10)
@@ -564,7 +574,7 @@ def main():
     print("=" * 75)
 
     # Primary criterion: causal intervention
-    print(f"\n  [PRIMARY] Causal intervention (CausalVerifier):")
+    print("\n  [PRIMARY] Causal intervention (CausalVerifier):")
     print(f"    L1 (L2):  {l1_report.verdict.upper()} "
           f"({l1_report.n_significant}/{l1_report.n_tested} significant)")
     print(f"    L2 (KL):  {l2_report.verdict.upper()} "
@@ -572,19 +582,19 @@ def main():
     print(f"    Correction: {l2_report.correction_method} (alpha={l2_report.alpha})")
 
     # Secondary observation: prediction accuracy (informational)
-    print(f"\n  [SECONDARY] Prediction accuracy (informational):")
+    print("\n  [SECONDARY] Prediction accuracy (informational):")
     print(f"    Embedding:  emb={me:.1%} vs baseline={mb:.1%} ({me-mb:+.1%})  NEGATIVE (expected)")
     print(f"    MLP:        mlp={mm:.1%} vs baseline={mb:.1%} ({mm-mb:+.1%})  NEGATIVE (expected)")
-    print(f"    Note: prediction failure does not invalidate causal evidence.")
+    print("    Note: prediction failure does not invalidate causal evidence.")
 
     # Overall conclusion
     print()
     if l2_report.verdict == 'causal_evidence_found':
-        print(f"  CONCLUSION: BLACK BOX BROKEN (causal)")
-        print(f"    Features are identifiable, labelable, and causally selective")
+        print("  CONCLUSION: BLACK BOX BROKEN (causal)")
+        print("    Features are identifiable, labelable, and causally selective")
         print(f"    ({l2_report.n_significant} bits pass BH-FDR corrected permutation test).")
     else:
-        print(f"  CONCLUSION: NOT BROKEN -- insufficient causal selectivity")
+        print("  CONCLUSION: NOT BROKEN -- insufficient causal selectivity")
     print("=" * 75)
 
 

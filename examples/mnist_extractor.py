@@ -9,12 +9,11 @@ import os
 import re
 from typing import Dict, List, Optional
 
-import numpy as np
 import torch
+from mnist_binary_ae import BinaryAE
 
 from reptimeline.core import ConceptSnapshot
 from reptimeline.extractors.base import RepresentationExtractor
-from mnist_binary_ae import BinaryAE
 
 
 class MNISTBinaryAEExtractor(RepresentationExtractor):

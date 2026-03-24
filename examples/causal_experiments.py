@@ -20,11 +20,12 @@ import json
 import logging
 import os
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 
+import matplotlib
 import numpy as np
 import torch
-import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -111,7 +112,6 @@ def experiment_a(device="cuda", output_dir="results/causal"):
 
     # --- Run interventions ---
     results = []
-    all_figures = []
 
     for tb in test_bits[:6]:  # Top 6 bits
         bit_idx = tb["bit"]
@@ -164,7 +164,11 @@ def experiment_a(device="cuda", output_dir="results/causal"):
     # Find the bit with highest shift rate
     best = max(results, key=lambda r: r["shift_rate"])
     bit_idx = best["bit"]
-    logger.info(f"\nBest causal bit: {best['bit']} ({best['name']}), shift rate: {best['shift_rate']:.0%}")
+    shift_rate = best['shift_rate']
+    logger.info(
+        f"\nBest causal bit: {best['bit']} ({best['name']}), "
+        f"shift rate: {shift_rate:.0%}"
+    )
 
     fig, axes = plt.subplots(3, 10, figsize=(20, 6))
     fig.suptitle(f"Intervention: Flip bit {bit_idx} ({best['name']})", fontsize=14)
@@ -203,7 +207,7 @@ def experiment_a(device="cuda", output_dir="results/causal"):
     fig.tight_layout()
     fig.savefig(os.path.join(output_dir, "mnist_intervention.png"), dpi=200, bbox_inches="tight")
     plt.close(fig)
-    logger.info(f"Saved intervention visualization")
+    logger.info("Saved intervention visualization")
 
     # --- Aggregate: flip EACH bit, measure average shift rate ---
     logger.info("\nScanning ALL 32 bits for causal effect...")
@@ -220,7 +224,10 @@ def experiment_a(device="cuda", output_dir="results/causal"):
             closest = min(distances, key=distances.get)
             if closest != source_digit:
                 n_shifted += 1
-        bit_shift_rates.append({"bit": bit_idx, "shift_rate": n_shifted / 10, "n_shifted": n_shifted})
+        bit_shift_rates.append({
+            "bit": bit_idx, "shift_rate": n_shifted / 10,
+            "n_shifted": n_shifted,
+        })
 
     bit_shift_rates.sort(key=lambda x: -x["shift_rate"])
     causal_bits = [b for b in bit_shift_rates if b["shift_rate"] > 0.3]
@@ -433,7 +440,9 @@ def main():
     print("  VERDICT: CAN WE BREAK THE BLACK BOX?")
     print("=" * 60)
     print(f"  A. Intervention: {causal_rate:.0%} of bits have causal effect (>{30}% shift)")
-    print(f"  B. Prediction:   {domain_acc:.1%} bit accuracy ({domain_acc - baseline_acc:+.1%} vs baseline)")
+    acc_diff = domain_acc - baseline_acc
+    print(f"  B. Prediction:   {domain_acc:.1%} bit accuracy "
+          f"({acc_diff:+.1%} vs baseline)")
     both_pass = causal_rate > 0.2 and domain_acc > baseline_acc + 0.05
     print(f"\n  {'PASS' if both_pass else 'PARTIAL'}: "
           f"{'Primitives are causal AND predictive' if both_pass else 'More work needed'}")
