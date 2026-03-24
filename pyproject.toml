@@ -10,7 +10,7 @@ readme = "README.md"
 license = "BUSL-1.1"
 requires-python = ">=3.10"
 authors = [
-    {name = "José Arturo Ornelas Brand", email = "arturoornelas62@gmail.com"},
+    {name = "J. Arturo Ornelas Brand", email = "arturoornelas62@gmail.com"},
 ]
 keywords = [
     "representation-learning",

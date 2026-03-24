@@ -276,7 +276,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ```bibtex
 @software{ornelas2026reptimeline,
-  author = {Ornelas Brand, José Arturo},
+  author = {Ornelas Brand, J. Arturo},
   title = {reptimeline: Tracking Discrete Representation Evolution During Training},
   year = {2026},
   url = {https://github.com/arturoornelasb/reptimeline}
