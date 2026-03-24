@@ -5,14 +5,18 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{natbib}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
 
 \hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\emergencystretch=1em   % allow slightly stretched whitespace to avoid overflow from long citations
 
 \lstset{
   language=Python,
@@ -40,7 +44,7 @@ Independent Researcher\\
 \maketitle
 
 \begin{abstract}
-We present \textbf{reptimeline}, a Python library for tracking how discrete representations evolve during neural network training. Unlike scalar logging tools (WandB, TensorBoard) that report aggregate metrics, reptimeline tracks per-code lifecycle events: when concepts become distinguishable (births), when representations collapse (deaths), when relationships form between concept pairs (connections), and where phase transitions occur in training dynamics. The library additionally discovers what each code element encodes---anti-correlated pairs, dependency chains, and three-way AND-gate interactions---without requiring prior ontological knowledge. We validate reptimeline on three architecturally distinct backends: a 32-bit binary autoencoder on MNIST (decoder determinism verified: 100\%), sparse autoencoder features on Pythia-70M (8/16 features with finite KL selectivity, mean 26.8$\times$ L2 ratio with bootstrap 95\% CI, plus 8 features with zero cross-activation attributable to SAE sparsity), and a 63-bit neurosymbolic projection head (crystallization event invisible to loss curves). reptimeline is the only tool that combines lifecycle tracking, bottom-up feature discovery, auto-labeling, and causal verification in a single backend-agnostic package. Available via \texttt{pip install reptimeline} under BUSL-1.1.
+We present \textbf{reptimeline}, a Python library for tracking how discrete representations evolve during neural network training. Unlike scalar logging tools (WandB, TensorBoard) that report aggregate metrics, reptimeline tracks per-code lifecycle events: when concepts become distinguishable (births), when representations collapse (deaths), when relationships form between concept pairs (connections), and where phase transitions occur in training dynamics. The library additionally discovers what each code element encodes---anti-correlated pairs, dependency chains, and three-way AND-gate interactions---without requiring prior ontological knowledge, with all discoveries subjected to multiple-comparison correction (Bonferroni or Benjamini-Hochberg FDR). Causal verification uses bootstrap confidence intervals, permutation tests, and Cohen's $d$ effect sizes. reptimeline ships three built-in extractors (VQ-VAE, SAE, FSQ), five static and four interactive visualizations, JSON/CSV export, and a command-line interface. We validate on three architecturally distinct backends: a 32-bit binary autoencoder on MNIST (decoder determinism verified: 100\%), sparse autoencoder features on Pythia-70M (8/16 features with finite KL selectivity, mean 26.8$\times$ L2 ratio with bootstrap 95\% CI, plus 8 features with zero cross-activation attributable to SAE sparsity), and a 63-bit neurosymbolic projection head (crystallization event invisible to loss curves). reptimeline is the only tool that combines lifecycle tracking, bottom-up feature discovery, auto-labeling, causal verification, and theory reconciliation in a single backend-agnostic package. Available via \texttt{pip install reptimeline} under BUSL-1.1.
 \end{abstract}
 
 
@@ -49,16 +53,17 @@ We present \textbf{reptimeline}, a Python library for tracking how discrete repr
 \label{sec:intro}
 % ============================================================
 
-Every system that quantizes neural representations into discrete codes---VQ-VAE codebooks~\citep{vandenoord2017neural}, finite scalar quantization~\citep{mentzer2024finite}, sparse autoencoders~\citep{cunningham2023sparse,sharkey2022taking,bricken2023monosemanticity}, concept bottleneck models~\citep{koh2020concept}, or binary autoencoders---faces the same blind spot: \emph{you can see what the codes look like after training, but not how they got there.}
+Every system that quantizes neural representations into discrete codes---VQ-VAE codebooks \citep{vandenoord2017neural}, finite scalar quantization \citep{mentzer2024finite}, sparse auto\-encoders \citep{cunningham2023sparse, sharkey2022taking, bricken2023monosemanticity}, concept bottleneck models \citep{koh2020concept}, or binary autoencoders---faces the same blind spot: \emph{you can see what the codes look like after training, but not how they got there.}
 
 Current monitoring tools log scalar aggregates: codebook utilization, perplexity, reconstruction loss. These tell practitioners \emph{that} something changed, not \emph{what} changed. When codebook collapse occurs at step~27{,}500, a loss curve shows a kink. But which codes died? Did they die together? Was there a phase transition? Which concepts lost their unique representations? These questions require per-code temporal analysis that no existing tool provides.
 
 \textbf{reptimeline} fills this gap. Given a sequence of model checkpoints and a set of probe concepts, it:
 \begin{enumerate}[nosep]
-    \item \textbf{Tracks} per-code lifecycle events (births, deaths, connections, phase transitions);
-    \item \textbf{Discovers} what each code element encodes (duals, dependencies, 3-way interactions);
+    \item \textbf{Tracks} per-code lifecycle events (births, deaths, connections, phase transitions) and per-bit stability scores;
+    \item \textbf{Discovers} what each code element encodes (duals, dependencies, 3-way interactions) with statistical correction (Bonferroni, BH-FDR);
     \item \textbf{Labels} discovered features automatically (embedding centroid, contrastive, or LLM);
-    \item \textbf{Verifies} that discovered features are causal via intervention experiments.
+    \item \textbf{Verifies} that discovered features are causal via intervention experiments with bootstrap CIs, permutation tests, and effect sizes;
+    \item \textbf{Reconciles} discovered structure against a theoretical ontology and suggests corrections in both directions.
 \end{enumerate}
 
 Critically, reptimeline is \emph{backend-agnostic}: it operates on any system that produces a mapping from concepts to discrete code vectors. We validate this claim on three architecturally distinct backends (Section~\ref{sec:cases}).
@@ -71,32 +76,71 @@ Critically, reptimeline is \emph{backend-agnostic}: it operates on any system th
 
 \subsection{Pipeline Overview}
 
-Figure~\ref{fig:architecture} shows the reptimeline pipeline. The user implements a single class (\texttt{RepresentationExtractor}) that loads a checkpoint and returns discrete codes for a set of probe concepts. Everything downstream is backend-agnostic.
+Figure~\ref{fig:architecture} shows the reptimeline pipeline. The user either implements a single abstract class (\texttt{RepresentationExtractor}) or uses one of the three built-in extractors (Section~\ref{sec:extractors}) to load a checkpoint and return discrete codes for a set of probe concepts. Everything downstream is backend-agnostic.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
-\small
-\begin{verbatim}
-  Model checkpoints
-         |
-         v
-  RepresentationExtractor   (user implements)
-         |  produces ConceptSnapshot objects
-         v
-  TimelineTracker           (backend-agnostic)
-         |  births, deaths, connections,
-         |  phase transitions, entropy/churn curves
-         v
-  BitDiscovery              (backend-agnostic)
-         |  duals, dependencies, 3-way AND-gates,
-         |  hierarchy by stabilization order
-         v
-  AutoLabeler               (backend-agnostic)
-         |  embedding centroid / contrastive / LLM
-         v
-  Reconciler + Visualizations
-\end{verbatim}
-\caption{reptimeline pipeline. The user provides only the extractor; all analysis modules are backend-agnostic.}
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, font=\footnotesize\ttfamily,
+              minimum height=5.5mm, inner xsep=4pt, inner ysep=2pt},
+  note/.style={font=\scriptsize\itshape, text=black!55},
+  >={Stealth[length=4pt]},
+  semithick,
+  node distance=5mm
+]
+
+% --- Vertical spine ---
+\node[box] (ckpt) {Model checkpoints};
+\node[box, below=of ckpt] (ext) {RepresentationExtractor};
+\node[box, below=9mm of ext] (tt) {TimelineTracker};
+
+% --- Four branches (wide spread) ---
+\node[box, below=16mm of tt, xshift=-52mm] (bd) {BitDiscovery};
+\node[box, below=16mm of tt, xshift=-18mm] (cv) {CausalVerifier};
+\node[box, below=16mm of tt, xshift=18mm]  (po) {PrimitiveOverlay};
+\node[box, below=16mm of tt, xshift=52mm]  (viz) {Visualizations};
+
+% --- Second level ---
+\node[box, below=8mm of bd] (al) {AutoLabeler};
+\node[box, below=8mm of cv] (cr) {CausalReport};
+\node[box, below=8mm of po] (pr) {PrimitiveReport};
+
+% --- Bottom ---
+\node[box, below=15mm of cr, xshift=0mm] (rec) {Reconciler};
+
+% === Arrows: spine ===
+\draw[->] (ckpt) -- (ext);
+\draw[->] (ext) -- (tt);
+
+% === Arrows: horizontal bar then down to branches ===
+\coordinate (bar) at ($(tt.south)+(0,-5mm)$);
+\draw (tt.south) -- (bar);
+\draw (bar -| bd.north) -- (bar -| viz.north);
+\draw[->] (bar -| bd.north) -- (bd.north);
+\draw[->] (bar -| cv.north) -- (cv.north);
+\draw[->] (bar -| po.north) -- (po.north);
+\draw[->] (bar -| viz.north) -- (viz.north);
+
+% === Arrows: second level ===
+\draw[->] (bd) -- (al);
+\draw[->] (cv) -- (cr);
+\draw[->] (po) -- (pr);
+
+% === Arrows: to Reconciler (exit sideways to avoid annotations) ===
+\draw[->] (al.west) -- ++(-4mm,0) |- (rec.west);
+\draw[->] (pr.east) -- ++(4mm,0) |- (rec.east);
+
+% === Annotations ===
+\node[note, right=2pt of ext] {built-in or custom};
+\node[note] at ($(ext.south)!0.5!(tt.north) + (14mm,0)$) {ConceptSnapshot};
+\node[note, right=2pt of tt] {births, deaths, connections, phases, curves};
+\node[note, below=1pt of viz] {5 static + 4 interactive};
+\node[note, below=1pt of al] {duals, deps, 3-way};
+\node[note, below=1pt of cr] {bootstrap, BH-FDR};
+\node[note, below=1pt of rec] {discovery vs.\ theory};
+
+\end{tikzpicture}
+\caption{reptimeline pipeline. The user provides only the extractor (or uses a built-in one for VQ-VAE, SAE, or FSQ); all downstream modules are backend-agnostic.}
 \label{fig:architecture}
 \end{figure}
 
@@ -111,11 +155,29 @@ ConceptSnapshot(
         "king":  [1, 0, 1, 1, 0, ...],
         "queen": [1, 0, 1, 0, 1, ...],
         ...
-    }
+    },
+    continuous={...},    # optional: continuous embeddings
+    metadata={...}       # optional: backend-specific info
 )
 \end{lstlisting}
 
-This minimal interface---a step number and a dictionary mapping concept names to integer lists---is sufficient to support VQ-VAE codebook indices, SAE binarized activations, binary autoencoder outputs, triadic bit projections, and any future discrete representation scheme.
+This minimal interface---a step number and a dictionary mapping concept names to integer lists---is sufficient to support VQ-VAE codebook indices, SAE binarized activations, binary autoencoder outputs, triadic bit projections, and any future discrete representation scheme. An optional \texttt{continuous} field allows hybrid discrete+continuous analysis, and \texttt{metadata} stores backend-specific information (e.g., codebook size, SAE top-$k$).
+
+\subsection{Built-in Extractors}
+\label{sec:extractors}
+
+While users can implement the \texttt{RepresentationExtractor} abstract base class for any model, reptimeline ships three ready-to-use extractors:
+
+\begin{itemize}[nosep]
+    \item \textbf{VQVAEExtractor}: converts VQ-VAE codebook indices into binary indicator vectors (one-hot over the codebook). Similarity via Jaccard index.
+    \item \textbf{SAEExtractor}: binarizes sparse autoencoder activations via top-$k$ selection.
+    Includes a built-in intervention helper (\texttt{make\_inter\-vene\_fn}) for zero-ablation causal testing: zero a feature in SAE space, decode back, and measure reconstruction change.
+    Supports optional feature-index mapping for tracking subsets of large dictionaries (e.g., 256 out of 32K features).
+    \item \textbf{FSQExtractor}: handles Finite Scalar Quantization~\citep{mentzer2024finite} with two binarization modes: \emph{nonzero} (1 if level $\neq 0$, one bit per dimension) and \emph{onehot} (full one-hot per dimension, total bits $= \sum n_{\text{levels}}$). Supports multi-quantizer architectures.
+\end{itemize}
+
+All three extractors inherit automatic checkpoint discovery that parses common naming conventions (\texttt{model\_step*.pt}, \texttt{checkpoint-*.pt}, \texttt{step\_*.safe\-tensors}) and batch extraction with progress bars.
+
 
 \subsection{Timeline Analysis}
 
@@ -125,7 +187,8 @@ This minimal interface---a step number and a dictionary mapping concept names to
     \item \textbf{Births}: first step where concept $c$ has bit $b$ active (and it persists).
     \item \textbf{Deaths}: step where bit $b$ becomes permanently inactive for concept $c$.
     \item \textbf{Connections}: step where concepts $c_1, c_2$ first share a code element.
-    \item \textbf{Curves}: per-step entropy, churn rate (fraction of bits that flipped), and utilization (fraction of non-dead bits).
+    \item \textbf{Curves}: per-step entropy (mean binary entropy across all code elements), churn rate (fraction of concepts whose code changed from the previous step), and utilization (ratio of unique codes to total concepts---closer to 1 means more discriminative).
+    \item \textbf{Stability}: per-bit stability scores in $[0, 1]$, measuring the fraction of (concept, step) pairs where a bit remained unchanged from the prior checkpoint.
     \item \textbf{Phase transitions}: detected via statistical change-point analysis---a transition is flagged when $|\Delta_t| > \mu + 2\sigma$ for any curve.
 \end{itemize}
 
@@ -136,15 +199,59 @@ This minimal interface---a step number and a dictionary mapping concept names to
 \begin{itemize}[nosep]
     \item \textbf{Duals}: pairs $(b_i, b_j)$ with Pearson correlation $< -0.3$ across concepts. These are anti-correlated features---when one is active, the other tends to be inactive.
     \item \textbf{Dependencies}: directed edges $b_p \to b_c$ where $P(b_p = 1 \mid b_c = 1) \geq 0.9$.
-    \item \textbf{Three-way AND-gates}: triples $(b_i, b_j, b_r)$ where $P(b_r = 1 \mid b_i = 1 \wedge b_j = 1) \geq 0.7$ but $\max(P(b_r \mid b_i), P(b_r \mid b_j)) < 0.5$. These represent features that activate \emph{only} when two other features are jointly active. Complexity is $O(K^3)$ where $K$ is the number of active bits; in practice $K < 100$ and discovery completes in seconds.
+    \item \textbf{Three-way AND-gates}: triples $(b_i, b_j, b_r)$ where $P(b_r = 1 \mid b_i = 1 \wedge b_j = 1) \geq \tau$ but $\max(P(b_r \mid b_i), P(b_r \mid b_j)) < \tau$, with $\tau = 0.7$ by default. Additionally, the interaction strength $P(b_r \mid b_i, b_j) - \max(P(b_r \mid b_i), P(b_r \mid b_j))$ must exceed a minimum threshold (default $0.2$). These represent features that activate \emph{only} when two other features are jointly active. Complexity is $O(K^3)$ where $K$ is the number of active bits; in practice $K < 100$ and discovery completes in seconds.
     \item \textbf{Hierarchy}: bits ordered by stabilization step---the training step at which a bit's activation pattern stops changing across consecutive checkpoints.
 \end{itemize}
 
+All discovery methods apply multiple-comparison correction: Bonferroni correction for duals and dependencies, and Benjamini-Hochberg FDR correction (via 200-permutation $p$-values per candidate) for triadic interactions. A \texttt{null\_baseline()} method generates random codes to estimate false-positive rates under the null hypothesis.
+
 \subsection{Auto-Labeling and Reconciliation}
 
-\texttt{AutoLabeler} translates discovered bit patterns into human-readable labels via three strategies: (1)~\emph{embedding centroid}---find the word whose embedding is closest to the centroid of active concepts; (2)~\emph{contrastive}---find the word that best separates active from inactive concepts in embedding space; (3)~\emph{LLM}---ask a language model ``what do these concepts have in common?''
+\texttt{AutoLabeler} translates discovered bit patterns into human-readable labels via three strategies: (1)~\emph{embedding centroid}---find the word whose embedding is closest to the centroid of active concepts; (2)~\emph{contrastive}---find the word that best separates active from inactive concepts in embedding space (direction vector: $\mathbf{c}_{\text{active}} - \mathbf{c}_{\text{inactive}}$); (3)~\emph{LLM}---ask a language model ``what do these concepts have in common?'' Labels can be exported as a \texttt{primitivos.json} file via \texttt{export\_as\_primitives()}, closing the loop from discovery back to overlay analysis.
 
-\texttt{Reconciler} compares discovered structure against a theoretical ontology and suggests corrections in \emph{both directions}: to the model's training anchors and to the theory itself. This closes the loop for iterative refinement of discrete representations.
+\texttt{Reconciler} compares discovered structure against a theoretical ontology (\texttt{PrimitiveOverlay}) and classifies mismatches by type and severity:
+\begin{itemize}[nosep]
+    \item \textbf{Bit mismatches}: \emph{dead\_but\_assigned} (critical---primitive's bit never activates), \emph{active\_but\_un\-assigned} (warning---active bit has no primitive), \emph{semantic\_drift} (info---bit too broadly active).
+    \item \textbf{Dual mismatches}: anti-correlated pairs present in theory but absent in model (or vice versa).
+    \item \textbf{Dependency mismatches}: required parent$\to$child edges absent in model or discovered edges absent in theory.
+\end{itemize}
+An \emph{agreement score} quantifies overall alignment: $1 - (\text{critical mismatches} / n_{\text{primitives}})$. The Reconciler produces correction suggestions in \emph{both directions}: to the model's training anchors (how to retrain) and to the theory (how to update \texttt{primitivos.json}).
+
+\subsection{Causal Verification}
+
+\texttt{CausalVerifier} tests whether discovered features have selective causal effects. The user provides an intervention function $f(c, b) \to \mathbb{R}$ that returns the effect of ablating bit $b$ for concept $c$ (e.g., L2 reconstruction change or KL divergence). For each tested bit:
+
+\begin{enumerate}[nosep]
+    \item Concepts are partitioned into \emph{labeled} (bit $= 1$) and \emph{other} (bit $= 0$) groups.
+    \item The intervention function is called for all concepts.
+    \item A \textbf{bootstrap confidence interval} (default 1{,}000 resamples) is computed on the selectivity ratio: $\bar{f}_{\text{labeled}} / \bar{f}_{\text{other}}$.
+    \item A two-sided \textbf{permutation test} (default 1{,}000 permutations) yields a $p$-value.
+    \item \textbf{Cohen's $d$} measures effect size between groups.
+    \item \textbf{Benjamini-Hochberg FDR correction} is applied across all tested bits at $\alpha = 0.05$.
+\end{enumerate}
+
+A bit is considered causally selective if it is significant after FDR correction \emph{and} its selectivity ratio exceeds a threshold (default $1.5\times$). The overall verdict is \emph{causal\_evidence\_found} if at least 3 bits meet both criteria. All statistical functions (\texttt{bootstrap\_ci}, \texttt{permutation\_test}, \texttt{benjamini\_hochberg}, \texttt{effect\_size\_cohens\_d}) are implemented in \texttt{stats.py} using only NumPy, with no SciPy dependency.
+
+\subsection{Visualization and CLI}
+
+reptimeline provides five static visualizations (matplotlib):
+\begin{enumerate}[nosep]
+    \item \textbf{Phase dashboard}: three-panel plot of entropy, churn, and utilization curves with phase transitions marked as vertical lines.
+    \item \textbf{Swimlane}: per-concept heatmap where rows are concepts, columns are training steps, and cells show bit activation state (Figure~\ref{fig:swimlane}).
+    \item \textbf{Churn heatmap}: per-bit churn rates across training, highlighting the least stable bits.
+    \item \textbf{Layer emergence}: horizontal bar chart showing when each layer's primitives first stabilize.
+    \item \textbf{Causal heatmap}: selectivity ratio per bit with bootstrap confidence intervals as error bars.
+\end{enumerate}
+Four of these (phase dashboard, swimlane, causal heatmap, churn heatmap) also have interactive Plotly versions with hover details and zoom, available when Plotly is installed.
+
+\textbf{Export.} \texttt{Timeline} supports \texttt{save\_json()} / \texttt{load\_json()} for persistence and \texttt{to\_csv()} for exporting five CSV files: events, connections, curves, stability, and codes.
+
+\textbf{CLI.} The command-line interface provides access to the full pipeline:
+\begin{verbatim}
+reptimeline --snapshots data.json --discover --plot
+reptimeline --snapshots data.json --overlay primitivos.json
+reptimeline --snapshots data.json --causal effects.json --output results.json
+\end{verbatim}
 
 
 % ============================================================
@@ -207,7 +314,7 @@ Triadic (3-way) & --- & 74 & --- \\
 
 \textbf{Lifecycle.} reptimeline detected 1{,}835 births, 875 deaths, and 1{,}770 connections, with 2 phase transitions detected automatically. 64 of 256 tracked features were active (the remaining 192 were effectively dead---expected given SAE sparsity).
 
-\textbf{Discovery.} BitDiscovery found 34 dual pairs, 227 dependency edges, and 74 three-way AND-gate interactions. Auto-labeling via embedding centroids produced interpretable names: ``teacher,'' ``belief,'' ``dog,'' ``wisdom,'' ``ocean.''
+\textbf{Discovery.} BitDiscovery found 34 dual pairs, 227 dependency edges, and 74 three-way AND-gate interactions. Auto-labeling via embedding centroids produced interpretable names: ``teacher,'' ``belief,'' ``dog,'' ``wisdom,'' ``ocean.'' Figure~\ref{fig:swimlane} shows the swimlane heatmap for the first 20 features across 12 checkpoints.
 
 \textbf{Causal verification.} We tested all 16 active features via \emph{SAE causal intervention}: for each feature, we encoded all 60 concepts' hidden states via the SAE, zeroed the target feature, decoded back to hidden-state space, and injected the modified state into the model via a forward hook at layer~3. We measured the KL divergence between original and modified next-token predictions.
 
@@ -218,6 +325,13 @@ Triadic (3-way) & --- & 74 & --- \\
 \includegraphics[width=\columnwidth]{figures/sae_intervention_heatmap.png}
 \caption{Causal intervention on Pythia-70M SAE features (16 tested). \textbf{Top}: hidden state perturbation (L2 norm). \textbf{Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times$ selectivity. ``fast'' (bit~14): $98.4\times$; ``teacher'' (bit~2): $26.6\times$. Yellow = no effect; dark red = strong effect.}
 \label{fig:sae_causal}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/swimlane.png}
+\caption{Swimlane visualization for Pythia-70M SAE features. Each row is a probe concept, each column a training checkpoint. Cell color indicates bit activation state: blue = active, white = inactive, orange = changed from previous step. The visualization reveals which concepts acquire or lose features over training and how representation structure crystallizes.}
+\label{fig:swimlane}
 \end{figure}
 
 
@@ -237,7 +351,14 @@ The crystallization event---the moment the model ``commits'' to its semantic ass
 
 \textbf{Structural causality.} Unlike MNIST and Pythia where features lie in the computation path, TriadicGPT's triadic head is a parallel projection---flipping a bit direction in hidden space changes LM output (mean KL $> 0$) but not selectively (1/24 bits above $1.5\times$). This is an expected architectural consequence, not a tool limitation. The causality evidence for TriadicGPT is \emph{structural}: reptimeline discovers 9 anti-correlated dual pairs (e.g., vida/muerte at $r = 0.91$, placer/dolor at $r = 1.00$) that match the gold semantic axes defined in the training ontology, confirming that the model learned the intended semantic structure.
 
-\textbf{Reconciliation.} The Reconciler achieved 44.4\% agreement between model-discovered and manually-defined ontology, identifying 35 critical mismatches that guided anchor expansion from 50 to 158 concepts in subsequent training iterations.
+\textbf{Overlay analysis.} The \texttt{PrimitiveOverlay} module loaded the manually-defined ontology specifying 63 named primitives with layer assignments, dependency edges, and dual pairs. It computed four diagnostics:
+(i)~\emph{activation epochs}---the first step each primitive activates per concept;
+(ii)~\emph{dependency completions}---when all required dependencies are simultaneously active;
+(iii)~\emph{layer emergence}---aggregate statistics per layer (earliest, median, latest activation step);
+(iv)~\emph{dual coherence}---whether anti-correlated pairs exhibit exclusive activation, scored as $n_{\text{excl}} / (n_{\text{excl}} {+} n_{\text{both}})$.
+Layer emergence confirmed that lower-layer primitives (structural) stabilized before higher-layer ones (semantic), consistent with the expected hierarchy.
+
+\textbf{Reconciliation.} The Reconciler achieved 44.4\% agreement between model-discovered and manually-defined ontology, identifying 35 critical mismatches (including 8 \emph{dead\_but\_assigned} and 12 \emph{active\_but\_unassigned} bits) that guided anchor expansion from 50 to 158 concepts in subsequent training iterations. The Reconciler produced correction suggestions for both directions: 5 anchor retraining recommendations and 8 theory update suggestions.
 
 \begin{figure}[h]
 \centering
@@ -274,7 +395,10 @@ Phase transition detection & \checkmark & --- & Manual & --- & --- \\
 3-way interaction discovery & \checkmark & --- & --- & --- & --- \\
 Bottom-up ontology discovery & \checkmark & --- & --- & --- & --- \\
 Auto-labeling (3 strategies) & \checkmark & --- & Manual & Manual & --- \\
-Causal intervention & \checkmark & --- & --- & --- & \checkmark \\
+Causal verification (stat.) & \checkmark & --- & --- & --- & \checkmark \\
+Multiple-comparison correction & \checkmark & --- & --- & --- & --- \\
+Built-in extractors & \checkmark\ (3) & --- & --- & --- & --- \\
+JSON/CSV export & \checkmark & --- & Partial & --- & --- \\
 Backend-agnostic & \checkmark & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
@@ -292,11 +416,11 @@ reptimeline differs fundamentally: it operates on the discrete codes themselves,
 \label{sec:conclusion}
 % ============================================================
 
-reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful (8/16 with finite KL selectivity at 26.8$\times$ mean on Pythia-70M, 100\% decoder determinism on MNIST).
+reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful---with rigorous statistical methodology including bootstrap confidence intervals, permutation tests, Benjamini-Hochberg FDR correction, and Cohen's $d$ effect sizes (8/16 with finite KL selectivity at 26.8$\times$ mean on Pythia-70M, 100\% decoder determinism on MNIST).
 
-\textbf{Availability.} \texttt{pip install reptimeline}. Source code, examples, and pre-computed results are available at \url{https://github.com/arturoornelasb/reptimeline}. Licensed under BUSL-1.1 (free for research; converts to AGPL-3.0 in 2030). 224~unit tests at 92\% coverage, 11~example pipelines, 6~visualization modules, and a VQ-VAE extractor for out-of-the-box use.
+\textbf{Availability.} \texttt{pip install reptimeline}. Source code, examples, and pre-computed results are available at \url{https://github.com/arturoornelasb/reptimeline}. Licensed under BUSL-1.1 (free for research; converts to AGPL-3.0 in 2030). The package includes 224~unit tests at 92\% coverage, 11~example pipelines, 6~visualization modules (5~static, 4~interactive), 3~built-in extractors (VQ-VAE, SAE, FSQ), JSON/CSV export, a command-line interface, and a structured exception hierarchy. All statistical methods are implemented in pure NumPy with no SciPy dependency.
 
-\textbf{Future work.} (1)~Streaming mode for real-time monitoring during training. (2)~Integration with WandB/TensorBoard as a plugin. (3)~Extension to continuous representations via learned discretization.
+\textbf{Future work.} (1)~Streaming mode for real-time monitoring during training. (2)~Integration with WandB/TensorBoard as a plugin. (3)~Extension to continuous representations via learned discretization. (4)~Active learning loop: use Reconciler mismatches to automatically suggest retraining targets.
 
 
 % ============================================================

@@ -36,7 +36,11 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 
 ## Installation
 
-From source (recommended -- PyPI publication pending):
+```bash
+pip install reptimeline
+```
+
+From source (for development):
 ```bash
 git clone https://github.com/arturoornelasb/reptimeline.git
 cd reptimeline

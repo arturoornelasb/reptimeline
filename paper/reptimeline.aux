@@ -11,42 +11,49 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Design and Architecture}{2}{section.2}\protected@file@percent }
 \newlabel{sec:design}{{2}{2}{Design and Architecture}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Pipeline Overview}{2}{subsection.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces reptimeline pipeline. The user provides only the extractor; all analysis modules are backend-agnostic.}}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces reptimeline pipeline. The user provides only the extractor (or uses a built-in one for VQ-VAE, SAE, or FSQ); all downstream modules are backend-agnostic.}}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:architecture}{{1}{2}{reptimeline pipeline. The user provides only the extractor; all analysis modules are backend-agnostic}{figure.caption.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Core Data Structure}{2}{subsection.2.2}\protected@file@percent }
+\newlabel{fig:architecture}{{1}{2}{reptimeline pipeline. The user provides only the extractor (or uses a built-in one for VQ-VAE, SAE, or FSQ); all downstream modules are backend-agnostic}{figure.caption.1}{}}
+\citation{mentzer2024finite}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Core Data Structure}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Built-in Extractors}{3}{subsection.2.3}\protected@file@percent }
+\newlabel{sec:extractors}{{2.3}{3}{Built-in Extractors}{subsection.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Timeline Analysis}{3}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Feature Discovery}{4}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Auto-Labeling and Reconciliation}{4}{subsection.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Causal Verification}{4}{subsection.2.7}\protected@file@percent }
 \citation{bengio2013estimating}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Timeline Analysis}{3}{subsection.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Feature Discovery}{3}{subsection.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Auto-Labeling and Reconciliation}{3}{subsection.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Case Studies}{3}{section.3}\protected@file@percent }
-\newlabel{sec:cases}{{3}{3}{Case Studies}{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}MNIST Binary Autoencoder}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}Visualization and CLI}{5}{subsection.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Case Studies}{5}{section.3}\protected@file@percent }
+\newlabel{sec:cases}{{3}{5}{Case Studies}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}MNIST Binary Autoencoder}{5}{subsection.3.1}\protected@file@percent }
 \citation{biderman2023pythia}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces reptimeline analysis across three backends. All numbers are from production runs, not toy examples.}}{4}{table.caption.2}\protected@file@percent }
-\newlabel{tab:results}{{1}{4}{reptimeline analysis across three backends. All numbers are from production runs, not toy examples}{table.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output.}}{4}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:code_swap}{{2}{4}{MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output}{figure.caption.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Pythia-70M Sparse Autoencoder}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces reptimeline analysis across three backends. All numbers are from production runs, not toy examples.}}{6}{table.caption.2}\protected@file@percent }
+\newlabel{tab:results}{{1}{6}{reptimeline analysis across three backends. All numbers are from production runs, not toy examples}{table.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output.}}{6}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:code_swap}{{2}{6}{MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Pythia-70M Sparse Autoencoder}{6}{subsection.3.2}\protected@file@percent }
 \citation{ornelas2026microgpt}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Causal intervention on Pythia-70M SAE features (16 tested). \textbf  {Top}: hidden state perturbation (L2 norm). \textbf  {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect.}}{5}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:sae_causal}{{3}{5}{Causal intervention on Pythia-70M SAE features (16 tested). \textbf {Top}: hidden state perturbation (L2 norm). \textbf {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect}{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TriadicGPT (63-bit Neurosymbolic Head)}{5}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Causal intervention on Pythia-70M SAE features (16 tested). \textbf  {Top}: hidden state perturbation (L2 norm). \textbf  {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect.}}{7}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:sae_causal}{{3}{7}{Causal intervention on Pythia-70M SAE features (16 tested). \textbf {Top}: hidden state perturbation (L2 norm). \textbf {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TriadicGPT (63-bit Neurosymbolic Head)}{7}{subsection.3.3}\protected@file@percent }
 \citation{power2022grokking,nanda2023progress}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training.}}{6}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:phase}{{4}{6}{Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Swimlane visualization for Pythia-70M SAE features. Each row is a probe concept, each column a training checkpoint. Cell color indicates bit activation state: blue = active, white = inactive, orange = changed from previous step. The visualization reveals which concepts acquire or lose features over training and how representation structure crystallizes.}}{8}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:swimlane}{{4}{8}{Swimlane visualization for Pythia-70M SAE features. Each row is a probe concept, each column a training checkpoint. Cell color indicates bit activation state: blue = active, white = inactive, orange = changed from previous step. The visualization reveals which concepts acquire or lose features over training and how representation structure crystallizes}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training.}}{9}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:phase}{{5}{9}{Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Prediction Experiment: Negative Results}{9}{subsection.3.4}\protected@file@percent }
 \citation{bricken2023monosemanticity,templeton2024scaling}
 \citation{conmy2023automated}
 \citation{elhage2022superposition}
 \citation{koh2020concept}
 \citation{zou2023representation}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Prediction Experiment: Negative Results}{7}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Comparison with Existing Tools}{7}{section.4}\protected@file@percent }
-\newlabel{sec:comparison}{{4}{7}{Comparison with Existing Tools}{section.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Feature comparison across discrete representation tools. \ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported.}}{7}{table.caption.6}\protected@file@percent }
-\newlabel{tab:comparison}{{2}{7}{Feature comparison across discrete representation tools. \checkmark \ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported}{table.caption.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Availability}{7}{section.5}\protected@file@percent }
-\newlabel{sec:conclusion}{{5}{7}{Conclusion and Availability}{section.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Comparison with Existing Tools}{10}{section.4}\protected@file@percent }
+\newlabel{sec:comparison}{{4}{10}{Comparison with Existing Tools}{section.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Feature comparison across discrete representation tools. \text  {$\mathsurround \z@ \mathchar "458$}\ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported.}}{10}{table.caption.7}\protected@file@percent }
+\newlabel{tab:comparison}{{2}{10}{Feature comparison across discrete representation tools. \checkmark \ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported}{table.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Availability}{10}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{10}{Conclusion and Availability}{section.5}{}}
 \bibstyle{plainnat}
 \bibcite{bengio2013estimating}{{1}{2013}{{Bengio et~al.}}{{}}}
 \bibcite{biderman2023pythia}{{2}{2023}{{Biderman et~al.}}{{}}}
@@ -64,4 +71,4 @@
 \bibcite{conmy2023automated}{{14}{2023}{{Conmy et~al.}}{{}}}
 \bibcite{elhage2022superposition}{{15}{2022}{{Elhage et~al.}}{{}}}
 \bibcite{templeton2024scaling}{{16}{2024}{{Templeton et~al.}}{{}}}
-\gdef \@abspage@last{9}
+\gdef \@abspage@last{12}
