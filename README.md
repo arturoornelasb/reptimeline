@@ -291,6 +291,6 @@ See [CONTRIBUTING.md](https://github.com/arturoornelasb/reptimeline/blob/master/
 ## Origin
 
 Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
-Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026).
+Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026). [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19208672-blue)](https://doi.org/10.5281/zenodo.19208672)
 
 Coming from triadic-microgpt? See the [migration guide](https://github.com/arturoornelasb/reptimeline/blob/master/docs/migration-from-triadic.md).
