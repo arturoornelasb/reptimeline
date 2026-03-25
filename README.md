@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-orange.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/1187751237.svg)](https://doi.org/10.5281/zenodo.19208627)
+[![Paper](https://zenodo.org/badge/DOI/10.5281/zenodo.19208672.svg)](https://doi.org/10.5281/zenodo.19208672)
 
 **Track how discrete representations evolve during neural network training.**
 
@@ -281,20 +282,34 @@ See [CONTRIBUTING.md](https://github.com/arturoornelasb/reptimeline/blob/master/
 
 ## Citation
 
+If you use reptimeline in your research, please cite the paper and/or software:
+
 ```bibtex
-@software{ornelas2026reptimeline,
+@article{ornelas2026reptimeline,
   author = {Ornelas Brand, J. Arturo},
-  title = {reptimeline: Tracking Discrete Representation Evolution During Training},
+  title = {reptimeline: Tracking Discrete Representation Evolution
+           During Neural Network Training},
   year = {2026},
-  url = {https://github.com/arturoornelasb/reptimeline}
+  doi = {10.5281/zenodo.19208672}
+}
+
+@software{ornelas2026reptimeline_software,
+  author = {Ornelas Brand, J. Arturo},
+  title = {reptimeline},
+  year = {2026},
+  url = {https://github.com/arturoornelasb/reptimeline},
+  doi = {10.5281/zenodo.19208628}
 }
 ```
 
 ## Origin
 
-Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
-Parent paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026). [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19205805-blue)](https://doi.org/10.5281/zenodo.19205805)
+Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt). Part of a three-repository research project by J. Arturo Ornelas Brand (2026):
 
-reptimeline paper: [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19208672-blue)](https://doi.org/10.5281/zenodo.19208672)
+| Project | Paper | Repository |
+|---------|-------|------------|
+| **Triadic Neurosymbolic Engine** (parent) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19205805.svg)](https://doi.org/10.5281/zenodo.19205805) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18748671.svg)](https://doi.org/10.5281/zenodo.18748671) |
+| **triadic-microgpt** | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19206545.svg)](https://doi.org/10.5281/zenodo.19206545) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19207845.svg)](https://doi.org/10.5281/zenodo.19207845) |
+| **reptimeline** (this repo) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19208672.svg)](https://doi.org/10.5281/zenodo.19208672) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19208628.svg)](https://doi.org/10.5281/zenodo.19208628) |
 
 Coming from triadic-microgpt? See the [migration guide](https://github.com/arturoornelasb/reptimeline/blob/master/docs/migration-from-triadic.md).
