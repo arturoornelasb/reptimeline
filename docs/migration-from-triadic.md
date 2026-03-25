@@ -65,7 +65,9 @@ bits = mapper.get_bits(proj)
 
 **After:**
 ```python
-from reptimeline.extractors.triadic import TriadicExtractor
+# TriadicExtractor is a reference implementation in examples/, not a built-in.
+# Copy examples/triadic_extractor.py into your project, or use it as a template.
+from triadic_extractor import TriadicExtractor
 
 extractor = TriadicExtractor(n_bits=63, max_tokens=4)
 snapshot = extractor.extract(ckpt_path, concepts=["king", "queen", "love"],
@@ -117,7 +119,7 @@ for i in range(63):
 ```python
 from reptimeline import BitDiscovery
 
-discovery = BitDiscovery(dead_threshold=0.02, dual_threshold=-0.7,
+discovery = BitDiscovery(dead_threshold=0.02, dual_threshold=-0.3,
                           triadic_threshold=0.7)
 report = discovery.discover(snapshots[-1], timeline=timeline, top_k=10)
 discovery.print_report(report)
@@ -157,8 +159,8 @@ This didn't exist in triadic-microgpt:
 ```python
 from reptimeline import CausalVerifier
 
-verifier = CausalVerifier(labels, n_bootstrap=1000)
-causal_report = verifier.verify(intervene_fn, concepts)
+verifier = CausalVerifier(intervene_fn=my_intervene_fn, n_bootstrap=1000)
+causal_report = verifier.verify(snapshots[-1])
 # → selectivity ratios, bootstrap CIs, permutation p-values, BH-FDR correction
 ```
 

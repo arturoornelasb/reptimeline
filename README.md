@@ -19,7 +19,7 @@ Backend-agnostic: works with triadic bits, VQ-VAE codebooks, FSQ levels, sparse 
 - **Auto-labeling** -- three strategies: embedding-based, contrastive, and LLM-based
 - **Causal verification** -- intervention testing with bootstrap CIs, permutation p-values, and BH-FDR correction
 - **Theory reconciliation** -- compare discovered structure against manually-defined domain primitives
-- **Visualizations** -- static (matplotlib) and interactive (Plotly) swimlane, phase dashboard, churn heatmap, layer emergence, causal heatmap
+- **Visualizations** -- 5 static (matplotlib): swimlane, phase dashboard, churn heatmap, layer emergence, causal heatmap; 4 interactive (Plotly): swimlane, phase dashboard, churn heatmap, causal heatmap
 - **Export** -- JSON round-trip (`save_json`/`load_json`), CSV export (events, curves, codes, stability)
 
 ## Tech Stack
@@ -126,8 +126,8 @@ labels = labeler.label_by_embedding(report, embeddings)
 ```python
 from reptimeline import CausalVerifier
 
-verifier = CausalVerifier(labels)
-causal_report = verifier.verify(intervene_fn, concepts)
+verifier = CausalVerifier(intervene_fn=my_intervene_fn)
+causal_report = verifier.verify(snapshots[-1])
 ```
 
 ### 5. Export results
@@ -191,9 +191,11 @@ Visualizations             (swimlane, phase dashboard, churn, causal heatmap)
 | Metric | Value |
 |--------|-------|
 | Decoder determinism | 100% (32-bit code fully determines output; n=100 swaps) |
-| Dual pairs discovered | 9 anti-correlated |
-| Phase transitions | 3 detected automatically |
-| Lifecycle tracking | 6 epochs, 10 digit classes |
+| Dual pairs discovered | 65 anti-correlated |
+| Dependencies discovered | 179 |
+| Phase transitions | 0 |
+| Lifecycle tracking | 297 births, 106 deaths, 45 connections |
+| Training | 10 epochs, 6 checkpoints, 10 digit classes |
 
 ### Pythia-70M Sparse Autoencoder (32K features)
 
@@ -201,7 +203,7 @@ Visualizations             (swimlane, phase dashboard, churn, causal heatmap)
 |--------|-------|
 | Causal selectivity (KL) | 8 features with finite selectivity (1.96x--98.4x, mean 26.8x L2); 8 with zero cross-activation |
 | Dual pairs discovered | 34 anti-correlated |
-| Lifecycle tracking | 12 checkpoints (step 1 to 143K) |
+| Lifecycle tracking | 12 checkpoints (step 0 to 143K), 1835 births, 875 deaths |
 
 <p align="center">
 <img src="results/causal/sae_intervention_heatmap.png" width="800" alt="SAE causal intervention heatmap">
@@ -291,6 +293,8 @@ See [CONTRIBUTING.md](https://github.com/arturoornelasb/reptimeline/blob/master/
 ## Origin
 
 Extracted from [triadic-microgpt](https://github.com/arturoornelasb/triadic-microgpt).
-Paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026). [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19208672-blue)](https://doi.org/10.5281/zenodo.19208672)
+Parent paper: "Prime Factorization as a Neurosymbolic Bridge" (Ornelas Brand, J.A., 2026). [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19205805-blue)](https://doi.org/10.5281/zenodo.19205805)
+
+reptimeline paper: [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19208672-blue)](https://doi.org/10.5281/zenodo.19208672)
 
 Coming from triadic-microgpt? See the [migration guide](https://github.com/arturoornelasb/reptimeline/blob/master/docs/migration-from-triadic.md).

@@ -5,7 +5,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ## Técnico
 
 ### Distribución y CI
-- [ ] Publicar en PyPI (el README dice `pip install reptimeline` pero no está publicado)
+- [x] Publicar en PyPI (`pip install reptimeline` — v0.1.0 publicado 2026-03-24)
 - [x] GitHub Actions: tests (Python 3.10-3.13), ruff lint, coverage en cada PR
 - [x] Pre-commit hooks (.pre-commit-config.yaml con ruff check + ruff-format)
 - [x] Coverage reporting (pytest-cov configurado en pyproject.toml + coverage XML en CI)
@@ -69,7 +69,7 @@ What's needed to take reptimeline from research prototype to production-ready, c
 ## Bloqueos
 
 ### Críticos (bloquean producción)
-1. **No está en PyPI.** `python -m build` ya produce sdist + wheel correctamente y el publish workflow existe. Falta: crear cuenta en PyPI y configurar trusted publishing.
+1. ~~**No está en PyPI.**~~ — Resuelto: v0.1.0 publicado en PyPI el 2026-03-24.
 2. **Resultado negativo en predicción.** Los features descubiertos son causalmente selectivos pero no mejoran predicción. Esto limita el argumento comercial de "interpretabilidad actionable".
 
 ### Importantes (bloquean escala)

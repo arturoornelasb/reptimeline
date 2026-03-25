@@ -34,4 +34,4 @@ from reptimeline.overlays.primitive_overlay import PrimitiveOverlay as Primitive
 from reptimeline.reconcile import Reconciler as Reconciler
 from reptimeline.tracker import TimelineTracker as TimelineTracker
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
