@@ -44,7 +44,7 @@ Independent Researcher\\
 \maketitle
 
 \begin{abstract}
-We present \textbf{reptimeline}, a Python library for tracking how discrete representations evolve during neural network training. Unlike scalar logging tools (WandB, TensorBoard) that report aggregate metrics, reptimeline tracks per-code lifecycle events: when concepts become distinguishable (births), when representations collapse (deaths), when relationships form between concept pairs (connections), and where phase transitions occur in training dynamics. The library additionally discovers what each code element encodes---anti-correlated pairs, dependency chains, and three-way AND-gate interactions---without requiring prior ontological knowledge, with all discoveries subjected to multiple-comparison correction (Bonferroni or Benjamini-Hochberg FDR). Causal verification uses bootstrap confidence intervals, permutation tests, and Cohen's $d$ effect sizes. reptimeline ships three built-in extractors (VQ-VAE, SAE, FSQ), five static and four interactive visualizations, JSON/CSV export, and a command-line interface. We validate on three architecturally distinct backends: a 32-bit binary autoencoder on MNIST (decoder determinism verified: 100\%), sparse autoencoder features on Pythia-70M (8/16 features with finite KL selectivity, mean 26.8$\times$ L2 ratio with bootstrap 95\% CI, plus 8 features with zero cross-activation attributable to SAE sparsity), and a 63-bit neurosymbolic projection head (crystallization event invisible to loss curves). reptimeline is the only tool that combines lifecycle tracking, bottom-up feature discovery, auto-labeling, causal verification, and theory reconciliation in a single backend-agnostic package. Available via \texttt{pip install reptimeline} under BUSL-1.1.
+We present \textbf{reptimeline}, a Python library for tracking how discrete representations evolve during neural network training. Unlike scalar logging tools (WandB, TensorBoard) that report aggregate metrics, reptimeline tracks per-code lifecycle events: when concepts become distinguishable (births), when representations collapse (deaths), when concept pairs first share a code element (connections; null model analysis shows these are co-occurrence counts rather than discovered relationships), and where phase transitions occur in training dynamics. The library additionally discovers what each code element encodes---anti-correlated pairs, dependency chains, and three-way AND-gate interactions---given a user-provided concept set and without requiring predefined ontological relationships, with all discoveries subjected to multiple-comparison correction (Bonferroni or Benjamini-Hochberg FDR). Causal verification uses bootstrap confidence intervals, permutation tests, and Cohen's $d$ effect sizes. reptimeline ships three built-in extractors (VQ-VAE, SAE, FSQ), five static and four interactive visualizations, JSON/CSV export, and a command-line interface. We validate on three architecturally distinct backends: a 32-bit binary autoencoder on MNIST (decoder determinism verified: 100\%), sparse autoencoder features on Pythia-70M (8/16 features with finite KL selectivity, mean 26.8$\times$ L2 ratio with bootstrap 95\% CI, plus 8 features with zero cross-activation attributable to SAE sparsity), and a 63-bit neurosymbolic projection head (crystallization event invisible to loss curves). reptimeline is the only tool that combines lifecycle tracking, bottom-up feature discovery, auto-labeling, causal verification, and theory reconciliation in a single backend-agnostic package. Available via \texttt{pip install reptimeline} under BUSL-1.1.
 \end{abstract}
 
 
@@ -186,7 +186,7 @@ All three extractors inherit automatic checkpoint discovery that parses common n
 \begin{itemize}[nosep]
     \item \textbf{Births}: first step where concept $c$ has bit $b$ active (and it persists).
     \item \textbf{Deaths}: step where bit $b$ becomes permanently inactive for concept $c$.
-    \item \textbf{Connections}: step where concepts $c_1, c_2$ first share a code element.
+    \item \textbf{Connections}: step where concepts $c_1, c_2$ first share a code element. Note: null model analysis (Section~\ref{sec:cases}) shows that connection counts match random expectation (O/E $= 1.00$); connections should be interpreted as co-occurrence counts rather than discovered relationships.
     \item \textbf{Curves}: per-step entropy (mean binary entropy across all code elements), churn rate (fraction of concepts whose code changed from the previous step), and utilization (ratio of unique codes to total concepts---closer to 1 means more discriminative).
     \item \textbf{Stability}: per-bit stability scores in $[0, 1]$, measuring the fraction of (concept, step) pairs where a bit remained unchanged from the prior checkpoint.
     \item \textbf{Phase transitions}: detected via statistical change-point analysis---a transition is flagged when $|\Delta_t| > \mu + 2\sigma$ for any curve.
@@ -284,7 +284,7 @@ Duals discovered & 65 & 34 & 9 \\
 Dependencies & 179 & 227 & --- \\
 Triadic (3-way) & --- & 74 & --- \\
 \midrule
-\textbf{Causal evidence} & \textbf{100\% decoder det.} & \textbf{8/16 finite sel.} & \textbf{Crystallization} \\
+\textbf{Verification} & \textbf{100\% decoder det.} & \textbf{8/16 finite sel.} & \textbf{Crystallization} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -294,16 +294,16 @@ Triadic (3-way) & --- & 74 & --- \\
 
 \textbf{Setup.} A binary autoencoder with a 32-bit bottleneck using straight-through estimation~\citep{bengio2013estimating} was trained on MNIST for 10 epochs. reptimeline extracted majority-vote codes for each of the 10 digit classes at 6 checkpoints.
 
-\textbf{Lifecycle.} reptimeline detected 297 bit births and 106 deaths across training, with 45 concept-pair connections forming as digits developed shared features. 31 of 32 bits were active; 1 bit was permanently dead.
+\textbf{Lifecycle.} reptimeline detected 297 bit births and 106 deaths across training, with 45 concept-pair connections (co-occurrence events). 31 of 32 bits were active; 1 bit was permanently dead. A permutation null model (1{,}000 shuffles of bit-concept assignments) shows that connection counts match random expectation (O/E $= 1.00$, $p = 1.0$), indicating that connections are a structural consequence of code density rather than learned relationships.
 
-\textbf{Discovery.} BitDiscovery found 65 anti-correlated dual pairs and 179 dependency edges, revealing the internal structure the autoencoder learned to separate digit classes.
+\textbf{Discovery.} BitDiscovery found 65 anti-correlated dual pairs and 179 dependency edges. Critically, dependency edges are $4.3\times$ above random expectation (179 real vs.\ 41.3 expected from null model), confirming that the autoencoder learns genuine directed bit-prediction structure beyond what code density alone explains.
 
-\textbf{Causal verification.} A \emph{code swap} experiment tested whether the 32-bit code causally determines the output: for each pair of digits $(d_i, d_j)$, we encoded $d_i$'s image but decoded using $d_j$'s binary code. The decoder produced $d_j$'s reconstruction in 100\% of cases ($n = 100$ swaps), confirming decoder determinism: the 32-bit code fully determines the output. This verifies the code$\to$output mapping, not the input$\to$code mapping (Figure~\ref{fig:code_swap}).
+\textbf{Decoder determinism verification.} A \emph{code swap} experiment tested whether the 32-bit code determines the decoder output: for each pair of digits $(d_i, d_j)$, we encoded $d_i$'s image but decoded using $d_j$'s binary code. The decoder produced $d_j$'s reconstruction in 100\% of cases ($n = 100$ swaps), confirming that the decoder is a pure function of the discrete code. Note that this verifies decoder determinism---that $f(\text{code}) \to \text{output}$ is consistent---not causal influence of inputs on codes (Figure~\ref{fig:code_swap}).
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\columnwidth]{figures/code_swap.png}
-\caption{MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output.}
+\caption{MNIST code swap decoder determinism test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. This confirms the decoder is a pure function of the code.}
 \label{fig:code_swap}
 \end{figure}
 
@@ -312,9 +312,9 @@ Triadic (3-way) & --- & 74 & --- \\
 
 \textbf{Setup.} We used EleutherAI's pre-trained sparse autoencoder (\texttt{sae-pythia-70m-32k}) on layer~3 MLP outputs of Pythia-70M~\citep{biderman2023pythia}. We defined 60 probe concepts across 6 semantic domains (physical, animals, emotions, abstract, social, properties) and tracked 256 SAE features (selected by activation frequency at the final checkpoint) across 12 training checkpoints from step~1 to step~143{,}000.
 
-\textbf{Lifecycle.} reptimeline detected 1{,}835 births, 875 deaths, and 1{,}770 connections, with 2 phase transitions detected automatically. 64 of 256 tracked features were active (the remaining 192 were effectively dead---expected given SAE sparsity).
+\textbf{Lifecycle.} reptimeline detected 1{,}835 births, 875 deaths, and 1{,}770 connections (co-occurrence events; O/E $= 1.00$ vs.\ null model), with 2 phase transitions detected automatically. 64 of 256 tracked features were active (the remaining 192 were effectively dead---expected given SAE sparsity).
 
-\textbf{Discovery.} BitDiscovery found 34 dual pairs, 227 dependency edges, and 74 three-way AND-gate interactions. Auto-labeling via embedding centroids produced interpretable names: ``teacher,'' ``belief,'' ``dog,'' ``wisdom,'' ``ocean.'' Figure~\ref{fig:swimlane} shows the swimlane heatmap for the first 20 features across 12 checkpoints.
+\textbf{Discovery.} BitDiscovery found 34 dual pairs, 227 dependency edges, and 74 three-way AND-gate interactions. Dependencies are infinitely above random expectation (66 real vs.\ 0 expected from null model with 1{,}000 permutations), providing the strongest evidence that real data contains genuine directed structure. Auto-labeling via embedding centroids produced interpretable names: ``teacher,'' ``belief,'' ``dog,'' ``wisdom,'' ``ocean.'' Figure~\ref{fig:swimlane} shows the swimlane heatmap for the first 20 features across 12 checkpoints.
 
 \textbf{Causal verification.} We tested all 16 active features via \emph{SAE causal intervention}: for each feature, we encoded all 60 concepts' hidden states via the SAE, zeroed the target feature, decoded back to hidden-state space, and injected the modified state into the model via a forward hook at layer~3. We measured the KL divergence between original and modified next-token predictions.
 
@@ -390,7 +390,7 @@ Table~\ref{tab:comparison} compares reptimeline with existing approaches for mon
 Capability & \textbf{reptimeline} & VQ-VAE & SAE & CBM & RepE \\
 \midrule
 Per-code lifecycle & \checkmark & Partial & Partial & --- & --- \\
-Connection tracking & \checkmark & --- & --- & --- & --- \\
+Connection tracking$^\dagger$ & \checkmark & --- & --- & --- & --- \\
 Phase transition detection & \checkmark & --- & Manual & --- & --- \\
 3-way interaction discovery & \checkmark & --- & --- & --- & --- \\
 Bottom-up ontology discovery & \checkmark & --- & --- & --- & --- \\
@@ -410,15 +410,19 @@ reptimeline differs fundamentally: it operates on the discrete codes themselves,
 
 \noindent\textit{Note:} Table~\ref{tab:comparison} compares tool categories rather than specific implementations. Individual tools within each category may offer partial overlapping capabilities not captured by a binary comparison.
 
+\noindent$^\dagger$Connection counts match random expectation (O/E $= 1.00$) on all three backends (MNIST, Pythia, and TriadicGPT with 72 primitives over 20 checkpoints, 1000 permutations); they function as co-occurrence counts rather than discovered relationships. Dependencies (directed bit predictions) are the validated discovery metric ($4.3\times$ and $\infty$ above random, respectively).
+
 
 % ============================================================
 \section{Conclusion and Availability}
 \label{sec:conclusion}
 % ============================================================
 
-reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful---with rigorous statistical methodology including bootstrap confidence intervals, permutation tests, Benjamini-Hochberg FDR correction, and Cohen's $d$ effect sizes (8/16 with finite KL selectivity at 26.8$\times$ mean on Pythia-70M, 100\% decoder determinism on MNIST).
+reptimeline fills a gap in the discrete representation toolbox. It reveals training dynamics that scalar logging misses (crystallization events), discovers interpretable structure without supervision (duals, dependencies, three-way interactions), and verifies that discovered features are causally meaningful---with rigorous statistical methodology including bootstrap confidence intervals, permutation tests, Benjamini-Hochberg FDR correction, and Cohen's $d$ effect sizes (8/16 with finite KL selectivity at 26.8$\times$ mean on Pythia-70M, 100\% decoder determinism on MNIST). Null model validation reveals that not all discovered metrics are equally informative: connection counts match random expectation (O/E $= 1.00$ on all three backends), while dependencies are strongly above chance ($4.3\times$ on MNIST, infinitely above on Pythia). We report this honestly as evidence that dependency structure---not co-occurrence---is the primary validated discovery of the BitDiscovery module.
 
 \textbf{Availability.} \texttt{pip install reptimeline}. Source code, examples, and pre-computed results are available at \url{https://github.com/arturoornelasb/reptimeline} (software DOI: \href{https://doi.org/10.5281/zenodo.19208628}{10.5281/zenodo.19208628}). Licensed under BUSL-1.1 (free for research; converts to AGPL-3.0 in 2030). The package includes 224~unit tests at 92\% coverage, 11~example pipelines, 6~visualization modules (5~static, 4~interactive), 3~built-in extractors (VQ-VAE, SAE, FSQ), JSON/CSV export, a command-line interface, and a structured exception hierarchy. All statistical methods are implemented in pure NumPy with no SciPy dependency.
+
+\textbf{Companion work.} This work is part of a four-paper program on triadic neurosymbolic representations. The present paper's claims are evaluated independently; companion results provide additional context but are not required for the conclusions drawn here. The companion papers address the algebraic encoding formalism, a learnable projection head for language models, and an ontological framework of semantic dualities.
 
 \textbf{Future work.} (1)~Streaming mode for real-time monitoring during training. (2)~Integration with WandB/TensorBoard as a plugin. (3)~Extension to continuous representations via learned discretization. (4)~Active learning loop: use Reconciler mismatches to automatically suggest retraining targets.
 
@@ -469,7 +473,7 @@ J.~A. Ornelas~Brand.
 
 \bibitem[Ornelas~Brand(2026b)]{ornelas2026microgpt}
 J.~A. Ornelas~Brand.
-\newblock End-to-end prime factorization in a generative language model: Emergent algebraic semantics from joint training.
+\newblock End-to-end prime factorization in a generative language model: Learned algebraic encoding from joint training.
 \newblock 2026.
 \newblock \href{https://doi.org/10.5281/zenodo.19206545}{doi:10.5281/zenodo.19206545}.
 

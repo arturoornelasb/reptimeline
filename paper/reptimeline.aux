@@ -30,36 +30,36 @@
 \citation{biderman2023pythia}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces reptimeline analysis across three backends. All numbers are from production runs, not toy examples.}}{6}{table.caption.2}\protected@file@percent }
 \newlabel{tab:results}{{1}{6}{reptimeline analysis across three backends. All numbers are from production runs, not toy examples}{table.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output.}}{6}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:code_swap}{{2}{6}{MNIST code swap causality test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. The discrete code fully determines the output}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces MNIST code swap decoder determinism test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. This confirms the decoder is a pure function of the code.}}{6}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:code_swap}{{2}{6}{MNIST code swap decoder determinism test. Decoding with digit $X$'s 32-bit code always produces digit $X$'s reconstruction, regardless of the input image. This confirms the decoder is a pure function of the code}{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Pythia-70M Sparse Autoencoder}{6}{subsection.3.2}\protected@file@percent }
 \citation{ornelas2026microgpt}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Causal intervention on Pythia-70M SAE features (16 tested). \textbf  {Top}: hidden state perturbation (L2 norm). \textbf  {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect.}}{7}{figure.caption.4}\protected@file@percent }
 \newlabel{fig:sae_causal}{{3}{7}{Causal intervention on Pythia-70M SAE features (16 tested). \textbf {Top}: hidden state perturbation (L2 norm). \textbf {Bottom}: KL divergence in next-token predictions. Eight features are perfectly selective (only affect labeled concepts); the remaining eight average $26.8\times $ selectivity. ``fast'' (bit~14): $98.4\times $; ``teacher'' (bit~2): $26.6\times $. Yellow = no effect; dark red = strong effect}{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TriadicGPT (63-bit Neurosymbolic Head)}{7}{subsection.3.3}\protected@file@percent }
 \citation{power2022grokking,nanda2023progress}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Swimlane visualization for Pythia-70M SAE features. Each row is a probe concept, each column a training checkpoint. Cell color indicates bit activation state: blue = active, white = inactive, orange = changed from previous step. The visualization reveals which concepts acquire or lose features over training and how representation structure crystallizes.}}{8}{figure.caption.5}\protected@file@percent }
 \newlabel{fig:swimlane}{{4}{8}{Swimlane visualization for Pythia-70M SAE features. Each row is a probe concept, each column a training checkpoint. Cell color indicates bit activation state: blue = active, white = inactive, orange = changed from previous step. The visualization reveals which concepts acquire or lose features over training and how representation structure crystallizes}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TriadicGPT (63-bit Neurosymbolic Head)}{8}{subsection.3.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training.}}{9}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:phase}{{5}{9}{Pythia-70M phase dashboard: entropy, churn rate, and utilization curves across 12 training checkpoints. Vertical lines mark automatically detected phase transitions. Similar four-phase dynamics were observed in TriadicGPT training}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Prediction Experiment: Negative Results}{9}{subsection.3.4}\protected@file@percent }
 \citation{bricken2023monosemanticity,templeton2024scaling}
 \citation{conmy2023automated}
 \citation{elhage2022superposition}
 \citation{koh2020concept}
 \citation{zou2023representation}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Prediction Experiment: Negative Results}{10}{subsection.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Comparison with Existing Tools}{10}{section.4}\protected@file@percent }
 \newlabel{sec:comparison}{{4}{10}{Comparison with Existing Tools}{section.4}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Feature comparison across discrete representation tools. \text  {$\mathsurround \z@ \mathchar "458$}\ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported.}}{10}{table.caption.7}\protected@file@percent }
 \newlabel{tab:comparison}{{2}{10}{Feature comparison across discrete representation tools. \checkmark \ = full support, Partial = aggregate only, Manual = requires human effort, --- = not supported}{table.caption.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Availability}{10}{section.5}\protected@file@percent }
-\newlabel{sec:conclusion}{{5}{10}{Conclusion and Availability}{section.5}{}}
 \bibstyle{plainnat}
 \bibcite{bengio2013estimating}{{1}{2013}{{Bengio et~al.}}{{}}}
 \bibcite{biderman2023pythia}{{2}{2023}{{Biderman et~al.}}{{}}}
 \bibcite{cunningham2023sparse}{{3}{2023}{{Cunningham et~al.}}{{}}}
 \bibcite{koh2020concept}{{4}{2020}{{Koh et~al.}}{{}}}
 \bibcite{mentzer2024finite}{{5}{2024}{{Mentzer et~al.}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusion and Availability}{11}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{11}{Conclusion and Availability}{section.5}{}}
 \bibcite{power2022grokking}{{6}{2022}{{Power et~al.}}{{}}}
 \bibcite{ornelas2026prime}{{7}{2026a}{{Ornelas~Brand}}{{}}}
 \bibcite{ornelas2026microgpt}{{8}{2026b}{{Ornelas~Brand}}{{}}}
