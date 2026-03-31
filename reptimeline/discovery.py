@@ -36,9 +36,10 @@ class DiscoveredDual:
     """A pair of bits that behave as opposites (anti-correlated)."""
     bit_a: int
     bit_b: int
-    anti_correlation: float  # -1 = perfect opposites, 0 = independent
-    concepts_exclusive: int  # times exactly one is active
-    concepts_both: int  # times both are active (should be rare)
+    anti_correlation: float  # Pearson/-1 = perfect opposites, 0 = independent
+    mcc: float = 0.0  # Matthews Correlation Coefficient (= phi for binary)
+    concepts_exclusive: int = 0  # times exactly one is active
+    concepts_both: int = 0  # times both are active (should be rare)
 
 
 @dataclass
@@ -250,11 +251,34 @@ class BitDiscovery:
     # Dual discovery: which bits are opposites?
     # ------------------------------------------------------------------
 
+    @staticmethod
+    def _compute_mcc(col_i: np.ndarray, col_j: np.ndarray) -> float:
+        """Matthews Correlation Coefficient for two binary columns.
+
+        For binary data, MCC equals the phi coefficient and is the
+        appropriate correlation measure (Pearson on binary data is
+        numerically equivalent but semantically misleading).
+        """
+        n = len(col_i)
+        tp = int(((col_i == 1) & (col_j == 1)).sum())
+        tn = int(((col_i == 0) & (col_j == 0)).sum())
+        fp = int(((col_i == 0) & (col_j == 1)).sum())
+        fn = int(((col_i == 1) & (col_j == 0)).sum())
+        denom = np.sqrt(float((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)))
+        if denom == 0:
+            return 0.0
+        return (tp * tn - fp * fn) / denom
+
     def _discover_duals(self, codes: np.ndarray,
                         n_bits: int) -> List[DiscoveredDual]:
-        """Find bit pairs that anti-correlate (mutual exclusion)."""
-        # Use numpy's corrcoef for correct Pearson correlation
-        # Handle constant columns (dead bits) gracefully
+        """Find bit pairs that anti-correlate (mutual exclusion).
+
+        Computes both Pearson correlation and Matthews Correlation
+        Coefficient (MCC / phi). For binary data these are mathematically
+        equivalent, but MCC is reported for transparency since the
+        underlying data is binary.
+        """
+        # Pearson (= phi for binary data, but we compute MCC explicitly too)
         with np.errstate(divide='ignore', invalid='ignore'):
             corr = np.corrcoef(codes.T)
         corr = np.nan_to_num(corr, nan=0.0)
@@ -276,9 +300,11 @@ class BitDiscovery:
                         seen.add(key)
                         both = int(((codes[:, i] == 1) & (codes[:, j] == 1)).sum())
                         excl = int(((codes[:, i] == 1) ^ (codes[:, j] == 1)).sum())
+                        mcc_val = self._compute_mcc(codes[:, i], codes[:, j])
                         duals.append(DiscoveredDual(
                             bit_a=i, bit_b=j,
                             anti_correlation=float(corr[i, j]),
+                            mcc=mcc_val,
                             concepts_exclusive=excl,
                             concepts_both=both,
                         ))
@@ -291,8 +317,14 @@ class BitDiscovery:
     # ------------------------------------------------------------------
 
     def _discover_dependencies(self, codes: np.ndarray,
-                               n_bits: int) -> List[DiscoveredDependency]:
-        """Find bit pairs where child almost never activates without parent."""
+                               n_bits: int,
+                               report_sample_sizes: bool = False,
+                               ) -> List[DiscoveredDependency]:
+        """Find bit pairs where child almost never activates without parent.
+
+        When report_sample_sizes=True, prints the distribution of conditional
+        sample sizes (n_child) across all candidate edges for transparency.
+        """
         n_concepts = codes.shape[0]
         min_samples = max(3, int(np.sqrt(n_concepts)))
 
@@ -326,6 +358,15 @@ class BitDiscovery:
                     ))
 
         deps.sort(key=lambda d: d.confidence, reverse=True)
+
+        if report_sample_sizes and deps:
+            supports = [d.support for d in deps]
+            print(f"  [Dependencies] n_edges={len(deps)}, "
+                  f"min_support={min(supports)}, "
+                  f"median_support={int(np.median(supports))}, "
+                  f"max_support={max(supports)}, "
+                  f"min_samples_threshold={min_samples}")
+
         return deps
 
     # ------------------------------------------------------------------
@@ -415,7 +456,7 @@ class BitDiscovery:
         if self.apply_correction and triadic:
             from reptimeline.stats import benjamini_hochberg
             rng = np.random.RandomState(42)
-            n_perms = 200
+            n_perms = 1000
             p_values = []
             for td in triadic:
                 observed = td.interaction_strength
@@ -437,6 +478,13 @@ class BitDiscovery:
 
             significant = benjamini_hochberg(np.array(p_values), alpha=0.05)
             triadic = [t for t, sig in zip(triadic, significant) if sig]
+
+        if triadic:
+            supports = [t.support for t in triadic]
+            print(f"  [Triadic] n_gates={len(triadic)}, "
+                  f"min_support={min(supports)}, "
+                  f"median_support={int(np.median(supports))}, "
+                  f"max_support={max(supports)}")
 
         return triadic
 

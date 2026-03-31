@@ -1,0 +1,60 @@
+{
+  "mnist_bae": {
+    "backend": "mnist_bae",
+    "n_concepts": 10,
+    "n_bits": 32,
+    "n_snapshots": 6,
+    "dual_mcc_mean": -0.5158409115513037,
+    "discovery": {
+      "duals": 65,
+      "deps": 179,
+      "triadic": 7
+    },
+    "null_discovery": {
+      "mean_random_duals": 97.3,
+      "mean_random_deps": 41.3,
+      "mean_random_triadic": 14.2,
+      "n_trials": 10,
+      "n_concepts": 10,
+      "n_bits": 32
+    },
+    "connections_null": {
+      "n_observed": 45,
+      "n_expected": 45.0,
+      "oe_ratio": 1.0,
+      "null_std": 0.0,
+      "null_p_value": 1.0,
+      "n_permutations": 1000,
+      "kill_k3": true
+    }
+  },
+  "pythia_sae": {
+    "backend": "pythia_sae",
+    "n_concepts": 60,
+    "n_bits": 256,
+    "n_snapshots": 12,
+    "dual_mcc_mean": -0.38646392381901107,
+    "discovery": {
+      "duals": 34,
+      "deps": 66,
+      "triadic": 60
+    },
+    "null_discovery": {
+      "mean_random_duals": 356.7,
+      "mean_random_deps": 0.0,
+      "mean_random_triadic": 34075.4,
+      "n_trials": 10,
+      "n_concepts": 60,
+      "n_bits": 256
+    },
+    "connections_null": {
+      "n_observed": 1770,
+      "n_expected": 1770.0,
+      "oe_ratio": 1.0,
+      "null_std": 0.0,
+      "null_p_value": 1.0,
+      "n_permutations": 1000,
+      "kill_k3": true
+    }
+  }
+}

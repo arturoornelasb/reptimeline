@@ -301,3 +301,59 @@ class TimelineTracker:
                         direction='increase' if d > 0 else 'decrease',
                     ))
         return transitions
+
+    # ------------------------------------------------------------------
+    # Null model for connections: permutation test
+    # ------------------------------------------------------------------
+
+    def connections_null_model(self, snapshots: List[ConceptSnapshot],
+                               concept_pairs: Optional[List[Tuple[str, str]]] = None,
+                               n_permutations: int = 1000,
+                               seed: int = 42) -> dict:
+        """Permutation null model for connections.
+
+        Shuffles the bit-concept assignment within each snapshot (preserving
+        marginal bit frequencies) and counts how many connections arise by
+        chance. Returns observed count, expected count, and O/E ratio.
+
+        Kill criterion K3: if O/E < 1.5, connections are not above chance.
+        """
+        rng = np.random.RandomState(seed)
+
+        # Observed connections
+        steps = [s.step for s in snapshots]
+        observed = self._compute_connections(snapshots, steps, concept_pairs)
+        n_observed = len(observed)
+
+        null_counts = []
+        for _ in range(n_permutations):
+            # Permute: for each snapshot, shuffle which concept gets which code
+            perm_snapshots = []
+            for snap in snapshots:
+                concepts = list(snap.codes.keys())
+                codes_list = list(snap.codes.values())
+                perm_idx = rng.permutation(len(concepts))
+                perm_codes = {concepts[i]: codes_list[perm_idx[i]]
+                              for i in range(len(concepts))}
+                perm_snap = ConceptSnapshot(
+                    step=snap.step,
+                    codes=perm_codes,
+                )
+                perm_snapshots.append(perm_snap)
+
+            perm_connections = self._compute_connections(
+                perm_snapshots, steps, concept_pairs)
+            null_counts.append(len(perm_connections))
+
+        n_expected = float(np.mean(null_counts))
+        oe_ratio = n_observed / n_expected if n_expected > 0 else float('inf')
+
+        return {
+            'n_observed': n_observed,
+            'n_expected': n_expected,
+            'oe_ratio': oe_ratio,
+            'null_std': float(np.std(null_counts)),
+            'null_p_value': float(np.mean([c >= n_observed for c in null_counts])),
+            'n_permutations': n_permutations,
+            'kill_k3': oe_ratio < 1.5,
+        }
