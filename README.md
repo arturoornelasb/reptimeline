@@ -271,6 +271,22 @@ CI runs lint, typecheck, and tests on every push and PR (Python 3.10 -- 3.13).
 
 See [CONTRIBUTING.md](https://github.com/arturoornelasb/reptimeline/blob/master/CONTRIBUTING.md) for contribution guidelines.
 
+## Companion Repos
+
+This library is part of a four-paper program on triadic neurosymbolic representations:
+
+**Triadic Neurosymbolic Engine** (algebraic encoding):
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19205805.svg)](https://doi.org/10.5281/zenodo.19205805) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18748671.svg)](https://doi.org/10.5281/zenodo.18748671)
+
+**triadic-microgpt** (learnable projection head):
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19206545.svg)](https://doi.org/10.5281/zenodo.19206545) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19207845.svg)](https://doi.org/10.5281/zenodo.19207845)
+
+**Triadic Emergent Duality** (ontological framework):
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19374914.svg)](https://doi.org/10.5281/zenodo.19374914)
+
 ## License
 
 [Business Source License 1.1](LICENSE) (BUSL-1.1)
