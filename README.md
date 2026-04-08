@@ -5,6 +5,7 @@
 [![License: BUSL-1.1](https://img.shields.io/badge/license-BUSL--1.1-orange.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/1187751237.svg)](https://doi.org/10.5281/zenodo.19208627)
 [![Paper](https://zenodo.org/badge/DOI/10.5281/zenodo.19208672.svg)](https://doi.org/10.5281/zenodo.19208672)
+[![HF V8](https://img.shields.io/badge/%F0%9F%A4%97-triadic--gpt2--medium--v8-yellow)](https://huggingface.co/arturoornelasb/triadic-gpt2-medium-v8) [![HF V9](https://img.shields.io/badge/%F0%9F%A4%97-triadic--gptneo--125m--v9-yellow)](https://huggingface.co/arturoornelasb/triadic-gptneo-125m-v9)
 
 **Track how discrete representations evolve during neural network training.**
 
