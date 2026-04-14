@@ -1,6 +1,6 @@
 {
     "title": "reptimeline: Tracking Discrete Representation Evolution During Neural Network Training",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A Python library for tracking how discrete representations evolve during neural network training. Tracks per-code lifecycle events (births, deaths, connections, phase transitions) and discovers what each code element encodes without requiring prior ontological knowledge. Validated on three backends: binary autoencoder, sparse autoencoder (Pythia-70M), and neurosymbolic projection head.",
     "creators": [
         {
