@@ -259,12 +259,11 @@ class BitDiscovery:
         appropriate correlation measure (Pearson on binary data is
         numerically equivalent but semantically misleading).
         """
-        n = len(col_i)
         tp = int(((col_i == 1) & (col_j == 1)).sum())
         tn = int(((col_i == 0) & (col_j == 0)).sum())
         fp = int(((col_i == 0) & (col_j == 1)).sum())
         fn = int(((col_i == 1) & (col_j == 0)).sum())
-        denom = np.sqrt(float((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)))
+        denom = float(np.sqrt(float((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))))
         if denom == 0:
             return 0.0
         return (tp * tn - fp * fn) / denom
