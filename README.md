@@ -7,6 +7,8 @@
 [![Paper](https://zenodo.org/badge/DOI/10.5281/zenodo.19208672.svg)](https://doi.org/10.5281/zenodo.19208672)
 [![HF V8](https://img.shields.io/badge/%F0%9F%A4%97-triadic--gpt2--medium--v8-yellow)](https://huggingface.co/arturoornelasb/triadic-gpt2-medium-v8) [![HF V9](https://img.shields.io/badge/%F0%9F%A4%97-triadic--gptneo--125m--v9-yellow)](https://huggingface.co/arturoornelasb/triadic-gptneo-125m-v9)
 
+> **Part of a wider research program.** reptimeline is paper **P3** in a program on prime-factorisation neurosymbolic AI (P1–P4) and quaternionic logic (P11–P13). For the full program — companion papers, computational substrate, and formal framework — see **[github.com/arturoornelasb](https://github.com/arturoornelasb)**.
+
 **Track how discrete representations evolve during neural network training.**
 
 reptimeline monitors lifecycle events in discrete representation systems: when concepts are "born" (first become distinguishable), when they "die" (collapse), when relationships form, and where phase transitions occur. It then discovers what each feature means, labels it, and tests causal effects.
