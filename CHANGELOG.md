@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-05-04
+
+Maintenance release. No source-code changes to the package. Bumps example dependencies and CI Action versions; adds a research-program note to the README.
+
+### Changed
+
+- **Examples**: `requirements-examples.txt` floors raised — `transformers>=4.35` → `>=5.7.0` (#6) and `torchvision>=0.15` → `>=0.26.0` (#7). Affects users who run `examples/`; the library itself has no torch/transformers dependency.
+- **CI workflow versions** (no behaviour change, all upstream-compatible):
+  - `actions/upload-artifact` 4 → 7 (#1)
+  - `actions/upload-pages-artifact` 3 → 4 (#3)
+  - `actions/setup-python` 5 → 6 (#2)
+  - `actions/checkout` 4 → 6 (#5)
+  - `actions/download-artifact` 4 → 8 (#4)
+
+### Documentation
+
+- README now opens with a one-line note linking the package to the wider research program at [github.com/arturoornelasb](https://github.com/arturoornelasb) (P1–P4 computational substrate; P11–P13 quaternionic-logic formal framework). Reptimeline is paper P3 in that program.
+
+[0.2.2]: https://github.com/arturoornelasb/reptimeline/compare/v0.2.1...v0.2.2
+
 ## [0.2.1] - 2026-05-04
 
 ### Fixed
